@@ -1,184 +1,309 @@
-.counter {
-  font-size: 16px;
-  padding: 5px 10px;
-  border-radius: 5px;
-  color: var(--accent);
-  background: var(--accent-bg);
-  border: 2px solid transparent;
-  transition: border-color 0.3s;
-  margin-bottom: 24px;
+/* =========================================================
+   SHIYORA — GLOBAL APP STYLES
+   ========================================================= */
 
-  &:hover {
-    border-color: var(--accent-border);
-  }
-  &:focus-visible {
-    outline: 2px solid var(--accent);
-    outline-offset: 2px;
-  }
+
+/* ---------------------------------------------------------
+   ROOT
+--------------------------------------------------------- */
+
+#root {
+    min-height: 100vh;
 }
 
-.hero {
-  position: relative;
 
-  .base,
-  .framework,
-  .vite {
-    inset-inline: 0;
-    margin: 0 auto;
-  }
+/* ---------------------------------------------------------
+   BODY
+--------------------------------------------------------- */
 
-  .base {
-    width: 170px;
-    position: relative;
-    z-index: 0;
-  }
-
-  .framework,
-  .vite {
-    position: absolute;
-  }
-
-  .framework {
-    z-index: 1;
-    top: 34px;
-    height: 28px;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(44deg) rotateY(39deg)
-      scale(1.4);
-  }
-
-  .vite {
-    z-index: 0;
-    top: 107px;
-    height: 26px;
-    width: auto;
-    transform: perspective(2000px) rotateZ(300deg) rotateX(40deg) rotateY(39deg)
-      scale(0.8);
-  }
+html {
+    scroll-behavior: smooth;
 }
 
-#center {
-  display: flex;
-  flex-direction: column;
-  gap: 25px;
-  place-content: center;
-  place-items: center;
-  flex-grow: 1;
-
-  @media (max-width: 1024px) {
-    padding: 32px 20px 24px;
-    gap: 18px;
-  }
+body {
+    margin: 0;
+    min-width: 320px;
+    font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
 
-#next-steps {
-  display: flex;
-  border-top: 1px solid var(--border);
-  text-align: left;
 
-  & > div {
-    flex: 1 1 0;
-    padding: 32px;
-    @media (max-width: 1024px) {
-      padding: 24px 20px;
+/* ---------------------------------------------------------
+   SELECTION
+--------------------------------------------------------- */
+
+::selection {
+    background: rgba(124, 58, 237, 0.3);
+    color: inherit;
+}
+
+
+/* ---------------------------------------------------------
+   SCROLLBAR
+--------------------------------------------------------- */
+
+::-webkit-scrollbar {
+    width: 9px;
+}
+
+::-webkit-scrollbar-track {
+    background: #f8f9fc;
+}
+
+::-webkit-scrollbar-thumb {
+    background: linear-gradient( to bottom, #7c3aed, #06b6d4);
+    border-radius: 999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: linear-gradient( to bottom, #6d28d9, #0891b2);
+}
+
+
+/* DARK SCROLLBAR */
+
+.dark ::-webkit-scrollbar-track {
+    background: #080b14;
+}
+
+.dark ::-webkit-scrollbar-thumb {
+    background: linear-gradient( to bottom, #8b5cf6, #22d3ee);
+}
+
+
+/* =========================================================
+   SHIYORA INTRO / SPLASH SCREEN
+   ========================================================= */
+
+.animate-intro {
+    animation: shiyoraIntro 1.4s ease-out both;
+}
+
+@keyframes shiyoraIntro {
+    0% {
+        opacity: 0;
+        transform: translateY(20px) scale(0.88);
+        filter: blur(10px);
     }
-  }
-
-  .icon {
-    margin-bottom: 16px;
-    width: 22px;
-    height: 22px;
-  }
-
-  @media (max-width: 1024px) {
-    flex-direction: column;
-    text-align: center;
-  }
+    50% {
+        opacity: 1;
+        transform: translateY(0) scale(1.03);
+        filter: blur(0);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        filter: blur(0);
+    }
 }
 
-#docs {
-  border-right: 1px solid var(--border);
 
-  @media (max-width: 1024px) {
-    border-right: none;
-    border-bottom: 1px solid var(--border);
-  }
+/* ---------------------------------------------------------
+   INTRO FADE OUT
+--------------------------------------------------------- */
+
+.animate-fade-out {
+    animation: shiyoraFadeOut 0.6s ease forwards;
+    animation-delay: 1.6s;
 }
 
-#next-steps ul {
-  list-style: none;
-  padding: 0;
-  display: flex;
-  gap: 8px;
-  margin: 32px 0 0;
-
-  .logo {
-    height: 18px;
-  }
-
-  a {
-    color: var(--text-h);
-    font-size: 16px;
-    border-radius: 6px;
-    background: var(--social-bg);
-    display: flex;
-    padding: 6px 12px;
-    align-items: center;
-    gap: 8px;
-    text-decoration: none;
-    transition: box-shadow 0.3s;
-
-    &:hover {
-      box-shadow: var(--shadow);
+@keyframes shiyoraFadeOut {
+    0% {
+        opacity: 1;
+        visibility: visible;
     }
-    .button-icon {
-      height: 18px;
-      width: 18px;
+    100% {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
     }
-  }
-
-  @media (max-width: 1024px) {
-    margin-top: 20px;
-    flex-wrap: wrap;
-    justify-content: center;
-
-    li {
-      flex: 1 1 calc(50% - 8px);
-    }
-
-    a {
-      width: 100%;
-      justify-content: center;
-      box-sizing: border-box;
-    }
-  }
 }
 
-#spacer {
-  height: 88px;
-  border-top: 1px solid var(--border);
-  @media (max-width: 1024px) {
-    height: 48px;
-  }
+
+/* =========================================================
+   LOADING LINE
+   ========================================================= */
+
+.animate-loading {
+    animation: shiyoraLoading 1.8s cubic-bezier(0.4, 0, 0.2, 1) infinite;
 }
 
-.ticks {
-  position: relative;
-  width: 100%;
+@keyframes shiyoraLoading {
+    0% {
+        transform: translateX(-100%);
+    }
+    50% {
+        transform: translateX(0%);
+    }
+    100% {
+        transform: translateX(100%);
+    }
+}
 
-  &::before,
-  &::after {
-    content: '';
-    position: absolute;
-    top: -4.5px;
-    border: 5px solid transparent;
-  }
 
-  &::before {
-    left: 0;
-    border-left-color: var(--border);
-  }
-  &::after {
-    right: 0;
-    border-right-color: var(--border);
-  }
+/* =========================================================
+   SHIYORA GLOW ANIMATION
+   ========================================================= */
+
+@keyframes shiyoraGlow {
+    0%,
+    100% {
+        opacity: 0.45;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.7;
+        transform: scale(1.08);
+    }
+}
+
+
+/* =========================================================
+   GRADIENT TEXT ANIMATION
+   ========================================================= */
+
+.shiyora-gradient-text {
+    background: linear-gradient( 90deg, #7c3aed, #a855f7, #06b6d4);
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientMove 5s linear infinite;
+}
+
+@keyframes gradientMove {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+
+/* =========================================================
+   FLOATING EFFECT
+   ========================================================= */
+
+.shiyora-float {
+    animation: shiyoraFloat 5s ease-in-out infinite;
+}
+
+@keyframes shiyoraFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-8px);
+    }
+}
+
+
+/* =========================================================
+   CARD HOVER
+   ========================================================= */
+
+.shiyora-card {
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+}
+
+.shiyora-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 20px 50px rgba(124, 58, 237, 0.08);
+}
+
+
+/* =========================================================
+   DARK CARD
+   ========================================================= */
+
+.dark .shiyora-card:hover {
+    box-shadow: 0 20px 60px rgba(124, 58, 237, 0.12);
+}
+
+
+/* =========================================================
+   BUTTON PRESS EFFECT
+   ========================================================= */
+
+button,
+a {
+    -webkit-tap-highlight-color: transparent;
+}
+
+button:active,
+a:active {
+    transform: scale(0.98);
+}
+
+
+/* =========================================================
+   FOCUS ACCESSIBILITY
+   ========================================================= */
+
+button:focus-visible,
+a:focus-visible {
+    outline: 2px solid #06b6d4;
+    outline-offset: 3px;
+}
+
+
+/* =========================================================
+   RESPONSIVE TEXT
+   ========================================================= */
+
+@media (max-width: 768px) {
+    .shiyora-mobile-center {
+        text-align: center;
+    }
+}
+
+
+/* =========================================================
+   MOBILE INTRO
+   ========================================================= */
+
+@media (max-width: 640px) {
+    .animate-intro h1 {
+        font-size: 2.5rem;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+   ========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+
+/* =========================================================
+   DARK MODE BODY
+   ========================================================= */
+
+html.dark,
+html.dark body {
+    background: #080b14;
+    color: #f8fafc;
+}
+
+
+/* =========================================================
+   SMOOTH THEME TRANSITION
+   ========================================================= */
+
+html,
+body,
+#root {
+    transition: background-color 0.4s ease, color 0.4s ease;
 }
