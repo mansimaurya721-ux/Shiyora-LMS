@@ -15,9 +15,7 @@ function Home() {
 
     return (
         <>
-            {/* =====================================================
-                SHIYORA SPLASH SCREEN
-            ====================================================== */}
+            {/* SHIYORA SPLASH SCREEN */}
 
             {showIntro && (
                 <div className="shiyora-intro fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-[#060812]">
