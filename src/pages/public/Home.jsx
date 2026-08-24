@@ -1,133 +1,28 @@
 import { Link } from "react-router-dom";
-import { useEffect, useState } from "react";
-import shiyoraLogo from "../../assets/shiyora-logo.png";
 
 function Home() {
-    const [showIntro, setShowIntro] = useState(true);
-
-    useEffect(() => {
-        const timer = setTimeout(() => {
-            setShowIntro(false);
-        }, 2200);
-
-        return () => clearTimeout(timer);
-    }, []);
-
     return (
-        <>
-            {/* SHIYORA SPLASH SCREEN */}
-
-            {showIntro && (
-                <div className="shiyora-intro fixed inset-0 z-[9999] flex items-center justify-center overflow-hidden bg-[#060812]">
-
-                    {/* Background Glow */}
-                    <div className="absolute w-[450px] h-[450px] rounded-full bg-violet-600/20 blur-[120px]" />
-
-                    <div className="absolute w-[350px] h-[350px] rounded-full bg-cyan-500/15 blur-[100px] bottom-[-100px] right-[-80px]" />
-
-                    {/* Grid */}
-                    <div className="absolute inset-0 opacity-[0.04] intro-grid" />
-
-                    {/* Logo */}
-                    <div className="relative z-10 flex flex-col items-center intro-content">
-
-                        <div className="
-                            w-28 h-28
-                            md:w-36 md:h-36
-                            rounded-[2rem]
-                            p-[2px]
-                            bg-gradient-to-br
-                            from-violet-600
-                            via-purple-500
-                            to-cyan-400
-                            shadow-[0_0_80px_rgba(124,58,237,0.35)]
-                        ">
-
-                            <div className="
-                                w-full h-full
-                                rounded-[2rem]
-                                bg-[#0b0f19]
-                                flex items-center justify-center
-                                overflow-hidden
-                            ">
-
-                                <img
-                                    src={shiyoraLogo}
-                                    alt="Shiyora"
-                                    className="w-full h-full object-contain p-5"
-                                />
-
-                            </div>
-
-                        </div>
-
-                        <h1 className="
-                            mt-7
-                            text-4xl md:text-5xl
-                            font-black
-                            tracking-tight
-                            text-white
-                        ">
-                            Shi<span className="text-cyan-400">yora</span>
-                        </h1>
-
-                        <p className="
-                            mt-3
-                            text-[10px]
-                            uppercase
-                            tracking-[0.4em]
-                            text-slate-500
-                        ">
-                            Learning Platform
-                        </p>
-
-                        {/* Loading */}
-                        <div className="
-                            mt-8
-                            w-36 h-[3px]
-                            bg-white/10
-                            rounded-full
-                            overflow-hidden
-                        ">
-                            <div className="
-                                h-full
-                                w-full
-                                rounded-full
-                                bg-gradient-to-r
-                                from-violet-500
-                                to-cyan-400
-                                intro-loading
-                            " />
-                        </div>
-
-                    </div>
-
-                </div>
-            )}
-
-
-            {/* =====================================================
-                MAIN HOME
-            ====================================================== */}
-
-            <main className="
+        <main
+            className="
                 min-h-screen
                 bg-[#f8f9fc]
                 text-slate-900
                 dark:bg-[#080b14]
                 dark:text-white
                 transition-colors duration-500
-            ">
+            "
+        >
 
-                {/* =================================================
-                    HERO SECTION
-                ================================================= */}
+            {/* =====================================================
+                HERO SECTION
+            ====================================================== */}
 
-                <section className="relative overflow-hidden">
+            <section className="relative overflow-hidden">
 
-                    {/* Background Glow */}
+                {/* Background Glow */}
 
-                    <div className="
+                <div
+                    className="
                         absolute
                         -top-40
                         -right-40
@@ -138,9 +33,11 @@ function Home() {
                         dark:bg-violet-600/10
                         blur-[120px]
                         pointer-events-none
-                    " />
+                    "
+                />
 
-                    <div className="
+                <div
+                    className="
                         absolute
                         bottom-0
                         -left-40
@@ -151,10 +48,11 @@ function Home() {
                         dark:bg-cyan-500/10
                         blur-[120px]
                         pointer-events-none
-                    " />
+                    "
+                />
 
-
-                    <div className="
+                <div
+                    className="
                         relative
                         z-10
                         max-w-7xl
@@ -166,15 +64,19 @@ function Home() {
                         lg:grid-cols-2
                         gap-16
                         items-center
-                    ">
+                    "
+                >
 
-                        {/* ================= LEFT CONTENT ================= */}
+                    {/* =================================================
+                        LEFT CONTENT
+                    ================================================= */}
 
-                        <div>
+                    <div>
 
-                            {/* Badge */}
+                        {/* Badge */}
 
-                            <div className="
+                        <div
+                            className="
                                 inline-flex
                                 items-center
                                 gap-2
@@ -189,24 +91,28 @@ function Home() {
                                 dark:text-violet-300
                                 text-sm
                                 font-semibold
-                            ">
+                            "
+                        >
 
-                                <span className="
+                            <span
+                                className="
                                     w-2
                                     h-2
                                     rounded-full
                                     bg-cyan-500
                                     shadow-[0_0_12px_rgba(6,182,212,0.9)]
-                                " />
+                                "
+                            />
 
-                                Modern Learning Platform
+                            Modern Learning Platform
 
-                            </div>
+                        </div>
 
 
-                            {/* Heading */}
+                        {/* Heading */}
 
-                            <h1 className="
+                        <h1
+                            className="
                                 mt-7
                                 text-5xl
                                 md:text-6xl
@@ -216,187 +122,214 @@ function Home() {
                                 leading-[1.05]
                                 text-slate-900
                                 dark:text-white
-                            ">
+                            "
+                        >
 
-                                Learn smarter.
+                            Learn smarter.
 
-                                <br />
+                            <br />
 
-                                <span className="
+                            <span
+                                className="
                                     bg-gradient-to-r
                                     from-violet-600
                                     via-purple-500
                                     to-cyan-400
                                     bg-clip-text
                                     text-transparent
-                                ">
-                                    Grow faster.
-                                </span>
+                                "
+                            >
+                                Grow faster.
+                            </span>
 
-                            </h1>
+                        </h1>
 
 
-                            {/* Description */}
+                        {/* Description */}
 
-                            <p className="
+                        <p
+                            className="
                                 mt-7
                                 text-lg
                                 leading-relaxed
                                 max-w-xl
                                 text-slate-600
                                 dark:text-slate-400
-                            ">
-                                Shiyora brings courses, learning resources,
-                                assessments and progress tracking together
-                                in one intelligent learning platform.
-                            </p>
+                            "
+                        >
+                            Shiyora brings courses, learning resources,
+                            assessments and progress tracking together
+                            in one intelligent learning platform.
+                        </p>
 
 
-                            {/* Buttons */}
+                        {/* Buttons */}
 
-                            <div className="
+                        <div
+                            className="
                                 mt-9
                                 flex
                                 flex-wrap
                                 gap-4
-                            ">
+                            "
+                        >
 
-                                <Link
-                                    to="/signup"
-                                    className="
-                                        inline-flex
-                                        items-center
-                                        justify-center
-                                        px-7
-                                        py-3.5
-                                        rounded-xl
-                                        bg-gradient-to-r
-                                        from-violet-600
-                                        to-cyan-500
-                                        text-white
-                                        font-semibold
-                                        shadow-lg
-                                        shadow-violet-500/20
-                                        hover:-translate-y-1
-                                        hover:shadow-cyan-500/20
-                                        transition-all
-                                        duration-300
-                                    "
-                                >
-                                    Start Learning
-                                </Link>
-
-
-                                <Link
-                                    to="/subscription"
-                                    className="
-                                        inline-flex
-                                        items-center
-                                        justify-center
-                                        px-7
-                                        py-3.5
-                                        rounded-xl
-                                        bg-white
-                                        border
-                                        border-slate-200
-                                        text-slate-700
-                                        dark:bg-white/5
-                                        dark:border-white/10
-                                        dark:text-slate-200
-                                        font-semibold
-                                        hover:border-violet-400
-                                        hover:text-violet-600
-                                        dark:hover:text-cyan-400
-                                        transition-all
-                                        duration-300
-                                    "
-                                >
-                                    Explore Plans
-                                </Link>
-
-                            </div>
+                            <Link
+                                to="/signup"
+                                className="
+                                    inline-flex
+                                    items-center
+                                    justify-center
+                                    px-7
+                                    py-3.5
+                                    rounded-xl
+                                    bg-gradient-to-r
+                                    from-violet-600
+                                    to-cyan-500
+                                    text-white
+                                    font-semibold
+                                    shadow-lg
+                                    shadow-violet-500/20
+                                    hover:-translate-y-1
+                                    hover:shadow-cyan-500/20
+                                    transition-all
+                                    duration-300
+                                "
+                            >
+                                Start Learning
+                            </Link>
 
 
-                            {/* Stats */}
-
-                            <div className="
-                                mt-12
-                                flex
-                                flex-wrap
-                                gap-10
-                            ">
-
-                                <div>
-                                    <p className="
-                                        text-2xl
-                                        font-black
-                                        text-slate-900
-                                        dark:text-white
-                                    ">
-                                        100+
-                                    </p>
-
-                                    <p className="
-                                        mt-1
-                                        text-sm
-                                        text-slate-500
-                                    ">
-                                        Learning Resources
-                                    </p>
-                                </div>
-
-
-                                <div>
-                                    <p className="
-                                        text-2xl
-                                        font-black
-                                        text-slate-900
-                                        dark:text-white
-                                    ">
-                                        50+
-                                    </p>
-
-                                    <p className="
-                                        mt-1
-                                        text-sm
-                                        text-slate-500
-                                    ">
-                                        Courses
-                                    </p>
-                                </div>
-
-
-                                <div>
-                                    <p className="
-                                        text-2xl
-                                        font-black
-                                        text-slate-900
-                                        dark:text-white
-                                    ">
-                                        24/7
-                                    </p>
-
-                                    <p className="
-                                        mt-1
-                                        text-sm
-                                        text-slate-500
-                                    ">
-                                        Learning Access
-                                    </p>
-                                </div>
-
-                            </div>
+                            <Link
+                                to="/subscription"
+                                className="
+                                    inline-flex
+                                    items-center
+                                    justify-center
+                                    px-7
+                                    py-3.5
+                                    rounded-xl
+                                    bg-white
+                                    border
+                                    border-slate-200
+                                    text-slate-700
+                                    dark:bg-white/5
+                                    dark:border-white/10
+                                    dark:text-slate-200
+                                    font-semibold
+                                    hover:border-violet-400
+                                    hover:text-violet-600
+                                    dark:hover:text-cyan-400
+                                    transition-all
+                                    duration-300
+                                "
+                            >
+                                Explore Plans
+                            </Link>
 
                         </div>
 
 
-                        {/* ================= DASHBOARD ================= */}
+                        {/* Stats */}
 
-                        <div className="relative flex justify-center">
+                        <div
+                            className="
+                                mt-12
+                                flex
+                                flex-wrap
+                                gap-10
+                            "
+                        >
 
-                            {/* Glow */}
+                            <div>
+                                <p
+                                    className="
+                                        text-2xl
+                                        font-black
+                                        text-slate-900
+                                        dark:text-white
+                                    "
+                                >
+                                    100+
+                                </p>
 
-                            <div className="
+                                <p
+                                    className="
+                                        mt-1
+                                        text-sm
+                                        text-slate-500
+                                        dark:text-slate-500
+                                    "
+                                >
+                                    Learning Resources
+                                </p>
+                            </div>
+
+
+                            <div>
+                                <p
+                                    className="
+                                        text-2xl
+                                        font-black
+                                        text-slate-900
+                                        dark:text-white
+                                    "
+                                >
+                                    50+
+                                </p>
+
+                                <p
+                                    className="
+                                        mt-1
+                                        text-sm
+                                        text-slate-500
+                                        dark:text-slate-500
+                                    "
+                                >
+                                    Courses
+                                </p>
+                            </div>
+
+
+                            <div>
+                                <p
+                                    className="
+                                        text-2xl
+                                        font-black
+                                        text-slate-900
+                                        dark:text-white
+                                    "
+                                >
+                                    24/7
+                                </p>
+
+                                <p
+                                    className="
+                                        mt-1
+                                        text-sm
+                                        text-slate-500
+                                        dark:text-slate-500
+                                    "
+                                >
+                                    Learning Access
+                                </p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    {/* =================================================
+                        DASHBOARD PREVIEW
+                    ================================================= */}
+
+                    <div className="relative flex justify-center">
+
+                        {/* Glow */}
+
+                        <div
+                            className="
                                 absolute
                                 w-80
                                 h-80
@@ -404,12 +337,14 @@ function Home() {
                                 bg-violet-500/20
                                 dark:bg-violet-500/10
                                 blur-[100px]
-                            " />
+                            "
+                        />
 
 
-                            {/* Outer Border */}
+                        {/* Outer Border */}
 
-                            <div className="
+                        <div
+                            className="
                                 relative
                                 w-full
                                 max-w-lg
@@ -420,50 +355,61 @@ function Home() {
                                 via-purple-500/20
                                 to-cyan-400/60
                                 shadow-2xl
-                            ">
+                            "
+                        >
 
-                                {/* Dashboard */}
+                            {/* Dashboard */}
 
-                                <div className="
+                            <div
+                                className="
                                     rounded-[2rem]
                                     p-6
                                     md:p-8
                                     bg-white
                                     dark:bg-[#0d111c]
                                     transition-colors
-                                ">
+                                "
+                            >
 
-                                    {/* Header */}
+                                {/* Header */}
 
-                                    <div className="
+                                <div
+                                    className="
                                         flex
                                         items-center
                                         justify-between
-                                    ">
+                                    "
+                                >
 
-                                        <div>
+                                    <div>
 
-                                            <p className="
+                                        <p
+                                            className="
                                                 text-sm
                                                 text-slate-500
-                                            ">
-                                                Learning Overview
-                                            </p>
+                                                dark:text-slate-500
+                                            "
+                                        >
+                                            Learning Overview
+                                        </p>
 
-                                            <h2 className="
+                                        <h2
+                                            className="
                                                 text-xl
                                                 font-bold
                                                 mt-1
                                                 text-slate-900
                                                 dark:text-white
-                                            ">
-                                                Your Progress
-                                            </h2>
+                                            "
+                                        >
+                                            Your Progress
+                                        </h2>
 
-                                        </div>
+                                    </div>
 
 
-                                        <div className="
+                                    <div
+                                        className="
                                             w-11
                                             h-11
                                             rounded-xl
@@ -472,111 +418,131 @@ function Home() {
                                             flex
                                             items-center
                                             justify-center
-                                        ">
+                                        "
+                                    >
 
-                                            <div className="
+                                        <div
+                                            className="
                                                 w-5
                                                 h-5
                                                 rounded-full
                                                 border-[3px]
                                                 border-violet-500
                                                 border-t-cyan-400
-                                            " />
-
-                                        </div>
+                                            "
+                                        />
 
                                     </div>
 
+                                </div>
 
-                                    {/* Progress */}
 
-                                    <div className="mt-8">
+                                {/* Progress */}
 
-                                        <div className="
+                                <div className="mt-8">
+
+                                    <div
+                                        className="
                                             flex
                                             items-center
                                             justify-between
                                             mb-2
-                                        ">
+                                        "
+                                    >
 
-                                            <span className="
+                                        <span
+                                            className="
                                                 text-sm
                                                 font-medium
                                                 text-slate-600
                                                 dark:text-slate-400
-                                            ">
-                                                Overall Progress
-                                            </span>
+                                            "
+                                        >
+                                            Overall Progress
+                                        </span>
 
-                                            <span className="
+                                        <span
+                                            className="
                                                 text-sm
                                                 font-bold
                                                 text-violet-600
                                                 dark:text-cyan-400
-                                            ">
-                                                75%
-                                            </span>
+                                            "
+                                        >
+                                            75%
+                                        </span>
 
-                                        </div>
+                                    </div>
 
 
-                                        <div className="
+                                    <div
+                                        className="
                                             w-full
                                             h-2.5
                                             rounded-full
                                             overflow-hidden
                                             bg-slate-100
                                             dark:bg-white/5
-                                        ">
+                                        "
+                                    >
 
-                                            <div className="
+                                        <div
+                                            className="
                                                 h-full
                                                 w-[75%]
                                                 rounded-full
                                                 bg-gradient-to-r
                                                 from-violet-600
                                                 to-cyan-400
-                                            " />
-
-                                        </div>
+                                            "
+                                        />
 
                                     </div>
 
+                                </div>
 
-                                    {/* Continue Learning */}
 
-                                    <div className="mt-8">
+                                {/* Continue Learning */}
 
-                                        <div className="
+                                <div className="mt-8">
+
+                                    <div
+                                        className="
                                             flex
                                             items-center
                                             justify-between
                                             mb-4
-                                        ">
+                                        "
+                                    >
 
-                                            <h3 className="
+                                        <h3
+                                            className="
                                                 font-semibold
                                                 text-slate-900
                                                 dark:text-white
-                                            ">
-                                                Continue Learning
-                                            </h3>
+                                            "
+                                        >
+                                            Continue Learning
+                                        </h3>
 
-                                            <span className="
+                                        <span
+                                            className="
                                                 text-xs
                                                 font-semibold
                                                 text-violet-600
                                                 dark:text-cyan-400
-                                            ">
-                                                View all
-                                            </span>
+                                            "
+                                        >
+                                            View all
+                                        </span>
 
-                                        </div>
+                                    </div>
 
 
-                                        {/* Course 1 */}
+                                    {/* Course 1 */}
 
-                                        <div className="
+                                    <div
+                                        className="
                                             flex
                                             items-center
                                             gap-4
@@ -589,9 +555,11 @@ function Home() {
                                             dark:border-white/10
                                             hover:border-violet-400/30
                                             transition-all
-                                        ">
+                                        "
+                                    >
 
-                                            <div className="
+                                        <div
+                                            className="
                                                 w-12
                                                 h-12
                                                 rounded-xl
@@ -601,54 +569,65 @@ function Home() {
                                                 items-center
                                                 justify-center
                                                 shrink-0
-                                            ">
+                                            "
+                                        >
 
-                                                <span className="
+                                            <span
+                                                className="
                                                     font-bold
                                                     text-violet-600
                                                     dark:text-violet-400
-                                                ">
-                                                    WD
-                                                </span>
-
-                                            </div>
-
-
-                                            <div className="flex-1 min-w-0">
-
-                                                <h4 className="
-                                                    font-semibold
-                                                    text-slate-900
-                                                    dark:text-white
-                                                ">
-                                                    Web Development
-                                                </h4>
-
-                                                <p className="
-                                                    text-sm
-                                                    mt-1
-                                                    text-slate-500
-                                                ">
-                                                    12 lessons
-                                                </p>
-
-                                            </div>
-
-
-                                            <span className="
-                                                text-xs
-                                                font-bold
-                                                text-cyan-500
-                                            ">
-                                                75%
+                                                "
+                                            >
+                                                WD
                                             </span>
 
                                         </div>
 
 
-                                        {/* Course 2 */}
+                                        <div className="flex-1 min-w-0">
 
-                                        <div className="
+                                            <h4
+                                                className="
+                                                    font-semibold
+                                                    text-slate-900
+                                                    dark:text-white
+                                                "
+                                            >
+                                                Web Development
+                                            </h4>
+
+                                            <p
+                                                className="
+                                                    text-sm
+                                                    mt-1
+                                                    text-slate-500
+                                                    dark:text-slate-500
+                                                "
+                                            >
+                                                12 lessons
+                                            </p>
+
+                                        </div>
+
+
+                                        <span
+                                            className="
+                                                text-xs
+                                                font-bold
+                                                text-cyan-500
+                                            "
+                                        >
+                                            75%
+                                        </span>
+
+                                    </div>
+
+
+                                    {/* Course 2 */}
+
+                                    <div
+                                        className="
                                             flex
                                             items-center
                                             gap-4
@@ -662,9 +641,11 @@ function Home() {
                                             dark:border-white/10
                                             hover:border-cyan-400/30
                                             transition-all
-                                        ">
+                                        "
+                                    >
 
-                                            <div className="
+                                        <div
+                                            className="
                                                 w-12
                                                 h-12
                                                 rounded-xl
@@ -674,105 +655,123 @@ function Home() {
                                                 items-center
                                                 justify-center
                                                 shrink-0
-                                            ">
+                                            "
+                                        >
 
-                                                <span className="
+                                            <span
+                                                className="
                                                     font-bold
                                                     text-cyan-600
                                                     dark:text-cyan-400
-                                                ">
-                                                    DA
-                                                </span>
-
-                                            </div>
-
-
-                                            <div className="flex-1 min-w-0">
-
-                                                <h4 className="
-                                                    font-semibold
-                                                    text-slate-900
-                                                    dark:text-white
-                                                ">
-                                                    Data Analytics
-                                                </h4>
-
-                                                <p className="
-                                                    text-sm
-                                                    mt-1
-                                                    text-slate-500
-                                                ">
-                                                    8 lessons
-                                                </p>
-
-                                            </div>
-
-
-                                            <span className="
-                                                text-xs
-                                                font-bold
-                                                text-violet-500
-                                                dark:text-violet-400
-                                            ">
-                                                45%
+                                                "
+                                            >
+                                                DA
                                             </span>
 
                                         </div>
 
+
+                                        <div className="flex-1 min-w-0">
+
+                                            <h4
+                                                className="
+                                                    font-semibold
+                                                    text-slate-900
+                                                    dark:text-white
+                                                "
+                                            >
+                                                Data Analytics
+                                            </h4>
+
+                                            <p
+                                                className="
+                                                    text-sm
+                                                    mt-1
+                                                    text-slate-500
+                                                    dark:text-slate-500
+                                                "
+                                            >
+                                                8 lessons
+                                            </p>
+
+                                        </div>
+
+
+                                        <span
+                                            className="
+                                                text-xs
+                                                font-bold
+                                                text-violet-500
+                                                dark:text-violet-400
+                                            "
+                                        >
+                                            45%
+                                        </span>
+
                                     </div>
 
+                                </div>
 
-                                    {/* LEARNING STREAK */}
 
-                                    <div className="
+                                {/* Learning Streak */}
+
+                                <div
+                                    className="
                                         mt-6
                                         p-4
                                         rounded-2xl
                                         bg-violet-50
                                         border
-                                       border-violet-100
-                                       dark:bg-[#111625]
-                                       dark:border-violet-500/20
-                                       transition-colors duration-300
-                                    ">
+                                        border-violet-100
+                                        dark:bg-[#111625]
+                                        dark:border-violet-500/20
+                                        transition-colors
+                                    "
+                                >
 
-                                        <p className="
+                                    <p
+                                        className="
                                             text-xs
                                             font-semibold
                                             uppercase
                                             tracking-wide
                                             text-violet-600
                                             dark:text-cyan-400
-                                        ">
-                                            Learning Streak
-                                        </p>
+                                        "
+                                    >
+                                        Learning Streak
+                                    </p>
 
 
-                                        <div className="
+                                    <div
+                                        className="
                                             flex
                                             items-end
                                             justify-between
                                             mt-2
-                                        ">
+                                        "
+                                    >
 
-                                            <p className="
+                                        <p
+                                            className="
                                                 text-2xl
                                                 font-bold
                                                 text-slate-900
                                                 dark:text-white
-                                            ">
-                                                7 Days
-                                            </p>
+                                            "
+                                        >
+                                            7 Days
+                                        </p>
 
-                                            <p className="
+                                        <p
+                                            className="
                                                 text-sm
                                                 text-slate-500
                                                 dark:text-slate-400
-                                            ">
-                                                Keep going
-                                            </p>
-
-                                        </div>
+                                            "
+                                        >
+                                            Keep going
+                                        </p>
 
                                     </div>
 
@@ -784,106 +783,121 @@ function Home() {
 
                     </div>
 
-                </section>
+                </div>
+
+            </section>
 
 
-                {/* =====================================================
-                    FEATURES
-                ====================================================== */}
+            {/* =====================================================
+                FEATURES
+            ====================================================== */}
 
-                <section className="
+            <section
+                className="
                     py-24
                     bg-white
                     dark:bg-[#0b0f19]
                     transition-colors
-                ">
+                "
+            >
 
-                    <div className="max-w-7xl mx-auto px-6">
+                <div className="max-w-7xl mx-auto px-6">
 
-                        <div className="max-w-2xl">
+                    <div className="max-w-2xl">
 
-                            <p className="
+                        <p
+                            className="
                                 text-sm
                                 font-bold
                                 tracking-widest
                                 uppercase
                                 text-violet-600
                                 dark:text-cyan-400
-                            ">
-                                Why Shiyora
-                            </p>
+                            "
+                        >
+                            Why Shiyora
+                        </p>
 
-                            <h2 className="
+
+                        <h2
+                            className="
                                 mt-3
                                 text-3xl
                                 md:text-4xl
                                 font-black
                                 text-slate-900
                                 dark:text-white
-                            ">
-                                Everything you need to learn better
-                            </h2>
+                            "
+                        >
+                            Everything you need to learn better
+                        </h2>
 
-                            <p className="
+
+                        <p
+                            className="
                                 mt-4
                                 leading-relaxed
                                 text-slate-600
                                 dark:text-slate-400
-                            ">
-                                Shiyora provides a structured environment
-                                for organizations, teachers and students
-                                to manage the complete learning experience.
-                            </p>
+                            "
+                        >
+                            Shiyora provides a structured environment
+                            for organizations, teachers and students
+                            to manage the complete learning experience.
+                        </p>
 
-                        </div>
+                    </div>
 
 
-                        <div className="
+                    <div
+                        className="
                             mt-14
                             grid
                             md:grid-cols-3
                             gap-6
-                        ">
+                        "
+                    >
 
-                            {[
-                                {
-                                    number: "01",
-                                    title: "Organization Management",
-                                    text: "Manage organizations, teachers, students and learning activities from one centralized platform."
-                                },
-                                {
-                                    number: "02",
-                                    title: "Complete Course Management",
-                                    text: "Create structured courses with lessons, videos, study materials and assessments."
-                                },
-                                {
-                                    number: "03",
-                                    title: "Progress & Performance",
-                                    text: "Monitor course completion, quiz performance and overall student learning progress."
-                                }
-                            ].map((feature) => (
+                        {[
+                            {
+                                number: "01",
+                                title: "Organization Management",
+                                text: "Manage organizations, teachers, students and learning activities from one centralized platform."
+                            },
+                            {
+                                number: "02",
+                                title: "Complete Course Management",
+                                text: "Create structured courses with lessons, videos, study materials and assessments."
+                            },
+                            {
+                                number: "03",
+                                title: "Progress & Performance",
+                                text: "Monitor course completion, quiz performance and overall student learning progress."
+                            }
+                        ].map((feature) => (
+
+                            <div
+                                key={feature.number}
+                                className="
+                                    group
+                                    p-7
+                                    rounded-2xl
+                                    bg-slate-50
+                                    border
+                                    border-slate-200
+                                    dark:bg-white/[0.03]
+                                    dark:border-white/10
+                                    hover:-translate-y-1
+                                    hover:border-violet-400/30
+                                    hover:shadow-xl
+                                    dark:hover:shadow-violet-500/5
+                                    transition-all
+                                    duration-300
+                                "
+                            >
 
                                 <div
-                                    key={feature.number}
                                     className="
-                                        group
-                                        p-7
-                                        rounded-2xl
-                                        bg-slate-50
-                                        border
-                                        border-slate-200
-                                        dark:bg-white/[0.03]
-                                        dark:border-white/10
-                                        hover:-translate-y-1
-                                        hover:border-violet-400/30
-                                        hover:shadow-xl
-                                        dark:hover:shadow-violet-500/5
-                                        transition-all
-                                        duration-300
-                                    "
-                                >
-
-                                    <div className="
                                         w-12
                                         h-12
                                         rounded-xl
@@ -895,123 +909,139 @@ function Home() {
                                         items-center
                                         justify-center
                                         font-bold
-                                    ">
-                                        {feature.number}
-                                    </div>
+                                    "
+                                >
+                                    {feature.number}
+                                </div>
 
 
-                                    <h3 className="
+                                <h3
+                                    className="
                                         mt-6
                                         text-xl
                                         font-bold
                                         text-slate-900
                                         dark:text-white
-                                    ">
-                                        {feature.title}
-                                    </h3>
+                                    "
+                                >
+                                    {feature.title}
+                                </h3>
 
 
-                                    <p className="
+                                <p
+                                    className="
                                         mt-3
                                         leading-relaxed
                                         text-slate-600
                                         dark:text-slate-400
-                                    ">
-                                        {feature.text}
-                                    </p>
+                                    "
+                                >
+                                    {feature.text}
+                                </p>
 
-                                </div>
+                            </div>
 
-                            ))}
-
-                        </div>
+                        ))}
 
                     </div>
 
-                </section>
+                </div>
+
+            </section>
 
 
-                {/* =====================================================
-                    HOW IT WORKS
-                ====================================================== */}
+            {/* =====================================================
+                HOW IT WORKS
+            ====================================================== */}
 
-                <section className="
+            <section
+                className="
                     py-24
                     bg-[#f8f9fc]
                     dark:bg-[#080b14]
                     transition-colors
-                ">
+                "
+            >
 
-                    <div className="max-w-7xl mx-auto px-6">
+                <div className="max-w-7xl mx-auto px-6">
 
-                        <div className="text-center max-w-2xl mx-auto">
+                    <div className="text-center max-w-2xl mx-auto">
 
-                            <p className="
+                        <p
+                            className="
                                 text-sm
                                 font-bold
                                 tracking-widest
                                 uppercase
                                 text-violet-600
                                 dark:text-cyan-400
-                            ">
-                                How It Works
-                            </p>
+                            "
+                        >
+                            How It Works
+                        </p>
 
 
-                            <h2 className="
+                        <h2
+                            className="
                                 mt-3
                                 text-3xl
                                 md:text-4xl
                                 font-black
                                 text-slate-900
                                 dark:text-white
-                            ">
-                                Learning made simple
-                            </h2>
+                            "
+                        >
+                            Learning made simple
+                        </h2>
 
 
-                            <p className="
+                        <p
+                            className="
                                 mt-4
                                 text-slate-600
                                 dark:text-slate-400
-                            ">
-                                Start learning with just a few simple steps.
-                            </p>
+                            "
+                        >
+                            Start learning with just a few simple steps.
+                        </p>
 
-                        </div>
+                    </div>
 
 
-                        <div className="
+                    <div
+                        className="
                             mt-14
                             grid
                             md:grid-cols-3
                             gap-8
-                        ">
+                        "
+                    >
 
-                            {[
-                                [
-                                    "01",
-                                    "Create an Account",
-                                    "Join Shiyora and set up your learning profile."
-                                ],
-                                [
-                                    "02",
-                                    "Explore Courses",
-                                    "Discover courses and choose what you want to learn."
-                                ],
-                                [
-                                    "03",
-                                    "Track Your Progress",
-                                    "Learn at your own pace and monitor your progress."
-                                ]
-                            ].map(([number, title, text]) => (
+                        {[
+                            [
+                                "01",
+                                "Create an Account",
+                                "Join Shiyora and set up your learning profile."
+                            ],
+                            [
+                                "02",
+                                "Explore Courses",
+                                "Discover courses and choose what you want to learn."
+                            ],
+                            [
+                                "03",
+                                "Track Your Progress",
+                                "Learn at your own pace and monitor your progress."
+                            ]
+                        ].map(([number, title, text]) => (
+
+                            <div
+                                key={number}
+                                className="text-center"
+                            >
 
                                 <div
-                                    key={number}
-                                    className="text-center"
-                                >
-
-                                    <div className="
+                                    className="
                                         mx-auto
                                         w-14
                                         h-14
@@ -1026,54 +1056,62 @@ function Home() {
                                         font-bold
                                         shadow-lg
                                         shadow-violet-500/20
-                                    ">
-                                        {number}
-                                    </div>
+                                    "
+                                >
+                                    {number}
+                                </div>
 
 
-                                    <h3 className="
+                                <h3
+                                    className="
                                         mt-5
                                         text-xl
                                         font-bold
                                         text-slate-900
                                         dark:text-white
-                                    ">
-                                        {title}
-                                    </h3>
+                                    "
+                                >
+                                    {title}
+                                </h3>
 
 
-                                    <p className="
+                                <p
+                                    className="
                                         mt-3
                                         text-slate-600
                                         dark:text-slate-400
-                                    ">
-                                        {text}
-                                    </p>
+                                    "
+                                >
+                                    {text}
+                                </p>
 
-                                </div>
+                            </div>
 
-                            ))}
-
-                        </div>
+                        ))}
 
                     </div>
 
-                </section>
+                </div>
+
+            </section>
 
 
-                {/* =====================================================
-                    CTA
-                ====================================================== */}
+            {/* =====================================================
+                CTA
+            ====================================================== */}
 
-                <section className="
+            <section
+                className="
                     py-24
                     bg-white
                     dark:bg-[#0b0f19]
-                ">
+                "
+            >
 
-                    <div className="max-w-5xl mx-auto px-6">
+                <div className="max-w-5xl mx-auto px-6">
 
-                        <div className="
+                    <div
+                        className="
                             relative
                             overflow-hidden
                             rounded-[2rem]
@@ -1087,11 +1125,13 @@ function Home() {
                             text-center
                             shadow-2xl
                             shadow-violet-500/20
-                        ">
+                        "
+                    >
 
-                            {/* Decorative Glow */}
+                        {/* Decorative Glow */}
 
-                            <div className="
+                        <div
+                            className="
                                 absolute
                                 -top-32
                                 -right-32
@@ -1100,9 +1140,11 @@ function Home() {
                                 rounded-full
                                 bg-white/10
                                 blur-2xl
-                            " />
+                            "
+                        />
 
-                            <div className="
+                        <div
+                            className="
                                 absolute
                                 -bottom-32
                                 -left-32
@@ -1111,75 +1153,81 @@ function Home() {
                                 rounded-full
                                 bg-cyan-300/10
                                 blur-2xl
-                            " />
+                            "
+                        />
 
 
-                            <div className="relative z-10">
+                        <div className="relative z-10">
 
-                                <p className="
+                            <p
+                                className="
                                     text-cyan-100
                                     text-sm
                                     font-bold
                                     tracking-widest
                                     uppercase
-                                ">
-                                    Start Your Journey
-                                </p>
+                                "
+                            >
+                                Start Your Journey
+                            </p>
 
 
-                                <h2 className="
+                            <h2
+                                className="
                                     mt-4
                                     text-3xl
                                     md:text-4xl
                                     font-black
                                     text-white
-                                ">
-                                    Ready to learn with Shiyora?
-                                </h2>
+                                "
+                            >
+                                Ready to learn with Shiyora?
+                            </h2>
 
 
-                                <p className="
+                            <p
+                                className="
                                     mt-5
                                     text-violet-100
                                     text-lg
                                     max-w-2xl
                                     mx-auto
                                     leading-relaxed
-                                ">
-                                    Create your account, explore courses
-                                    and take control of your learning journey.
-                                </p>
+                                "
+                            >
+                                Create your account, explore courses
+                                and take control of your learning journey.
+                            </p>
 
 
-                                <Link
-                                    to="/signup"
-                                    className="
-                                        inline-flex
-                                        mt-8
-                                        px-8
-                                        py-3.5
-                                        rounded-xl
-                                        bg-white
-                                        text-violet-700
-                                        font-bold
-                                        hover:bg-slate-100
-                                        hover:-translate-y-0.5
-                                        transition-all
-                                    "
-                                >
-                                    Create Your Account
-                                </Link>
-
-                            </div>
+                            <Link
+                                to="/signup"
+                                className="
+                                    inline-flex
+                                    mt-8
+                                    px-8
+                                    py-3.5
+                                    rounded-xl
+                                    bg-white
+                                    text-violet-700
+                                    font-bold
+                                    hover:bg-slate-100
+                                    hover:-translate-y-0.5
+                                    transition-all
+                                "
+                            >
+                                Create Your Account
+                            </Link>
 
                         </div>
 
                     </div>
 
-                </section>
+                </div>
 
-            </main>
-        </>
+            </section>
+
+        </main>
     );
 }
 

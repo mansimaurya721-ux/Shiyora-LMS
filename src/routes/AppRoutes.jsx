@@ -1,5 +1,8 @@
 import { Routes, Route } from "react-router-dom";
 
+import Navbar from "../components/Navbar";
+
+import Welcome from "../pages/public/Welcome";
 import Home from "../pages/public/Home";
 import About from "../pages/public/About";
 import Contact from "../pages/public/Contact";
@@ -11,16 +14,55 @@ function AppRoutes() {
     return (
         <Routes>
 
-            <Route path="/" element={<Home />} />
+            {/* Welcome / Entrance */}
+            <Route path="/" element={<Welcome />} />
 
-            <Route path="/about" element={<About />} />
+            {/* Home */}
+            <Route
+                path="/home"
+                element={
+                    <>
+                        <Navbar />
+                        <Home />
+                    </>
+                }
+            />
 
-            <Route path="/contact" element={<Contact />} />
+            {/* About */}
+            <Route
+                path="/about"
+                element={
+                    <>
+                        <Navbar />
+                        <About />
+                    </>
+                }
+            />
 
-            <Route path="/subscription" element={<Subscription />} />
+            {/* Contact */}
+            <Route
+                path="/contact"
+                element={
+                    <>
+                        <Navbar />
+                        <Contact />
+                    </>
+                }
+            />
 
+            {/* Subscription */}
+            <Route
+                path="/subscription"
+                element={
+                    <>
+                        <Navbar />
+                        <Subscription />
+                    </>
+                }
+            />
+
+            {/* Auth */}
             <Route path="/login" element={<Auth />} />
-
             <Route path="/signup" element={<Auth />} />
 
         </Routes>

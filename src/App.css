@@ -307,3 +307,304 @@ body,
 #root {
     transition: background-color 0.4s ease, color 0.4s ease;
 }
+
+
+/* =====================================================
+   SHIYORA WELCOME / ENTRANCE SCREEN
+===================================================== */
+
+.welcome-screen {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    background: radial-gradient( circle at 25% 50%, rgba(124, 58, 237, 0.16), transparent 35%), radial-gradient( circle at 80% 50%, rgba(6, 182, 212, 0.08), transparent 35%), #060812;
+    color: white;
+}
+
+
+/* =====================================================
+   GRID
+===================================================== */
+
+.welcome-grid {
+    position: absolute;
+    inset: 0;
+    opacity: 0.045;
+    background-image: linear-gradient( rgba(255, 255, 255, 0.18) 1px, transparent 1px), linear-gradient( 90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+    background-size: 55px 55px;
+    animation: gridMove 8s linear infinite;
+}
+
+
+/* =====================================================
+   GLOW
+===================================================== */
+
+.welcome-glow {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(110px);
+    pointer-events: none;
+}
+
+.welcome-glow-one {
+    width: 500px;
+    height: 500px;
+    background: rgba(124, 58, 237, 0.20);
+    top: -180px;
+    left: -150px;
+    animation: glowMove 5s ease-in-out infinite;
+}
+
+.welcome-glow-two {
+    width: 450px;
+    height: 450px;
+    background: rgba(6, 182, 212, 0.15);
+    bottom: -180px;
+    right: -150px;
+    animation: glowMove 6s ease-in-out infinite reverse;
+}
+
+
+/* =====================================================
+   MAIN CONTENT
+===================================================== */
+
+.welcome-content {
+    position: relative;
+    z-index: 2;
+    display: flex;
+    align-items: center;
+    gap: 65px;
+    padding: 30px;
+    animation: welcomeContent 1s ease-out forwards;
+}
+
+
+/* =====================================================
+   LOGO
+===================================================== */
+
+.welcome-logo-wrapper {
+    animation: logoFloat 2s ease-in-out infinite;
+}
+
+.welcome-logo-box {
+    width: 240px;
+    height: 240px;
+    padding: 4px;
+    border-radius: 55px;
+    background: linear-gradient( 135deg, #7c3aed, #a855f7, #22d3ee);
+    box-shadow: 0 0 45px rgba(124, 58, 237, 0.4), 0 0 110px rgba(6, 182, 212, 0.12);
+}
+
+.welcome-logo {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 25px;
+    border-radius: 52px;
+    background: #0b0f19;
+}
+
+
+/* =====================================================
+   TEXT
+===================================================== */
+
+.welcome-text {
+    min-width: 360px;
+}
+
+
+/* Small Label */
+
+.welcome-small {
+    margin: 0;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.25em;
+    color: #22d3ee;
+    opacity: 0;
+    animation: textReveal 0.7s ease forwards;
+    animation-delay: 0.25s;
+}
+
+
+/* Main Title */
+
+.welcome-title {
+    margin: 12px 0 0;
+    font-size: 58px;
+    line-height: 1.05;
+    font-weight: 900;
+    letter-spacing: -2px;
+    color: white;
+    opacity: 0;
+    animation: textReveal 0.8s ease forwards;
+    animation-delay: 0.4s;
+}
+
+.welcome-title span {
+    background: linear-gradient( 90deg, #8b5cf6, #a855f7, #22d3ee);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+
+/* Subtitle */
+
+.welcome-subtitle {
+    margin-top: 18px;
+    font-size: 20px;
+    font-weight: 600;
+    color: #cbd5e1;
+    opacity: 0;
+    animation: textReveal 0.8s ease forwards;
+    animation-delay: 0.55s;
+}
+
+
+/* Description */
+
+.welcome-description {
+    margin-top: 6px;
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: #64748b;
+    opacity: 0;
+    animation: textReveal 0.8s ease forwards;
+    animation-delay: 0.65s;
+}
+
+
+/* =====================================================
+   LOADER
+===================================================== */
+
+.welcome-loader {
+    width: 190px;
+    height: 3px;
+    margin-top: 28px;
+    overflow: hidden;
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.welcome-loader-bar {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient( 90deg, #7c3aed, #22d3ee);
+    animation: loader 1.8s ease-out forwards;
+}
+
+
+/* =====================================================
+   ANIMATIONS
+===================================================== */
+
+@keyframes welcomeContent {
+    from {
+        opacity: 0;
+        transform: translateY(20px) scale(0.96);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes textReveal {
+    from {
+        opacity: 0;
+        transform: translateX(25px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes logoFloat {
+    0%,
+    100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-10px) rotate(1deg);
+    }
+}
+
+@keyframes glowMove {
+    0%,
+    100% {
+        transform: scale(1);
+    }
+    50% {
+        transform: scale(1.15);
+    }
+}
+
+@keyframes loader {
+    from {
+        width: 0%;
+    }
+    to {
+        width: 100%;
+    }
+}
+
+@keyframes gridMove {
+    from {
+        transform: translateY(0);
+    }
+    to {
+        transform: translateY(55px);
+    }
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 768px) {
+    .welcome-content {
+        flex-direction: column;
+        gap: 30px;
+        text-align: center;
+    }
+    .welcome-logo-box {
+        width: 170px;
+        height: 170px;
+        border-radius: 40px;
+    }
+    .welcome-logo {
+        padding: 20px;
+        border-radius: 37px;
+    }
+    .welcome-text {
+        min-width: auto;
+    }
+    .welcome-title {
+        font-size: 42px;
+        letter-spacing: -1.5px;
+    }
+    .welcome-subtitle {
+        font-size: 17px;
+    }
+    .welcome-description {
+        font-size: 9px;
+    }
+    .welcome-loader {
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
