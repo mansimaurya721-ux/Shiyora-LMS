@@ -309,6 +309,9 @@ body,
 }
 
 
+/*SHIYORA WELCOME / ENTRANCE SCREEN*/
+
+
 /* =====================================================
    SHIYORA WELCOME / ENTRANCE SCREEN
 ===================================================== */
@@ -321,8 +324,19 @@ body,
     align-items: center;
     justify-content: center;
     overflow: hidden;
-    background: radial-gradient( circle at 25% 50%, rgba(124, 58, 237, 0.16), transparent 35%), radial-gradient( circle at 80% 50%, rgba(6, 182, 212, 0.08), transparent 35%), #060812;
-    color: white;
+    background: radial-gradient( circle at 50% 40%, rgba(124, 58, 237, 0.10), transparent 35%), #ffffff;
+    color: #0f172a;
+    transition: background-color 0.4s ease, color 0.4s ease;
+}
+
+
+/* =====================================================
+   DARK MODE
+===================================================== */
+
+html.dark .welcome-screen {
+    background: radial-gradient( circle at 50% 40%, rgba(124, 58, 237, 0.12), transparent 35%), #060812;
+    color: #ffffff;
 }
 
 
@@ -334,9 +348,18 @@ body,
     position: absolute;
     inset: 0;
     opacity: 0.045;
-    background-image: linear-gradient( rgba(255, 255, 255, 0.18) 1px, transparent 1px), linear-gradient( 90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+    background-image: linear-gradient( rgba(100, 116, 139, 0.15) 1px, transparent 1px), linear-gradient( 90deg, rgba(100, 116, 139, 0.15) 1px, transparent 1px);
     background-size: 55px 55px;
     animation: gridMove 8s linear infinite;
+    pointer-events: none;
+}
+
+
+/* Dark Grid */
+
+html.dark .welcome-grid {
+    background-image: linear-gradient( rgba(255, 255, 255, 0.18) 1px, transparent 1px), linear-gradient( 90deg, rgba(255, 255, 255, 0.18) 1px, transparent 1px);
+    opacity: 0.045;
 }
 
 
@@ -393,21 +416,41 @@ body,
     animation: logoFloat 2s ease-in-out infinite;
 }
 
+
+/* OUTER GRADIENT BORDER */
+
 .welcome-logo-box {
     width: 240px;
     height: 240px;
     padding: 4px;
+    box-sizing: border-box;
     border-radius: 55px;
     background: linear-gradient( 135deg, #7c3aed, #a855f7, #22d3ee);
     box-shadow: 0 0 45px rgba(124, 58, 237, 0.4), 0 0 110px rgba(6, 182, 212, 0.12);
+    /* VERY IMPORTANT */
+    overflow: hidden;
+    flex-shrink: 0;
 }
 
+
+/* ACTUAL LOGO IMAGE */
+
 .welcome-logo {
+    display: block;
     width: 100%;
     height: 100%;
+    box-sizing: border-box;
     object-fit: contain;
-    padding: 25px;
-    border-radius: 52px;
+    padding: 22px;
+    border-radius: 51px;
+    background: #ffffff;
+    transition: background-color 0.4s ease, transform 0.3s ease;
+}
+
+
+/* DARK MODE LOGO */
+
+html.dark .welcome-logo {
     background: #0b0f19;
 }
 
@@ -435,19 +478,28 @@ body,
 }
 
 
-/* Main Title */
+/* =====================================================
+   MAIN TITLE
+===================================================== */
 
 .welcome-title {
-    margin: 12px 0 0;
-    font-size: 58px;
-    line-height: 1.05;
+    margin-top: 28px;
+    font-size: 52px;
     font-weight: 900;
     letter-spacing: -2px;
-    color: white;
-    opacity: 0;
-    animation: textReveal 0.8s ease forwards;
-    animation-delay: 0.4s;
+    color: #0f172a;
+    transition: color 0.4s ease;
 }
+
+
+/* DARK */
+
+html.dark .welcome-title {
+    color: #ffffff;
+}
+
+
+/* Gradient part */
 
 .welcome-title span {
     background: linear-gradient( 90deg, #8b5cf6, #a855f7, #22d3ee);
@@ -457,20 +509,29 @@ body,
 }
 
 
-/* Subtitle */
+/* =====================================================
+   SUBTITLE
+===================================================== */
 
 .welcome-subtitle {
-    margin-top: 18px;
-    font-size: 20px;
+    margin-top: 10px;
+    font-size: 18px;
     font-weight: 600;
-    color: #cbd5e1;
-    opacity: 0;
-    animation: textReveal 0.8s ease forwards;
-    animation-delay: 0.55s;
+    color: #475569;
+    transition: color 0.4s ease;
 }
 
 
-/* Description */
+/* DARK */
+
+html.dark .welcome-subtitle {
+    color: #cbd5e1;
+}
+
+
+/* =====================================================
+   DESCRIPTION
+===================================================== */
 
 .welcome-description {
     margin-top: 6px;
@@ -484,6 +545,13 @@ body,
 }
 
 
+/* DARK */
+
+html.dark .welcome-description {
+    color: #94a3b8;
+}
+
+
 /* =====================================================
    LOADER
 ===================================================== */
@@ -494,8 +562,18 @@ body,
     margin-top: 28px;
     overflow: hidden;
     border-radius: 999px;
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(15, 23, 42, 0.10);
 }
+
+
+/* DARK LOADER */
+
+html.dark .welcome-loader {
+    background: rgba(255, 255, 255, 0.10);
+}
+
+
+/* Loader Bar */
 
 .welcome-loader-bar {
     width: 0%;
@@ -572,7 +650,7 @@ body,
 
 
 /* =====================================================
-   MOBILE
+   TABLET / MOBILE
 ===================================================== */
 
 @media (max-width: 768px) {
@@ -580,20 +658,29 @@ body,
         flex-direction: column;
         gap: 30px;
         text-align: center;
+        padding: 20px;
     }
+    /* Smaller Logo */
     .welcome-logo-box {
         width: 170px;
         height: 170px;
+        padding: 3px;
         border-radius: 40px;
+        overflow: hidden;
     }
     .welcome-logo {
+        width: 100%;
+        height: 100%;
         padding: 20px;
         border-radius: 37px;
+        box-sizing: border-box;
+        object-fit: contain;
     }
     .welcome-text {
         min-width: auto;
     }
     .welcome-title {
+        margin-top: 0;
         font-size: 42px;
         letter-spacing: -1.5px;
     }
@@ -606,5 +693,39 @@ body,
     .welcome-loader {
         margin-left: auto;
         margin-right: auto;
+    }
+}
+
+
+/* =====================================================
+   SMALL MOBILE
+===================================================== */
+
+@media (max-width: 480px) {
+    .welcome-content {
+        gap: 22px;
+        padding: 15px;
+    }
+    .welcome-logo-box {
+        width: 145px;
+        height: 145px;
+        border-radius: 34px;
+    }
+    .welcome-logo {
+        padding: 16px;
+        border-radius: 31px;
+    }
+    .welcome-title {
+        font-size: 36px;
+    }
+    .welcome-subtitle {
+        font-size: 15px;
+    }
+    .welcome-description {
+        font-size: 8px;
+        letter-spacing: 0.12em;
+    }
+    .welcome-loader {
+        width: 160px;
     }
 }
