@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 function Navbar() {
     /* =====================================================
-       THEME
+       DARK / LIGHT MODE
     ====================================================== */
 
     const [darkMode, setDarkMode] = useState(() => {
@@ -24,6 +24,13 @@ function Navbar() {
         }
     }, [darkMode]);
 
+    /* =====================================================
+       CLOSE MOBILE MENU
+    ====================================================== */
+
+    const closeMenu = () => {
+        setMenuOpen(false);
+    };
 
     /* =====================================================
        NAV LINK STYLE
@@ -42,18 +49,7 @@ function Navbar() {
             ? "text-violet-600 dark:text-cyan-400"
             : "text-slate-700 hover:text-violet-600 dark:text-slate-300 dark:hover:text-cyan-400"
         }
-
         `;
-
-
-    /* =====================================================
-       CLOSE MOBILE MENU
-    ====================================================== */
-
-    const closeMenu = () => {
-        setMenuOpen(false);
-    };
-
 
     return (
         <nav
@@ -75,7 +71,6 @@ function Navbar() {
                 duration-300
             "
         >
-
             <div
                 className="
                     max-w-7xl
@@ -91,7 +86,7 @@ function Navbar() {
             >
 
                 {/* =================================================
-                    LOGO
+                    SHIYORA LOGO
                 ================================================== */}
 
                 <Link
@@ -105,9 +100,7 @@ function Navbar() {
                         shrink-0
                     "
                 >
-
-                    {/* Logo Box */}
-
+                    {/* Logo */}
                     <div
                         className="
                             w-10
@@ -142,11 +135,8 @@ function Navbar() {
                         S
                     </div>
 
-
-                    {/* Brand Name */}
-
+                    {/* Brand */}
                     <div className="leading-none">
-
                         <span
                             className="
                                 text-xl
@@ -169,7 +159,6 @@ function Navbar() {
                             </span>
                         </span>
 
-
                         <span
                             className="
                                 block
@@ -188,11 +177,8 @@ function Navbar() {
                         >
                             Learning Platform
                         </span>
-
                     </div>
-
                 </Link>
-
 
                 {/* =================================================
                     DESKTOP NAVIGATION
@@ -210,8 +196,7 @@ function Navbar() {
                     {/* HOME */}
 
                     <NavLink
-                        to="/"
-                        end
+                        to="/home"
                         className={navLinkClass}
                     >
                         {({ isActive }) => (
@@ -243,7 +228,6 @@ function Navbar() {
                         )}
                     </NavLink>
 
-
                     {/* ABOUT */}
 
                     <NavLink
@@ -261,11 +245,15 @@ function Navbar() {
                                             left-0
                                             right-0
                                             -bottom-1
+
                                             h-[2px]
+
                                             rounded-full
+
                                             bg-gradient-to-r
                                             from-violet-500
                                             to-cyan-400
+
                                             shadow-lg
                                             shadow-cyan-400/40
                                         "
@@ -274,7 +262,6 @@ function Navbar() {
                             </>
                         )}
                     </NavLink>
-
 
                     {/* CONTACT */}
 
@@ -293,11 +280,15 @@ function Navbar() {
                                             left-0
                                             right-0
                                             -bottom-1
+
                                             h-[2px]
+
                                             rounded-full
+
                                             bg-gradient-to-r
                                             from-violet-500
                                             to-cyan-400
+
                                             shadow-lg
                                             shadow-cyan-400/40
                                         "
@@ -306,7 +297,6 @@ function Navbar() {
                             </>
                         )}
                     </NavLink>
-
 
                     {/* LOGIN */}
 
@@ -325,11 +315,15 @@ function Navbar() {
                                             left-0
                                             right-0
                                             -bottom-1
+
                                             h-[2px]
+
                                             rounded-full
+
                                             bg-gradient-to-r
                                             from-violet-500
                                             to-cyan-400
+
                                             shadow-lg
                                             shadow-cyan-400/40
                                         "
@@ -339,10 +333,7 @@ function Navbar() {
                         )}
                     </NavLink>
 
-
-                    {/* =================================================
-                        CREATE ACCOUNT
-                    ================================================== */}
+                    {/* CREATE ACCOUNT */}
 
                     <NavLink
                         to="/signup"
@@ -363,28 +354,28 @@ function Navbar() {
 
                             ${isActive
                                 ? `
-                                    bg-slate-900
-                                    text-white
-                                    border-slate-900
+                                        bg-slate-900
+                                        text-white
+                                        border-slate-900
 
-                                    dark:bg-white
-                                    dark:text-slate-900
-                                    dark:border-white
-                                `
+                                        dark:bg-white
+                                        dark:text-slate-900
+                                        dark:border-white
+                                    `
                                 : `
-                                    border-slate-300
-                                    text-slate-700
+                                        border-slate-300
+                                        text-slate-700
 
-                                    hover:border-violet-400
-                                    hover:text-violet-600
+                                        hover:border-violet-400
+                                        hover:text-violet-600
 
-                                    dark:border-white/15
-                                    dark:text-slate-300
+                                        dark:border-white/15
+                                        dark:text-slate-300
 
-                                    dark:hover:border-cyan-400/50
-                                    dark:hover:text-cyan-400
-                                    dark:hover:bg-white/5
-                                `
+                                        dark:hover:border-cyan-400/50
+                                        dark:hover:text-cyan-400
+                                        dark:hover:bg-white/5
+                                    `
                             }
                             `
                         }
@@ -392,10 +383,7 @@ function Navbar() {
                         Create Account
                     </NavLink>
 
-
-                    {/* =================================================
-                        SUBSCRIPTION
-                    ================================================== */}
+                    {/* SUBSCRIPTION */}
 
                     <NavLink
                         to="/subscription"
@@ -436,7 +424,6 @@ function Navbar() {
                     >
                         Subscription
                     </NavLink>
-
 
                     {/* =================================================
                         THEME TOGGLE
@@ -486,10 +473,9 @@ function Navbar() {
                             hover:scale-105
                         "
                     >
-
                         {darkMode ? (
 
-                            /* ☀️ LIGHT MODE BUTTON */
+                            /* LIGHT MODE ICON */
 
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -504,7 +490,6 @@ function Navbar() {
                                 stroke="currentColor"
                                 strokeWidth="2"
                             >
-
                                 <circle
                                     cx="12"
                                     cy="12"
@@ -525,12 +510,11 @@ function Navbar() {
                                         m11.3-11.3l1.42-1.42
                                     "
                                 />
-
                             </svg>
 
                         ) : (
 
-                            /* 🌙 DARK MODE BUTTON */
+                            /* DARK MODE ICON */
 
                             <svg
                                 xmlns="http://www.w3.org/2000/svg"
@@ -545,7 +529,6 @@ function Navbar() {
                                 stroke="currentColor"
                                 strokeWidth="2"
                             >
-
                                 <path
                                     strokeLinecap="round"
                                     strokeLinejoin="round"
@@ -553,19 +536,14 @@ function Navbar() {
                                         M21 12.79
                                         A9 9 0 1 1
                                         11.21 3
-                                        A7 7 0 0 0
-                                        21 12.79z
+                                        A7 7 0 0 0 21 12.79z
                                     "
                                 />
-
                             </svg>
 
                         )}
-
                     </button>
-
                 </div>
-
 
                 {/* =================================================
                     MOBILE MENU BUTTON
@@ -573,7 +551,9 @@ function Navbar() {
 
                 <button
                     type="button"
-                    onClick={() => setMenuOpen((previous) => !previous)}
+                    onClick={() =>
+                        setMenuOpen((previous) => !previous)
+                    }
                     aria-label="Toggle navigation menu"
                     className="
                         lg:hidden
@@ -598,10 +578,13 @@ function Navbar() {
                         dark:text-white
 
                         transition-all
+
+                        hover:scale-105
                     "
                 >
-
                     {menuOpen ? (
+
+                        /* CLOSE ICON */
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -620,6 +603,8 @@ function Navbar() {
 
                     ) : (
 
+                        /* MENU ICON */
+
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
                             className="w-5 h-5"
@@ -636,11 +621,8 @@ function Navbar() {
                         </svg>
 
                     )}
-
                 </button>
-
             </div>
-
 
             {/* =====================================================
                 MOBILE NAVIGATION
@@ -662,12 +644,15 @@ function Navbar() {
                         py-5
 
                         space-y-2
+
+                        shadow-lg
                     "
                 >
 
+                    {/* HOME */}
+
                     <NavLink
-                        to="/"
-                        end
+                        to="/home"
                         onClick={closeMenu}
                         className="
                             block
@@ -690,6 +675,7 @@ function Navbar() {
                         Home
                     </NavLink>
 
+                    {/* ABOUT */}
 
                     <NavLink
                         to="/about"
@@ -715,6 +701,7 @@ function Navbar() {
                         About
                     </NavLink>
 
+                    {/* CONTACT */}
 
                     <NavLink
                         to="/contact"
@@ -740,6 +727,7 @@ function Navbar() {
                         Contact
                     </NavLink>
 
+                    {/* LOGIN */}
 
                     <NavLink
                         to="/login"
@@ -765,6 +753,7 @@ function Navbar() {
                         Login
                     </NavLink>
 
+                    {/* CREATE ACCOUNT */}
 
                     <NavLink
                         to="/signup"
@@ -796,6 +785,7 @@ function Navbar() {
                         Create Account
                     </NavLink>
 
+                    {/* SUBSCRIPTION */}
 
                     <NavLink
                         to="/subscription"
@@ -818,11 +808,13 @@ function Navbar() {
 
                             shadow-lg
                             shadow-violet-500/10
+
+                            transition-all
+                            hover:-translate-y-0.5
                         "
                     >
                         Subscription
                     </NavLink>
-
 
                     {/* MOBILE THEME BUTTON */}
 
@@ -858,9 +850,11 @@ function Navbar() {
                             font-semibold
 
                             transition
+
+                            hover:bg-slate-100
+                            dark:hover:bg-white/10
                         "
                     >
-
                         {darkMode ? (
                             <>
                                 <span className="text-yellow-400">
@@ -878,12 +872,9 @@ function Navbar() {
                                 Switch to Dark Mode
                             </>
                         )}
-
                     </button>
-
                 </div>
             )}
-
         </nav>
     );
 }

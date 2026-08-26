@@ -1,8 +1,9 @@
 import { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function Auth() {
     const location = useLocation();
+    const navigate = useNavigate();
 
     // ================= AUTH MODE =================
 
@@ -15,6 +16,23 @@ function Auth() {
     const [darkMode, setDarkMode] = useState(() => {
         return localStorage.getItem("theme") === "dark";
     });
+
+    // ================= LOGIN STATES =================
+
+    const [loginEmail, setLoginEmail] = useState("");
+    const [loginPassword, setLoginPassword] = useState("");
+
+    const [signupName, setSignupName] = useState("");
+    const [signupEmail, setSignupEmail] = useState("");
+    const [signupRole, setSignupRole] = useState("");
+    const [signupPassword, setSignupPassword] = useState("");
+    const [confirmPassword, setConfirmPassword] = useState("");
+    const [agreeTerms, setAgreeTerms] = useState(false);
+
+    const [error, setError] = useState("");
+    const [success, setSuccess] = useState("");
+
+    // ================= THEME =================
 
     useEffect(() => {
         if (darkMode) {
@@ -29,14 +47,154 @@ function Auth() {
     // ================= SWITCH FUNCTIONS =================
 
     const switchToSignup = () => {
+        setError("");
+        setSuccess("");
         setIsSignup(true);
+        navigate("/signup");
     };
 
     const switchToLogin = () => {
+        setError("");
+        setSuccess("");
         setIsSignup(false);
+        navigate("/login");
     };
 
-    // ================= COMMON INPUT STYLE =================
+    // ================= LOGIN =================
+
+    const handleLogin = (e) => {
+        e.preventDefault();
+
+        setError("");
+        setSuccess("");
+
+        // Basic validation
+        if (!loginEmail || !loginPassword) {
+            setError("Please enter email and password.");
+            return;
+        }
+
+        // ================= SUPER ADMIN LOGIN =================
+
+        if (
+            loginEmail === "superadmin@shiyora.com" &&
+            loginPassword === "SuperAdmin@123"
+        ) {
+            localStorage.setItem("isLoggedIn", "true");
+            localStorage.setItem("userRole", "superadmin");
+            localStorage.setItem(
+                "user",
+                JSON.stringify({
+                    name: "Super Admin",
+                    email: "superadmin@shiyora.com",
+                    role: "superadmin",
+                })
+            );
+
+            navigate("/superadmin/dashboard");
+            return;
+        }
+
+        // ================= DEMO USERS =================
+
+        const savedUser = localStorage.getItem("shiyoraUser");
+
+        if (savedUser) {
+            const user = JSON.parse(savedUser);
+
+            if (
+                user.email === loginEmail &&
+                user.password === loginPassword
+            ) {
+                localStorage.setItem("isLoggedIn", "true");
+                localStorage.setItem("userRole", user.role);
+
+                localStorage.setItem(
+                    "user",
+                    JSON.stringify({
+                        name: user.name,
+                        email: user.email,
+                        role: user.role,
+                    })
+                );
+
+                // For now student/teacher dashboards
+                // will be created later.
+                if (user.role === "student") {
+                    navigate("/student/dashboard");
+                } else if (user.role === "teacher") {
+                    navigate("/teacher/dashboard");
+                }
+
+                return;
+            }
+        }
+
+        setError("Invalid email or password.");
+    };
+
+    // ================= SIGNUP =================
+
+    const handleSignup = (e) => {
+        e.preventDefault();
+
+        setError("");
+        setSuccess("");
+
+        if (
+            !signupName ||
+            !signupEmail ||
+            !signupRole ||
+            !signupPassword ||
+            !confirmPassword
+        ) {
+            setError("Please fill all fields.");
+            return;
+        }
+
+        if (signupPassword !== confirmPassword) {
+            setError("Passwords do not match.");
+            return;
+        }
+
+        if (!agreeTerms) {
+            setError("Please accept the terms and conditions.");
+            return;
+        }
+
+        // Save demo user in localStorage
+        const user = {
+            name: signupName,
+            email: signupEmail,
+            role: signupRole,
+            password: signupPassword,
+        };
+
+        localStorage.setItem(
+            "shiyoraUser",
+            JSON.stringify(user)
+        );
+
+        setSuccess(
+            "Account created successfully! Please sign in."
+        );
+
+        // Clear fields
+        setSignupName("");
+        setSignupEmail("");
+        setSignupRole("");
+        setSignupPassword("");
+        setConfirmPassword("");
+        setAgreeTerms(false);
+
+        // Switch to login after signup
+        setTimeout(() => {
+            setIsSignup(false);
+            navigate("/login");
+        }, 1200);
+    };
+
+    // ================= INPUT STYLE =================
 
     const inputStyle = `
         w-full px-4 py-3 rounded-xl
@@ -63,9 +221,7 @@ function Auth() {
             "
         >
 
-            {/* =====================================================
-                DARK / LIGHT MODE BUTTON
-            ====================================================== */}
+            {/* ================= DARK MODE ================= */}
 
             <button
                 type="button"
@@ -76,31 +232,23 @@ function Auth() {
                     top-24
                     right-6
                     z-[999]
-
                     w-11
                     h-11
                     rounded-full
-
                     flex
                     items-center
                     justify-center
-
                     bg-white
                     dark:bg-slate-800
-
                     text-gray-700
                     dark:text-yellow-300
-
                     border
                     border-gray-200
                     dark:border-slate-700
-
                     shadow-lg
                     dark:shadow-black/40
-
                     hover:scale-110
                     active:scale-95
-
                     transition-all
                     duration-300
                 "
@@ -108,52 +256,40 @@ function Auth() {
                 {darkMode ? "☀️" : "🌙"}
             </button>
 
-
-            {/* =====================================================
-                MAIN CARD
-            ====================================================== */}
+            {/* ================= MAIN CARD ================= */}
 
             <div
                 className="
                     relative
                     w-full
                     max-w-4xl
-                    h-[560px]
-
+                    min-h-[560px]
                     bg-white
                     dark:bg-slate-900
-
                     rounded-3xl
-
                     shadow-2xl
                     dark:shadow-black/40
-
                     overflow-hidden
-
                     transition-colors
                     duration-300
                 "
             >
 
                 {/* =====================================================
-                    LOGIN FORM
+                    DESKTOP LOGIN
                 ====================================================== */}
 
                 <div
                     className={`
+                        hidden md:flex
                         absolute
                         top-0
                         left-0
-
                         w-1/2
                         h-full
-
-                        flex
                         items-center
                         justify-center
-
                         px-8
-
                         transition-all
                         duration-700
                         ease-in-out
@@ -173,57 +309,44 @@ function Auth() {
                         {/* LOGO */}
 
                         <div className="flex justify-center mb-4">
+
                             <div
                                 className="
                                     w-11
                                     h-11
                                     rounded-xl
-
                                     bg-indigo-600
-
                                     text-white
-
                                     flex
                                     items-center
                                     justify-center
-
                                     font-bold
                                     text-lg
-
                                     shadow-md
                                 "
                             >
                                 S
                             </div>
+
                         </div>
-
-
-                        {/* HEADING */}
 
                         <h2
                             className="
                                 text-3xl
                                 font-bold
-
                                 text-gray-900
                                 dark:text-white
-
                                 text-center
                             "
                         >
                             Welcome Back
                         </h2>
 
-
-                        {/* DESCRIPTION */}
-
                         <p
                             className="
                                 text-sm
-
                                 text-gray-500
                                 dark:text-gray-400
-
                                 text-center
                                 mt-2
                             "
@@ -231,10 +354,58 @@ function Auth() {
                             Sign in to continue to Shiyora
                         </p>
 
+                        {/* ERROR */}
+
+                        {error && !isSignup && (
+                            <div
+                                className="
+                                    mt-4
+                                    rounded-xl
+                                    bg-red-50
+                                    dark:bg-red-950/40
+                                    border
+                                    border-red-200
+                                    dark:border-red-900
+                                    px-4
+                                    py-3
+                                    text-sm
+                                    text-red-600
+                                    dark:text-red-400
+                                "
+                            >
+                                {error}
+                            </div>
+                        )}
+
+                        {/* SUCCESS */}
+
+                        {success && !isSignup && (
+                            <div
+                                className="
+                                    mt-4
+                                    rounded-xl
+                                    bg-emerald-50
+                                    dark:bg-emerald-950/40
+                                    border
+                                    border-emerald-200
+                                    dark:border-emerald-900
+                                    px-4
+                                    py-3
+                                    text-sm
+                                    text-emerald-600
+                                    dark:text-emerald-400
+                                "
+                            >
+                                {success}
+                            </div>
+                        )}
 
                         {/* LOGIN FORM */}
 
-                        <form className="mt-7 space-y-4">
+                        <form
+                            onSubmit={handleLogin}
+                            className="mt-7 space-y-4"
+                        >
 
                             {/* EMAIL */}
 
@@ -245,10 +416,8 @@ function Auth() {
                                         block
                                         text-sm
                                         font-semibold
-
                                         text-gray-700
                                         dark:text-gray-300
-
                                         mb-1.5
                                     "
                                 >
@@ -257,12 +426,15 @@ function Auth() {
 
                                 <input
                                     type="email"
+                                    value={loginEmail}
+                                    onChange={(e) =>
+                                        setLoginEmail(e.target.value)
+                                    }
                                     placeholder="Enter your email"
                                     className={inputStyle}
                                 />
 
                             </div>
-
 
                             {/* PASSWORD */}
 
@@ -273,10 +445,8 @@ function Auth() {
                                         block
                                         text-sm
                                         font-semibold
-
                                         text-gray-700
                                         dark:text-gray-300
-
                                         mb-1.5
                                     "
                                 >
@@ -285,12 +455,15 @@ function Auth() {
 
                                 <input
                                     type="password"
+                                    value={loginPassword}
+                                    onChange={(e) =>
+                                        setLoginPassword(e.target.value)
+                                    }
                                     placeholder="Enter your password"
                                     className={inputStyle}
                                 />
 
                             </div>
-
 
                             {/* REMEMBER / FORGOT */}
 
@@ -308,7 +481,6 @@ function Auth() {
                                         flex
                                         items-center
                                         gap-2
-
                                         text-gray-600
                                         dark:text-gray-400
                                     "
@@ -323,24 +495,18 @@ function Auth() {
 
                                 </label>
 
-
                                 <button
                                     type="button"
                                     className="
                                         text-indigo-600
                                         dark:text-indigo-400
-
                                         font-semibold
-
-                                        hover:text-indigo-700
-                                        dark:hover:text-indigo-300
                                     "
                                 >
                                     Forgot Password?
                                 </button>
 
                             </div>
-
 
                             {/* LOGIN BUTTON */}
 
@@ -350,16 +516,11 @@ function Auth() {
                                     w-full
                                     py-3
                                     rounded-xl
-
                                     bg-indigo-600
-
                                     text-white
                                     font-semibold
-
                                     hover:bg-indigo-700
-
                                     active:scale-[0.98]
-
                                     transition
                                 "
                             >
@@ -368,38 +529,25 @@ function Auth() {
 
                         </form>
 
-
-                        {/* CREATE ACCOUNT */}
-
                         <p
                             className="
                                 text-center
                                 text-sm
-
                                 text-gray-600
                                 dark:text-gray-400
-
                                 mt-6
                             "
                         >
-
                             Don't have an account?
 
                             <button
                                 type="button"
                                 onClick={switchToSignup}
                                 className="
-                                    relative
-                                    z-50
                                     ml-1
-
                                     text-indigo-600
                                     dark:text-indigo-400
-
                                     font-semibold
-
-                                    hover:text-indigo-700
-                                    dark:hover:text-indigo-300
                                 "
                             >
                                 Create Account
@@ -413,24 +561,20 @@ function Auth() {
 
 
                 {/* =====================================================
-                    SIGNUP FORM
+                    DESKTOP SIGNUP
                 ====================================================== */}
 
                 <div
                     className={`
+                        hidden md:flex
                         absolute
                         top-0
                         left-0
-
                         w-1/2
                         h-full
-
-                        flex
                         items-center
                         justify-center
-
                         px-8
-
                         transition-all
                         duration-700
                         ease-in-out
@@ -447,8 +591,6 @@ function Auth() {
 
                     <div className="w-full max-w-sm">
 
-                        {/* LOGO */}
-
                         <div className="flex justify-center mb-3">
 
                             <div
@@ -456,19 +598,13 @@ function Auth() {
                                     w-11
                                     h-11
                                     rounded-xl
-
                                     bg-indigo-600
-
                                     text-white
-
                                     flex
                                     items-center
                                     justify-center
-
                                     font-bold
                                     text-lg
-
-                                    shadow-md
                                 "
                             >
                                 S
@@ -476,33 +612,23 @@ function Auth() {
 
                         </div>
 
-
-                        {/* HEADING */}
-
                         <h2
                             className="
                                 text-3xl
                                 font-bold
-
                                 text-gray-900
                                 dark:text-white
-
                                 text-center
                             "
                         >
                             Create Account
                         </h2>
 
-
-                        {/* DESCRIPTION */}
-
                         <p
                             className="
                                 text-sm
-
                                 text-gray-500
                                 dark:text-gray-400
-
                                 text-center
                                 mt-2
                             "
@@ -510,123 +636,119 @@ function Auth() {
                             Start your journey with Shiyora
                         </p>
 
+                        {/* ERROR */}
+
+                        {error && isSignup && (
+                            <div
+                                className="
+                                    mt-3
+                                    rounded-xl
+                                    bg-red-50
+                                    dark:bg-red-950/40
+                                    border
+                                    border-red-200
+                                    dark:border-red-900
+                                    px-4
+                                    py-2
+                                    text-sm
+                                    text-red-600
+                                "
+                            >
+                                {error}
+                            </div>
+                        )}
 
                         {/* SIGNUP FORM */}
 
-                        <form className="mt-5 space-y-3">
-
-                            {/* FULL NAME */}
+                        <form
+                            onSubmit={handleSignup}
+                            className="mt-5 space-y-3"
+                        >
 
                             <input
                                 type="text"
+                                value={signupName}
+                                onChange={(e) =>
+                                    setSignupName(e.target.value)
+                                }
                                 placeholder="Full Name"
                                 className={inputStyle}
                             />
 
-
-                            {/* EMAIL */}
-
                             <input
                                 type="email"
+                                value={signupEmail}
+                                onChange={(e) =>
+                                    setSignupEmail(e.target.value)
+                                }
                                 placeholder="Email Address"
                                 className={inputStyle}
                             />
 
-
-                            {/* ACCOUNT TYPE */}
-
                             <select
-                                defaultValue=""
-                                className="
-                                    w-full
-                                    px-4
-                                    py-2.5
-                                    rounded-xl
-
-                                    border
-                                    border-gray-300
-                                    dark:border-slate-700
-
-                                    bg-white
-                                    dark:bg-slate-800
-
+                                value={signupRole}
+                                onChange={(e) =>
+                                    setSignupRole(e.target.value)
+                                }
+                                className={`
+                                    ${inputStyle}
                                     text-gray-600
                                     dark:text-gray-300
-
-                                    outline-none
-
-                                    focus:border-indigo-500
-
-                                    focus:ring-2
-                                    focus:ring-indigo-100
-                                    dark:focus:ring-indigo-900
-
-                                    transition
-                                "
+                                `}
                             >
 
-                                <option
-                                    value=""
-                                    disabled
-                                    className="dark:bg-slate-800"
-                                >
+                                <option value="" disabled>
                                     Select Account Type
                                 </option>
 
-                                <option
-                                    value="student"
-                                    className="dark:bg-slate-800"
-                                >
+                                <option value="student">
                                     Student
                                 </option>
 
-                                <option
-                                    value="teacher"
-                                    className="dark:bg-slate-800"
-                                >
+                                <option value="teacher">
                                     Teacher
                                 </option>
 
                             </select>
 
-
-                            {/* PASSWORD */}
-
                             <input
                                 type="password"
+                                value={signupPassword}
+                                onChange={(e) =>
+                                    setSignupPassword(e.target.value)
+                                }
                                 placeholder="Create Password"
                                 className={inputStyle}
                             />
 
-
-                            {/* CONFIRM PASSWORD */}
-
                             <input
                                 type="password"
+                                value={confirmPassword}
+                                onChange={(e) =>
+                                    setConfirmPassword(e.target.value)
+                                }
                                 placeholder="Confirm Password"
                                 className={inputStyle}
                             />
-
-
-                            {/* TERMS */}
 
                             <label
                                 className="
                                     flex
                                     items-start
                                     gap-2
-
                                     text-xs
-
                                     text-gray-600
                                     dark:text-gray-400
-
                                     pt-1
                                 "
                             >
 
                                 <input
                                     type="checkbox"
+                                    checked={agreeTerms}
+                                    onChange={(e) =>
+                                        setAgreeTerms(e.target.checked)
+                                    }
                                     className="mt-0.5 accent-indigo-600"
                                 />
 
@@ -637,25 +759,17 @@ function Auth() {
 
                             </label>
 
-
-                            {/* SIGNUP BUTTON */}
-
                             <button
                                 type="submit"
                                 className="
                                     w-full
                                     py-3
                                     rounded-xl
-
                                     bg-indigo-600
-
                                     text-white
                                     font-semibold
-
                                     hover:bg-indigo-700
-
                                     active:scale-[0.98]
-
                                     transition
                                 "
                             >
@@ -664,38 +778,25 @@ function Auth() {
 
                         </form>
 
-
-                        {/* LOGIN LINK */}
-
                         <p
                             className="
                                 text-center
                                 text-sm
-
                                 text-gray-600
                                 dark:text-gray-400
-
                                 mt-4
                             "
                         >
-
                             Already have an account?
 
                             <button
                                 type="button"
                                 onClick={switchToLogin}
                                 className="
-                                    relative
-                                    z-50
                                     ml-1
-
                                     text-indigo-600
                                     dark:text-indigo-400
-
                                     font-semibold
-
-                                    hover:text-indigo-700
-                                    dark:hover:text-indigo-300
                                 "
                             >
                                 Sign In
@@ -709,52 +810,42 @@ function Auth() {
 
 
                 {/* =====================================================
-                    SLIDING INDIGO PANEL
+                    SLIDING PANEL
                 ====================================================== */}
 
                 <div
                     className="
+                        hidden md:block
                         absolute
                         top-0
                         left-1/2
-
                         w-1/2
                         h-full
-
                         bg-indigo-600
-
                         text-white
-
                         transition-transform
                         duration-700
-
                         ease-[cubic-bezier(0.65,0,0.35,1)]
                     "
                     style={{
                         transform: isSignup
                             ? "translateX(-100%)"
                             : "translateX(0)",
-
                         zIndex: 20,
                     }}
                 >
 
-                    {/* =================================================
-                        NEW USER PANEL
-                    ================================================== */}
+                    {/* NEW USER */}
 
                     <div
                         className={`
                             absolute
                             inset-0
-
                             flex
                             items-center
                             justify-center
-
                             text-center
                             px-10
-
                             transition-all
                             duration-500
 
@@ -767,90 +858,50 @@ function Auth() {
 
                         <div className="max-w-xs">
 
-                            {/* ICON */}
-
                             <div
                                 className="
                                     w-16
                                     h-16
-
                                     mx-auto
-
                                     rounded-2xl
-
                                     bg-white/10
-
                                     border
                                     border-white/20
-
                                     flex
                                     items-center
                                     justify-center
                                 "
                             >
-
                                 <span className="text-2xl font-bold">
                                     S
                                 </span>
-
                             </div>
 
-
-                            <h2
-                                className="
-                                    text-3xl
-                                    font-bold
-                                    mt-6
-                                "
-                            >
+                            <h2 className="text-3xl font-bold mt-6">
                                 New Here?
                             </h2>
 
-
-                            <p
-                                className="
-                                    text-indigo-100
-                                    text-sm
-                                    leading-relaxed
-                                    mt-4
-                                "
-                            >
+                            <p className="text-indigo-100 text-sm leading-relaxed mt-4">
                                 Create your account and join Shiyora.
                                 Manage courses, learning resources and
                                 your progress in one place.
                             </p>
 
-
-                            {/* BUTTON */}
-
                             <button
                                 type="button"
                                 onClick={switchToSignup}
                                 className="
-                                    relative
-                                    z-[100]
-
                                     mt-7
-
                                     px-8
                                     py-3
-
                                     rounded-xl
-
                                     border-2
                                     border-white
-
                                     font-semibold
-
-                                    cursor-pointer
-
                                     hover:bg-white
                                     hover:text-indigo-600
-
                                     active:scale-95
-
                                     transition-all
-                                    duration-300
                                 "
                             >
                                 Create Account
@@ -861,22 +912,17 @@ function Auth() {
                     </div>
 
 
-                    {/* =================================================
-                        WELCOME BACK PANEL
-                    ================================================== */}
+                    {/* WELCOME BACK */}
 
                     <div
                         className={`
                             absolute
                             inset-0
-
                             flex
                             items-center
                             justify-center
-
                             text-center
                             px-10
-
                             transition-all
                             duration-500
 
@@ -889,90 +935,50 @@ function Auth() {
 
                         <div className="max-w-xs">
 
-                            {/* ICON */}
-
                             <div
                                 className="
                                     w-16
                                     h-16
-
                                     mx-auto
-
                                     rounded-2xl
-
                                     bg-white/10
-
                                     border
                                     border-white/20
-
                                     flex
                                     items-center
                                     justify-center
                                 "
                             >
-
                                 <span className="text-2xl font-bold">
                                     S
                                 </span>
-
                             </div>
 
-
-                            <h2
-                                className="
-                                    text-3xl
-                                    font-bold
-                                    mt-6
-                                "
-                            >
+                            <h2 className="text-3xl font-bold mt-6">
                                 Welcome Back
                             </h2>
 
-
-                            <p
-                                className="
-                                    text-indigo-100
-                                    text-sm
-                                    leading-relaxed
-                                    mt-4
-                                "
-                            >
+                            <p className="text-indigo-100 text-sm leading-relaxed mt-4">
                                 Already have an account?
                                 Sign in and continue your learning
                                 journey with Shiyora.
                             </p>
 
-
-                            {/* BUTTON */}
-
                             <button
                                 type="button"
                                 onClick={switchToLogin}
                                 className="
-                                    relative
-                                    z-[100]
-
                                     mt-7
-
                                     px-8
                                     py-3
-
                                     rounded-xl
-
                                     border-2
                                     border-white
-
                                     font-semibold
-
-                                    cursor-pointer
-
                                     hover:bg-white
                                     hover:text-indigo-600
-
                                     active:scale-95
-
                                     transition-all
-                                    duration-300
                                 "
                             >
                                 Sign In
@@ -994,22 +1000,14 @@ function Auth() {
                         md:hidden
                         w-full
                         min-h-[560px]
-
                         bg-white
                         dark:bg-slate-900
-
-                        transition-colors
-                        duration-300
                     "
                 >
 
                     {!isSignup ? (
 
-                        /* ================= MOBILE LOGIN ================= */
-
                         <div className="px-6 py-10">
-
-                            {/* LOGO */}
 
                             <div className="flex justify-center">
 
@@ -1018,15 +1016,11 @@ function Auth() {
                                         w-11
                                         h-11
                                         rounded-xl
-
                                         bg-indigo-600
-
                                         text-white
-
                                         flex
                                         items-center
                                         justify-center
-
                                         font-bold
                                     "
                                 >
@@ -1035,17 +1029,12 @@ function Auth() {
 
                             </div>
 
-
-                            {/* HEADING */}
-
                             <h2
                                 className="
                                     text-2xl
                                     font-bold
-
                                     text-gray-900
                                     dark:text-white
-
                                     text-center
                                     mt-4
                                 "
@@ -1053,14 +1042,11 @@ function Auth() {
                                 Welcome Back
                             </h2>
 
-
                             <p
                                 className="
                                     text-sm
-
                                     text-gray-500
                                     dark:text-gray-400
-
                                     text-center
                                     mt-2
                                 "
@@ -1068,61 +1054,76 @@ function Auth() {
                                 Sign in to Shiyora
                             </p>
 
+                            {error && (
+                                <div
+                                    className="
+                                        mt-4
+                                        rounded-xl
+                                        bg-red-50
+                                        border
+                                        border-red-200
+                                        px-4
+                                        py-3
+                                        text-sm
+                                        text-red-600
+                                    "
+                                >
+                                    {error}
+                                </div>
+                            )}
 
-                            {/* INPUTS */}
-
-                            <div className="mt-6 space-y-4">
+                            <form
+                                onSubmit={handleLogin}
+                                className="mt-6 space-y-4"
+                            >
 
                                 <input
                                     type="email"
+                                    value={loginEmail}
+                                    onChange={(e) =>
+                                        setLoginEmail(e.target.value)
+                                    }
                                     placeholder="Email Address"
                                     className={inputStyle}
                                 />
 
                                 <input
                                     type="password"
+                                    value={loginPassword}
+                                    onChange={(e) =>
+                                        setLoginPassword(e.target.value)
+                                    }
                                     placeholder="Password"
                                     className={inputStyle}
                                 />
 
-
                                 <button
-                                    type="button"
+                                    type="submit"
                                     className="
                                         w-full
                                         py-3
                                         rounded-xl
-
                                         bg-indigo-600
-
                                         text-white
                                         font-semibold
-
                                         hover:bg-indigo-700
-
                                         transition
                                     "
                                 >
                                     Sign In
                                 </button>
 
-                            </div>
-
-
-                            {/* SWITCH */}
+                            </form>
 
                             <p
                                 className="
                                     text-center
                                     text-sm
-
                                     text-gray-600
                                     dark:text-gray-400
-
                                     mt-6
                                 "
                             >
-
                                 Don't have an account?
 
                                 <button
@@ -1130,10 +1131,8 @@ function Auth() {
                                     onClick={switchToSignup}
                                     className="
                                         ml-1
-
                                         text-indigo-600
                                         dark:text-indigo-400
-
                                         font-semibold
                                     "
                                 >
@@ -1146,11 +1145,7 @@ function Auth() {
 
                     ) : (
 
-                        /* ================= MOBILE SIGNUP ================= */
-
                         <div className="px-6 py-8">
-
-                            {/* LOGO */}
 
                             <div className="flex justify-center">
 
@@ -1159,15 +1154,11 @@ function Auth() {
                                         w-11
                                         h-11
                                         rounded-xl
-
                                         bg-indigo-600
-
                                         text-white
-
                                         flex
                                         items-center
                                         justify-center
-
                                         font-bold
                                     "
                                 >
@@ -1176,17 +1167,12 @@ function Auth() {
 
                             </div>
 
-
-                            {/* HEADING */}
-
                             <h2
                                 className="
                                     text-2xl
                                     font-bold
-
                                     text-gray-900
                                     dark:text-white
-
                                     text-center
                                     mt-4
                                 "
@@ -1194,14 +1180,11 @@ function Auth() {
                                 Create Account
                             </h2>
 
-
                             <p
                                 className="
                                     text-sm
-
                                     text-gray-500
                                     dark:text-gray-400
-
                                     text-center
                                     mt-2
                                 "
@@ -1209,121 +1192,147 @@ function Auth() {
                                 Join Shiyora today
                             </p>
 
+                            {error && (
+                                <div
+                                    className="
+                                        mt-4
+                                        rounded-xl
+                                        bg-red-50
+                                        border
+                                        border-red-200
+                                        px-4
+                                        py-3
+                                        text-sm
+                                        text-red-600
+                                    "
+                                >
+                                    {error}
+                                </div>
+                            )}
 
-                            {/* INPUTS */}
-
-                            <div className="mt-5 space-y-3">
+                            <form
+                                onSubmit={handleSignup}
+                                className="mt-5 space-y-3"
+                            >
 
                                 <input
                                     type="text"
+                                    value={signupName}
+                                    onChange={(e) =>
+                                        setSignupName(e.target.value)
+                                    }
                                     placeholder="Full Name"
                                     className={inputStyle}
                                 />
 
                                 <input
                                     type="email"
+                                    value={signupEmail}
+                                    onChange={(e) =>
+                                        setSignupEmail(e.target.value)
+                                    }
                                     placeholder="Email Address"
                                     className={inputStyle}
                                 />
 
-
                                 <select
-                                    defaultValue=""
-                                    className="
-                                        w-full
-                                        px-4
-                                        py-3
-                                        rounded-xl
-
-                                        border
-                                        border-gray-300
-                                        dark:border-slate-700
-
-                                        bg-white
-                                        dark:bg-slate-800
-
-                                        text-gray-600
-                                        dark:text-gray-300
-
-                                        outline-none
-                                    "
+                                    value={signupRole}
+                                    onChange={(e) =>
+                                        setSignupRole(e.target.value)
+                                    }
+                                    className={inputStyle}
                                 >
 
-                                    <option
-                                        value=""
-                                        disabled
-                                        className="dark:bg-slate-800"
-                                    >
+                                    <option value="" disabled>
                                         Select Account Type
                                     </option>
 
-                                    <option
-                                        value="student"
-                                        className="dark:bg-slate-800"
-                                    >
+                                    <option value="student">
                                         Student
                                     </option>
 
-                                    <option
-                                        value="teacher"
-                                        className="dark:bg-slate-800"
-                                    >
+                                    <option value="teacher">
                                         Teacher
                                     </option>
 
                                 </select>
 
-
                                 <input
                                     type="password"
+                                    value={signupPassword}
+                                    onChange={(e) =>
+                                        setSignupPassword(e.target.value)
+                                    }
                                     placeholder="Create Password"
                                     className={inputStyle}
                                 />
 
                                 <input
                                     type="password"
+                                    value={confirmPassword}
+                                    onChange={(e) =>
+                                        setConfirmPassword(e.target.value)
+                                    }
                                     placeholder="Confirm Password"
                                     className={inputStyle}
                                 />
 
+                                <label
+                                    className="
+                                        flex
+                                        items-start
+                                        gap-2
+                                        text-xs
+                                        text-gray-600
+                                        dark:text-gray-400
+                                    "
+                                >
+
+                                    <input
+                                        type="checkbox"
+                                        checked={agreeTerms}
+                                        onChange={(e) =>
+                                            setAgreeTerms(
+                                                e.target.checked
+                                            )
+                                        }
+                                        className="mt-0.5 accent-indigo-600"
+                                    />
+
+                                    <span>
+                                        I agree to the Shiyora terms and
+                                        conditions.
+                                    </span>
+
+                                </label>
 
                                 <button
-                                    type="button"
+                                    type="submit"
                                     className="
                                         w-full
                                         py-3
                                         rounded-xl
-
                                         bg-indigo-600
-
                                         text-white
                                         font-semibold
-
                                         hover:bg-indigo-700
-
                                         transition
                                     "
                                 >
                                     Create Account
                                 </button>
 
-                            </div>
-
-
-                            {/* SWITCH */}
+                            </form>
 
                             <p
                                 className="
                                     text-center
                                     text-sm
-
                                     text-gray-600
                                     dark:text-gray-400
-
                                     mt-5
                                 "
                             >
-
                                 Already have an account?
 
                                 <button
@@ -1331,10 +1340,8 @@ function Auth() {
                                     onClick={switchToLogin}
                                     className="
                                         ml-1
-
                                         text-indigo-600
                                         dark:text-indigo-400
-
                                         font-semibold
                                     "
                                 >
