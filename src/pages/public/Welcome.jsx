@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import shiyoraLogo from "../../assets/shiyora-logo.png";
+import shiyoraLogo from "../../assets/shiyora.logo.png";
+import "./Welcome.css";
 
 function Welcome() {
     const navigate = useNavigate();
@@ -8,7 +9,7 @@ function Welcome() {
     useEffect(() => {
         const timer = setTimeout(() => {
             navigate("/home", { replace: true });
-        }, 2000);
+        }, 2500);
 
         return () => clearTimeout(timer);
     }, [navigate]);
@@ -16,57 +17,151 @@ function Welcome() {
     return (
         <div className="welcome-screen">
 
-            {/* Background Effects */}
-            <div className="welcome-glow welcome-glow-one"></div>
-            <div className="welcome-glow welcome-glow-two"></div>
+            {/*BACKGROUND*/}
 
-            {/* Grid */}
-            <div className="welcome-grid"></div>
+            <div className="welcome-background">
 
-            {/* Main Content */}
-            <div className="welcome-content">
+                <div className="welcome-orb welcome-orb-cyan"></div>
 
-                {/* LEFT — BIG LOGO */}
-                <div className="welcome-logo-wrapper">
-                    <div className="welcome-logo-box">
+                <div className="welcome-orb welcome-orb-purple"></div>
 
-                        <img
-                            src={shiyoraLogo}
-                            alt="Shiyora Logo"
-                            className="welcome-logo"
-                        />
+                <div className="welcome-orb welcome-orb-blue"></div>
 
-                    </div>
+                <div className="welcome-grid"></div>
+
+            </div>
+
+
+            {/* TOP BRAND */}
+
+            <div className="welcome-top-brand">
+
+                <img
+                    src={shiyoraLogo}
+                    alt="Shiyora"
+                />
+
+                <span>SHIYORA</span>
+
+            </div>
+
+
+            {/* MAIN CONTENT*/}
+
+            <main className="welcome-content">
+
+                {/* logo */}
+
+                <div className="welcome-logo-container">
+
+                    <div className="welcome-logo-glow"></div>
+
+                    <img
+                        src={shiyoraLogo}
+                        alt="Shiyora Logo"
+                        className="welcome-logo"
+                    />
+
                 </div>
 
 
-                {/* RIGHT — TEXT */}
+
+                {/* text */}
                 <div className="welcome-text">
 
-                    <p className="welcome-small">
-                        YOUR LEARNING JOURNEY STARTS HERE
-                    </p>
+
+                    {/* Badge */}
+
+                    <div className="welcome-badge">
+
+                        <span className="badge-dot"></span>
+
+                        SMART LEARNING PLATFORM
+
+                    </div>
+
+
+                    {/* Main Heading */}
 
                     <h1 className="welcome-title">
-                        Welcome to
-                        <br />
-                        <span>Shiyora</span>
+
+                        Learn.
+
+                        <span> Grow.</span>
+
+                        {" "}Achieve.
+
                     </h1>
 
+
+                    {/* Subtitle */}
+
                     <p className="welcome-subtitle">
-                        Learn smarter. Grow faster.
+
+                        Your learning journey starts with
+
+                        <strong> Shiyora</strong>
+
                     </p>
+
+
+                    {/* Description */}
 
                     <p className="welcome-description">
-                        Your intelligent learning platform
+
+                        Learn smarter. Build skills. Track your progress.
+
                     </p>
 
-                    {/* Loading */}
-                    <div className="welcome-loader">
-                        <div className="welcome-loader-bar"></div>
+
+                </div>
+
+
+                {/* loading */}
+
+                <div className="welcome-loading">
+
+                    <div className="loading-info">
+
+                        <span>
+                            Preparing your learning journey
+                        </span>
+
+                        <span className="loading-dots">
+
+                            <i></i>
+                            <i></i>
+                            <i></i>
+
+                        </span>
+
+                    </div>
+
+
+                    <div className="loading-track">
+
+                        <div className="loading-progress"></div>
+
                     </div>
 
                 </div>
+
+            </main>
+
+
+            {/*FOOTER */}
+
+            <div className="welcome-footer">
+
+                <span>Learn</span>
+
+                <b>•</b>
+
+                <span>Grow</span>
+
+                <b>•</b>
+
+                <span>Achieve</span>
 
             </div>
 

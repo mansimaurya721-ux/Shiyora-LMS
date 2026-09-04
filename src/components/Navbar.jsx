@@ -1,32 +1,8 @@
 import { NavLink, Link } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 function Navbar() {
-    /* =====================================================
-       DARK / LIGHT MODE
-    ====================================================== */
-
-    const [darkMode, setDarkMode] = useState(() => {
-        return localStorage.getItem("theme") === "dark";
-    });
-
     const [menuOpen, setMenuOpen] = useState(false);
-
-    useEffect(() => {
-        const root = document.documentElement;
-
-        if (darkMode) {
-            root.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-        } else {
-            root.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-        }
-    }, [darkMode]);
-
-    /* =====================================================
-       CLOSE MOBILE MENU
-    ====================================================== */
 
     const closeMenu = () => {
         setMenuOpen(false);
@@ -41,13 +17,14 @@ function Navbar() {
         relative
         py-2
         text-sm
-        font-semibold
+        font-medium
         transition-all
         duration-300
+        font-['Inter']
 
         ${isActive
-            ? "text-violet-600 dark:text-cyan-400"
-            : "text-slate-700 hover:text-violet-600 dark:text-slate-300 dark:hover:text-cyan-400"
+            ? "text-[#F2B84B]"
+            : "text-[#F3EEDD]/70 hover:text-[#F2B84B]"
         }
         `;
 
@@ -57,27 +34,30 @@ function Navbar() {
                 sticky
                 top-0
                 z-50
+                w-full
 
-                bg-white/90
-                dark:bg-[#080b14]/95
-
+                bg-[#161F19]/95
                 backdrop-blur-xl
 
                 border-b
-                border-slate-200
-                dark:border-white/10
+                border-[#F3EEDD]/10
 
                 transition-all
                 duration-300
             "
         >
+
+            {/* =================================================
+                NAVBAR CONTAINER
+            ================================================== */}
+
             <div
                 className="
                     max-w-7xl
                     mx-auto
                     px-5
                     sm:px-6
-                    py-4
+                    h-[70px]
 
                     flex
                     items-center
@@ -96,72 +76,84 @@ function Navbar() {
                         flex
                         items-center
                         gap-3
-                        group
                         shrink-0
+                        group
                     "
                 >
+
                     {/* Logo */}
+
                     <div
                         className="
+                            relative
                             w-10
                             h-10
-
                             rounded-xl
 
-                            bg-gradient-to-br
-                            from-violet-600
-                            via-purple-500
-                            to-cyan-400
-
-                            text-white
+                            bg-[#F2B84B]
 
                             flex
                             items-center
                             justify-center
 
-                            font-black
+                            text-[#161F19]
+
+                            font-['Space_Grotesk']
+                            font-bold
                             text-xl
 
-                            shadow-lg
-                            shadow-violet-500/20
+                            shadow-[0_0_22px_rgba(242,184,75,0.15)]
 
                             group-hover:scale-105
-                            group-hover:shadow-cyan-500/20
+                            group-hover:shadow-[0_0_28px_rgba(242,184,75,0.25)]
 
                             transition-all
                             duration-300
                         "
                     >
                         S
+
+                        {/* Small shine */}
+
+                        <span
+                            className="
+                                absolute
+                                top-1
+                                right-1
+
+                                w-1.5
+                                h-1.5
+
+                                rounded-full
+                                bg-[#F3EEDD]/80
+                            "
+                        />
                     </div>
 
+
                     {/* Brand */}
+
                     <div className="leading-none">
+
                         <span
                             className="
                                 text-xl
                                 sm:text-2xl
-                                font-extrabold
+
+                                font-['Space_Grotesk']
+                                font-bold
                                 tracking-tight
 
-                                text-slate-900
-                                dark:text-white
+                                text-[#F3EEDD]
                             "
                         >
-                            Shi
-                            <span
-                                className="
-                                    text-violet-600
-                                    dark:text-cyan-400
-                                "
-                            >
-                                yora
-                            </span>
+                            Shiyora
                         </span>
 
                         <span
                             className="
                                 block
+                                mt-1
 
                                 text-[8px]
                                 sm:text-[9px]
@@ -169,16 +161,17 @@ function Navbar() {
                                 uppercase
                                 tracking-[0.25em]
 
-                                text-slate-400
-                                dark:text-slate-500
-
-                                mt-1
+                                font-['JetBrains_Mono']
+                                text-[#F3EEDD]/40
                             "
                         >
                             Learning Platform
                         </span>
+
                     </div>
+
                 </Link>
+
 
                 {/* =================================================
                     DESKTOP NAVIGATION
@@ -188,8 +181,9 @@ function Navbar() {
                     className="
                         hidden
                         lg:flex
+
                         items-center
-                        gap-7
+                        gap-8
                     "
                 >
 
@@ -207,26 +201,124 @@ function Navbar() {
                                     <span
                                         className="
                                             absolute
-                                            left-0
-                                            right-0
+                                            left-1/2
+                                            -translate-x-1/2
                                             -bottom-1
 
+                                            w-5
                                             h-[2px]
 
                                             rounded-full
 
-                                            bg-gradient-to-r
-                                            from-violet-500
-                                            to-cyan-400
+                                            bg-[#F2B84B]
 
-                                            shadow-lg
-                                            shadow-cyan-400/40
+                                            shadow-[0_0_10px_rgba(242,184,75,0.7)]
                                         "
                                     />
                                 )}
                             </>
                         )}
                     </NavLink>
+
+
+                    {/* COURSES */}
+
+                    <NavLink
+                        to="/course"
+                        className={navLinkClass}
+                    >
+                        {({ isActive }) => (
+                            <>
+                                Courses
+
+                                {isActive && (
+                                    <span
+                                        className="
+                                            absolute
+                                            left-1/2
+                                            -translate-x-1/2
+                                            -bottom-1
+
+                                            w-5
+                                            h-[2px]
+                                            rounded-full
+
+                                            bg-[#F2B84B]
+
+                                            shadow-[0_0_10px_rgba(242,184,75,0.7)]
+                                        "
+                                    />
+                                )}
+                            </>
+                        )}
+                    </NavLink>
+
+
+                    {/* FEATURES */}
+
+                    <NavLink
+                        to="/feature"
+                        className={navLinkClass}
+                    >
+                        {({ isActive }) => (
+                            <>
+                                Features
+
+                                {isActive && (
+                                    <span
+                                        className="
+                                            absolute
+                                            left-1/2
+                                            -translate-x-1/2
+                                            -bottom-1
+
+                                            w-5
+                                            h-[2px]
+                                            rounded-full
+
+                                            bg-[#F2B84B]
+
+                                            shadow-[0_0_10px_rgba(242,184,75,0.7)]
+                                        "
+                                    />
+                                )}
+                            </>
+                        )}
+                    </NavLink>
+
+
+                    {/* PLANS */}
+
+                    <NavLink
+                        to="/subscription"
+                        className={navLinkClass}
+                    >
+                        {({ isActive }) => (
+                            <>
+                                Plans
+
+                                {isActive && (
+                                    <span
+                                        className="
+                                            absolute
+                                            left-1/2
+                                            -translate-x-1/2
+                                            -bottom-1
+
+                                            w-5
+                                            h-[2px]
+                                            rounded-full
+
+                                            bg-[#F2B84B]
+
+                                            shadow-[0_0_10px_rgba(242,184,75,0.7)]
+                                        "
+                                    />
+                                )}
+                            </>
+                        )}
+                    </NavLink>
+
 
                     {/* ABOUT */}
 
@@ -242,26 +334,24 @@ function Navbar() {
                                     <span
                                         className="
                                             absolute
-                                            left-0
-                                            right-0
+                                            left-1/2
+                                            -translate-x-1/2
                                             -bottom-1
 
+                                            w-5
                                             h-[2px]
-
                                             rounded-full
 
-                                            bg-gradient-to-r
-                                            from-violet-500
-                                            to-cyan-400
+                                            bg-[#F2B84B]
 
-                                            shadow-lg
-                                            shadow-cyan-400/40
+                                            shadow-[0_0_10px_rgba(242,184,75,0.7)]
                                         "
                                     />
                                 )}
                             </>
                         )}
                     </NavLink>
+
 
                     {/* CONTACT */}
 
@@ -277,273 +367,105 @@ function Navbar() {
                                     <span
                                         className="
                                             absolute
-                                            left-0
-                                            right-0
+                                            left-1/2
+                                            -translate-x-1/2
                                             -bottom-1
 
+                                            w-5
                                             h-[2px]
-
                                             rounded-full
 
-                                            bg-gradient-to-r
-                                            from-violet-500
-                                            to-cyan-400
+                                            bg-[#F2B84B]
 
-                                            shadow-lg
-                                            shadow-cyan-400/40
+                                            shadow-[0_0_10px_rgba(242,184,75,0.7)]
                                         "
                                     />
                                 )}
                             </>
                         )}
                     </NavLink>
+
+                </div>
+
+
+                {/* =================================================
+                    RIGHT SIDE ACTIONS
+                ================================================== */}
+
+                <div
+                    className="
+                        hidden
+                        lg:flex
+
+                        items-center
+                        gap-3
+                    "
+                >
 
                     {/* LOGIN */}
 
-                    <NavLink
+                    <Link
                         to="/login"
-                        className={navLinkClass}
+                        className="
+                            px-4
+                            py-2
+
+                            rounded-lg
+
+                            border
+                            border-[#F3EEDD]/15
+
+                            text-sm
+                            font-medium
+
+                            font-['Inter']
+
+                            text-[#F3EEDD]/75
+
+                            hover:border-[#F2B84B]/50
+                            hover:text-[#F2B84B]
+                            hover:bg-[#F2B84B]/5
+
+                            transition-all
+                            duration-300
+                        "
                     >
-                        {({ isActive }) => (
-                            <>
-                                Login
+                        Login
+                    </Link>
 
-                                {isActive && (
-                                    <span
-                                        className="
-                                            absolute
-                                            left-0
-                                            right-0
-                                            -bottom-1
-
-                                            h-[2px]
-
-                                            rounded-full
-
-                                            bg-gradient-to-r
-                                            from-violet-500
-                                            to-cyan-400
-
-                                            shadow-lg
-                                            shadow-cyan-400/40
-                                        "
-                                    />
-                                )}
-                            </>
-                        )}
-                    </NavLink>
 
                     {/* CREATE ACCOUNT */}
 
-                    <NavLink
+                    <Link
                         to="/signup"
-                        className={({ isActive }) =>
-                            `
-                            px-4
-                            py-2
+                        className="
+                            px-5
+                            py-2.5
 
                             rounded-lg
 
                             text-sm
                             font-semibold
 
-                            border
+                            font-['Inter']
+
+                            bg-[#F2B84B]
+                            text-[#161F19]
+
+                            shadow-[0_0_20px_rgba(242,184,75,0.15)]
+
+                            hover:bg-[#f7c968]
+                            hover:-translate-y-0.5
 
                             transition-all
                             duration-300
-
-                            ${isActive
-                                ? `
-                                        bg-slate-900
-                                        text-white
-                                        border-slate-900
-
-                                        dark:bg-white
-                                        dark:text-slate-900
-                                        dark:border-white
-                                    `
-                                : `
-                                        border-slate-300
-                                        text-slate-700
-
-                                        hover:border-violet-400
-                                        hover:text-violet-600
-
-                                        dark:border-white/15
-                                        dark:text-slate-300
-
-                                        dark:hover:border-cyan-400/50
-                                        dark:hover:text-cyan-400
-                                        dark:hover:bg-white/5
-                                    `
-                            }
-                            `
-                        }
-                    >
-                        Create Account
-                    </NavLink>
-
-                    {/* SUBSCRIPTION */}
-
-                    <NavLink
-                        to="/subscription"
-                        className={({ isActive }) =>
-                            `
-                            px-5
-                            py-2.5
-
-                            rounded-xl
-
-                            text-sm
-                            font-semibold
-
-                            text-white
-
-                            bg-gradient-to-r
-                            from-violet-600
-                            to-cyan-500
-
-                            transition-all
-                            duration-300
-
-                            ${isActive
-                                ? `
-                                        shadow-lg
-                                        shadow-cyan-500/20
-                                        ring-1
-                                        ring-cyan-300/30
-                                    `
-                                : `
-                                        hover:-translate-y-0.5
-                                        hover:shadow-lg
-                                        hover:shadow-violet-500/25
-                                    `
-                            }
-                            `
-                        }
-                    >
-                        Subscription
-                    </NavLink>
-
-                    {/* =================================================
-                        THEME TOGGLE
-                    ================================================== */}
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            setDarkMode((previous) => !previous)
-                        }
-                        aria-label={
-                            darkMode
-                                ? "Switch to light mode"
-                                : "Switch to dark mode"
-                        }
-                        title={
-                            darkMode
-                                ? "Switch to light mode"
-                                : "Switch to dark mode"
-                        }
-                        className="
-                            relative
-
-                            w-11
-                            h-11
-
-                            rounded-xl
-
-                            flex
-                            items-center
-                            justify-center
-
-                            border
-
-                            border-slate-200
-                            bg-slate-100
-
-                            hover:bg-slate-200
-
-                            dark:border-white/10
-                            dark:bg-white/5
-                            dark:hover:bg-white/10
-
-                            transition-all
-                            duration-300
-
-                            hover:scale-105
                         "
                     >
-                        {darkMode ? (
+                        Create Account
+                    </Link>
 
-                            /* LIGHT MODE ICON */
-
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="
-                                    w-5
-                                    h-5
-                                    text-yellow-400
-                                    drop-shadow-[0_0_8px_rgba(250,204,21,0.5)]
-                                "
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                            >
-                                <circle
-                                    cx="12"
-                                    cy="12"
-                                    r="4"
-                                />
-
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="
-                                        M12 2v2
-                                        m0 16v2
-                                        M4.93 4.93l1.42 1.42
-                                        m11.3 11.3l1.42 1.42
-                                        M2 12h2
-                                        m16 0h2
-                                        M4.93 19.07l1.42-1.42
-                                        m11.3-11.3l1.42-1.42
-                                    "
-                                />
-                            </svg>
-
-                        ) : (
-
-                            /* DARK MODE ICON */
-
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                className="
-                                    w-5
-                                    h-5
-                                    text-violet-600
-                                    dark:text-cyan-400
-                                "
-                                fill="none"
-                                viewBox="0 0 24 24"
-                                stroke="currentColor"
-                                strokeWidth="2"
-                            >
-                                <path
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                    d="
-                                        M21 12.79
-                                        A9 9 0 1 1
-                                        11.21 3
-                                        A7 7 0 0 0 21 12.79z
-                                    "
-                                />
-                            </svg>
-
-                        )}
-                    </button>
                 </div>
+
 
                 {/* =================================================
                     MOBILE MENU BUTTON
@@ -558,33 +480,32 @@ function Navbar() {
                     className="
                         lg:hidden
 
-                        w-11
-                        h-11
+                        w-10
+                        h-10
 
-                        rounded-xl
+                        rounded-lg
 
                         flex
                         items-center
                         justify-center
 
                         border
-                        border-slate-200
-                        bg-slate-100
+                        border-[#F3EEDD]/15
 
-                        dark:border-white/10
-                        dark:bg-white/5
+                        bg-[#1B241E]
 
-                        text-slate-700
-                        dark:text-white
+                        text-[#F3EEDD]/70
+
+                        hover:text-[#F2B84B]
+                        hover:border-[#F2B84B]/40
 
                         transition-all
-
-                        hover:scale-105
                     "
                 >
+
                     {menuOpen ? (
 
-                        /* CLOSE ICON */
+                        /* CLOSE */
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -603,7 +524,7 @@ function Navbar() {
 
                     ) : (
 
-                        /* MENU ICON */
+                        /* MENU */
 
                         <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -621,31 +542,33 @@ function Navbar() {
                         </svg>
 
                     )}
+
                 </button>
+
             </div>
+
 
             {/* =====================================================
                 MOBILE NAVIGATION
             ====================================================== */}
 
             {menuOpen && (
+
                 <div
                     className="
                         lg:hidden
 
                         border-t
-                        border-slate-200
-                        dark:border-white/10
+                        border-[#F3EEDD]/10
 
-                        bg-white
-                        dark:bg-[#080b14]
+                        bg-[#141C17]
 
                         px-5
                         py-5
 
                         space-y-2
 
-                        shadow-lg
+                        shadow-2xl
                     "
                 >
 
@@ -654,227 +577,251 @@ function Navbar() {
                     <NavLink
                         to="/home"
                         onClick={closeMenu}
-                        className="
+                        className={({ isActive }) =>
+                            `
                             block
+
                             px-4
                             py-3
-                            rounded-xl
 
-                            text-slate-700
-                            hover:text-violet-600
-                            hover:bg-violet-50
+                            rounded-lg
 
-                            dark:text-slate-300
-                            dark:hover:text-cyan-400
-                            dark:hover:bg-white/5
+                            font-medium
+                            font-['Inter']
 
-                            font-semibold
-                            transition
-                        "
+                            transition-all
+
+                            ${isActive
+                                ? "bg-[#F2B84B]/10 text-[#F2B84B] border border-[#F2B84B]/20"
+                                : "text-[#F3EEDD]/70 hover:bg-[#F3EEDD]/5 hover:text-[#F2B84B]"
+                            }
+                            `
+                        }
                     >
                         Home
                     </NavLink>
+
+
+                    {/* COURSES */}
+
+                    <NavLink
+                        to="/courses"
+                        onClick={closeMenu}
+                        className={({ isActive }) =>
+                            `
+                            block
+                            px-4
+                            py-3
+
+                            rounded-lg
+
+                            font-medium
+                            font-['Inter']
+
+                            transition-all
+
+                            ${isActive
+                                ? "bg-[#F2B84B]/10 text-[#F2B84B] border border-[#F2B84B]/20"
+                                : "text-[#F3EEDD]/70 hover:bg-[#F3EEDD]/5 hover:text-[#F2B84B]"
+                            }
+                            `
+                        }
+                    >
+                        Courses
+                    </NavLink>
+
+
+                    {/* FEATURES */}
+
+                    <NavLink
+                        to="/features"
+                        onClick={closeMenu}
+                        className={({ isActive }) =>
+                            `
+                            block
+                            px-4
+                            py-3
+
+                            rounded-lg
+
+                            font-medium
+                            font-['Inter']
+
+                            transition-all
+
+                            ${isActive
+                                ? "bg-[#F2B84B]/10 text-[#F2B84B] border border-[#F2B84B]/20"
+                                : "text-[#F3EEDD]/70 hover:bg-[#F3EEDD]/5 hover:text-[#F2B84B]"
+                            }
+                            `
+                        }
+                    >
+                        Features
+                    </NavLink>
+
+
+                    {/* PLANS */}
+
+                    <NavLink
+                        to="/subscription"
+                        onClick={closeMenu}
+                        className={({ isActive }) =>
+                            `
+                            block
+                            px-4
+                            py-3
+
+                            rounded-lg
+
+                            font-medium
+                            font-['Inter']
+
+                            transition-all
+
+                            ${isActive
+                                ? "bg-[#F2B84B]/10 text-[#F2B84B] border border-[#F2B84B]/20"
+                                : "text-[#F3EEDD]/70 hover:bg-[#F3EEDD]/5 hover:text-[#F2B84B]"
+                            }
+                            `
+                        }
+                    >
+                        Plans
+                    </NavLink>
+
 
                     {/* ABOUT */}
 
                     <NavLink
                         to="/about"
                         onClick={closeMenu}
-                        className="
+                        className={({ isActive }) =>
+                            `
                             block
                             px-4
                             py-3
-                            rounded-xl
 
-                            text-slate-700
-                            hover:text-violet-600
-                            hover:bg-violet-50
+                            rounded-lg
 
-                            dark:text-slate-300
-                            dark:hover:text-cyan-400
-                            dark:hover:bg-white/5
+                            font-medium
+                            font-['Inter']
 
-                            font-semibold
-                            transition
-                        "
+                            transition-all
+
+                            ${isActive
+                                ? "bg-[#F2B84B]/10 text-[#F2B84B] border border-[#F2B84B]/20"
+                                : "text-[#F3EEDD]/70 hover:bg-[#F3EEDD]/5 hover:text-[#F2B84B]"
+                            }
+                            `
+                        }
                     >
                         About
                     </NavLink>
+
 
                     {/* CONTACT */}
 
                     <NavLink
                         to="/contact"
                         onClick={closeMenu}
-                        className="
+                        className={({ isActive }) =>
+                            `
                             block
                             px-4
                             py-3
-                            rounded-xl
 
-                            text-slate-700
-                            hover:text-violet-600
-                            hover:bg-violet-50
+                            rounded-lg
 
-                            dark:text-slate-300
-                            dark:hover:text-cyan-400
-                            dark:hover:bg-white/5
+                            font-medium
+                            font-['Inter']
 
-                            font-semibold
-                            transition
-                        "
+                            transition-all
+
+                            ${isActive
+                                ? "bg-[#F2B84B]/10 text-[#F2B84B] border border-[#F2B84B]/20"
+                                : "text-[#F3EEDD]/70 hover:bg-[#F3EEDD]/5 hover:text-[#F2B84B]"
+                            }
+                            `
+                        }
                     >
                         Contact
                     </NavLink>
 
+
+                    {/* DIVIDER */}
+
+                    <div
+                        className="
+                            h-px
+                            bg-[#F3EEDD]/10
+                            my-4
+                        "
+                    />
+
+
                     {/* LOGIN */}
 
-                    <NavLink
+                    <Link
                         to="/login"
-                        onClick={closeMenu}
-                        className="
-                            block
-                            px-4
-                            py-3
-                            rounded-xl
-
-                            text-slate-700
-                            hover:text-violet-600
-                            hover:bg-violet-50
-
-                            dark:text-slate-300
-                            dark:hover:text-cyan-400
-                            dark:hover:bg-white/5
-
-                            font-semibold
-                            transition
-                        "
-                    >
-                        Login
-                    </NavLink>
-
-                    {/* CREATE ACCOUNT */}
-
-                    <NavLink
-                        to="/signup"
-                        onClick={closeMenu}
-                        className="
-                            block
-                            px-4
-                            py-3
-                            rounded-xl
-
-                            border
-                            border-slate-200
-
-                            text-slate-700
-
-                            hover:border-violet-400
-                            hover:text-violet-600
-
-                            dark:border-white/10
-                            dark:text-slate-300
-
-                            dark:hover:border-cyan-400/40
-                            dark:hover:text-cyan-400
-
-                            font-semibold
-                            transition
-                        "
-                    >
-                        Create Account
-                    </NavLink>
-
-                    {/* SUBSCRIPTION */}
-
-                    <NavLink
-                        to="/subscription"
                         onClick={closeMenu}
                         className="
                             block
                             text-center
 
-                            px-5
-                            py-3
-
-                            rounded-xl
-
-                            text-white
-                            font-semibold
-
-                            bg-gradient-to-r
-                            from-violet-600
-                            to-cyan-500
-
-                            shadow-lg
-                            shadow-violet-500/10
-
-                            transition-all
-                            hover:-translate-y-0.5
-                        "
-                    >
-                        Subscription
-                    </NavLink>
-
-                    {/* MOBILE THEME BUTTON */}
-
-                    <button
-                        type="button"
-                        onClick={() =>
-                            setDarkMode((previous) => !previous)
-                        }
-                        className="
-                            w-full
-
-                            mt-2
                             px-4
                             py-3
 
-                            rounded-xl
-
-                            flex
-                            items-center
-                            justify-center
-                            gap-3
+                            rounded-lg
 
                             border
-                            border-slate-200
+                            border-[#F3EEDD]/15
 
-                            bg-slate-50
-                            text-slate-700
-
-                            dark:border-white/10
-                            dark:bg-white/5
-                            dark:text-slate-300
+                            text-[#F3EEDD]/80
 
                             font-semibold
+                            font-['Inter']
 
-                            transition
+                            hover:border-[#F2B84B]/50
+                            hover:text-[#F2B84B]
 
-                            hover:bg-slate-100
-                            dark:hover:bg-white/10
+                            transition-all
                         "
                     >
-                        {darkMode ? (
-                            <>
-                                <span className="text-yellow-400">
-                                    ☀
-                                </span>
+                        Login
+                    </Link>
 
-                                Switch to Light Mode
-                            </>
-                        ) : (
-                            <>
-                                <span className="text-violet-600 dark:text-cyan-400">
-                                    ☾
-                                </span>
 
-                                Switch to Dark Mode
-                            </>
-                        )}
-                    </button>
+                    {/* CREATE ACCOUNT */}
+
+                    <Link
+                        to="/signup"
+                        onClick={closeMenu}
+                        className="
+                            block
+                            text-center
+
+                            px-4
+                            py-3
+
+                            rounded-lg
+
+                            bg-[#F2B84B]
+                            text-[#161F19]
+
+                            font-bold
+                            font-['Inter']
+
+                            hover:bg-[#f7c968]
+
+                            transition-all
+                        "
+                    >
+                        Create Account
+                    </Link>
+
                 </div>
+
             )}
+
         </nav>
     );
 }

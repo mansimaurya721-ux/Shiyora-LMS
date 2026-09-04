@@ -1,27 +1,115 @@
 import { useState, useEffect } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
+import shiyoraLogo from "../../assets/shiyora.logo.png";
+
+const FONT_IMPORTS =
+    "@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap');";
+
+
+// SMALL ICONS
+
+
+function ArrowIcon({ className = "" }) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.8"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+        >
+            <path d="M5 12h14" />
+            <path d="m13 6 6 6-6 6" />
+        </svg>
+    );
+}
+
+function MailIcon({ className = "" }) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+        >
+            <rect x="3" y="5" width="18" height="14" rx="2" />
+            <path d="m3 7 9 6 9-6" />
+        </svg>
+    );
+}
+
+function LockIcon({ className = "" }) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+        >
+            <rect x="5" y="10" width="14" height="10" rx="2" />
+            <path d="M8 10V7a4 4 0 0 1 8 0v3" />
+        </svg>
+    );
+}
+
+function UserIcon({ className = "" }) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.7"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+        >
+            <circle cx="12" cy="8" r="3.5" />
+            <path d="M5 20c.7-3.5 3.1-5.5 7-5.5s6.3 2 7 5.5" />
+        </svg>
+    );
+}
+
+function CapIcon({ className = "" }) {
+    return (
+        <svg
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="1.6"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className={className}
+        >
+            <path d="M12 3 1 8l11 5 9-4.09V17h2V8L12 3Z" />
+            <path d="M5 10.5V16c0 1.5 3 3 7 3s7-1.5 7-3v-5.5" />
+        </svg>
+    );
+}
+
+
+// AUTH
 
 function Auth() {
     const location = useLocation();
     const navigate = useNavigate();
 
-    // ================= AUTH MODE =================
-
     const [isSignup, setIsSignup] = useState(
         location.pathname === "/signup"
     );
 
-    // ================= DARK / LIGHT MODE =================
-
-    const [darkMode, setDarkMode] = useState(() => {
-        return localStorage.getItem("theme") === "dark";
-    });
-
-    // ================= LOGIN STATES =================
-
+    // LOGIN
     const [loginEmail, setLoginEmail] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
 
+    // SIGNUP
     const [signupName, setSignupName] = useState("");
     const [signupEmail, setSignupEmail] = useState("");
     const [signupRole, setSignupRole] = useState("");
@@ -29,22 +117,15 @@ function Auth() {
     const [confirmPassword, setConfirmPassword] = useState("");
     const [agreeTerms, setAgreeTerms] = useState(false);
 
+    // MESSAGES
     const [error, setError] = useState("");
     const [success, setSuccess] = useState("");
 
-    // ================= THEME =================
-
     useEffect(() => {
-        if (darkMode) {
-            document.documentElement.classList.add("dark");
-            localStorage.setItem("theme", "dark");
-        } else {
-            document.documentElement.classList.remove("dark");
-            localStorage.setItem("theme", "light");
-        }
-    }, [darkMode]);
+        setIsSignup(location.pathname === "/signup");
+    }, [location.pathname]);
 
-    // ================= SWITCH FUNCTIONS =================
+    //switch
 
     const switchToSignup = () => {
         setError("");
@@ -60,28 +141,26 @@ function Auth() {
         navigate("/login");
     };
 
-    // ================= LOGIN =================
-
+    // LOGIN
     const handleLogin = (e) => {
         e.preventDefault();
 
         setError("");
         setSuccess("");
 
-        // Basic validation
         if (!loginEmail || !loginPassword) {
             setError("Please enter email and password.");
             return;
         }
 
-        // ================= SUPER ADMIN LOGIN =================
-
+        // SUPER ADMIN
         if (
             loginEmail === "superadmin@shiyora.com" &&
             loginPassword === "SuperAdmin@123"
         ) {
             localStorage.setItem("isLoggedIn", "true");
             localStorage.setItem("userRole", "superadmin");
+
             localStorage.setItem(
                 "user",
                 JSON.stringify({
@@ -95,8 +174,7 @@ function Auth() {
             return;
         }
 
-        // ================= DEMO USERS =================
-
+        // DEMO USER
         const savedUser = localStorage.getItem("shiyoraUser");
 
         if (savedUser) {
@@ -118,8 +196,6 @@ function Auth() {
                     })
                 );
 
-                // For now student/teacher dashboards
-                // will be created later.
                 if (user.role === "student") {
                     navigate("/student/dashboard");
                 } else if (user.role === "teacher") {
@@ -132,8 +208,7 @@ function Auth() {
 
         setError("Invalid email or password.");
     };
-
-    // ================= SIGNUP =================
+    //signup
 
     const handleSignup = (e) => {
         e.preventDefault();
@@ -162,7 +237,6 @@ function Auth() {
             return;
         }
 
-        // Save demo user in localStorage
         const user = {
             name: signupName,
             email: signupEmail,
@@ -179,7 +253,6 @@ function Auth() {
             "Account created successfully! Please sign in."
         );
 
-        // Clear fields
         setSignupName("");
         setSignupEmail("");
         setSignupRole("");
@@ -187,115 +260,182 @@ function Auth() {
         setConfirmPassword("");
         setAgreeTerms(false);
 
-        // Switch to login after signup
         setTimeout(() => {
             setIsSignup(false);
             navigate("/login");
         }, 1200);
     };
 
-    // ================= INPUT STYLE =================
+    // ============================================================
+    // THEME STYLES
+    // ============================================================
 
     const inputStyle = `
-        w-full px-4 py-3 rounded-xl
-        border border-gray-300 dark:border-slate-700
-        bg-white dark:bg-slate-800
-        text-gray-900 dark:text-white
-        placeholder-gray-400 dark:placeholder-gray-500
+        w-full
+        rounded-xl
+        border
+        border-[#1C2A22]/15
+        bg-[#F3EEDD]/70
+        px-4
+        py-3
+        text-sm
+        text-[#1C2A22]
+        placeholder:text-[#1C2A22]/40
         outline-none
-        focus:border-indigo-500
+        transition-all
+        duration-300
+        hover:border-[#1C2A22]/25
+        focus:border-[#F2B84B]
         focus:ring-2
-        focus:ring-indigo-100
-        dark:focus:ring-indigo-900
-        transition
+        focus:ring-[#F2B84B]/20
+    `;
+
+    const errorStyle = `
+        rounded-xl
+        border
+        border-[#D6402C]/25
+        bg-[#D6402C]/10
+        px-4
+        py-3
+        text-sm
+        text-[#A92F21]
+    `;
+
+    const successStyle = `
+        rounded-xl
+        border
+        border-[#7C9A82]/30
+        bg-[#7C9A82]/10
+        px-4
+        py-3
+        text-sm
+        text-[#416348]
     `;
 
     return (
-        <div
+        <main
             className="
-                min-h-[calc(100vh-73px)]
-                bg-slate-100 dark:bg-slate-950
-                flex items-center justify-center
-                px-4 py-8
-                transition-colors duration-300
+                relative
+                min-h-screen
+                overflow-hidden
+                bg-[#161F19]
+                px-4
+                py-8
+                font-['Inter']
+                text-[#1C2A22]
+                sm:px-6
+                lg:py-12
             "
         >
+            <style>{FONT_IMPORTS}</style>
 
-            {/* ================= DARK MODE ================= */}
+            {/* ======================================================
+                BACKGROUND
+            ======================================================= */}
 
-            <button
-                type="button"
-                onClick={() => setDarkMode(!darkMode)}
-                aria-label="Toggle dark mode"
+            {/* Warm lamp glow */}
+            <div
                 className="
-                    fixed
-                    top-24
-                    right-6
-                    z-[999]
-                    w-11
-                    h-11
+                    pointer-events-none
+                    absolute
+                    -left-40
+                    -top-40
+                    h-[500px]
+                    w-[500px]
                     rounded-full
-                    flex
-                    items-center
-                    justify-center
-                    bg-white
-                    dark:bg-slate-800
-                    text-gray-700
-                    dark:text-yellow-300
-                    border
-                    border-gray-200
-                    dark:border-slate-700
-                    shadow-lg
-                    dark:shadow-black/40
-                    hover:scale-110
-                    active:scale-95
-                    transition-all
-                    duration-300
+                    bg-[#F2B84B]/[0.10]
+                    blur-[130px]
                 "
-            >
-                {darkMode ? "☀️" : "🌙"}
-            </button>
+            />
 
-            {/* ================= MAIN CARD ================= */}
+            {/* Green glow */}
+            <div
+                className="
+                    pointer-events-none
+                    absolute
+                    -bottom-40
+                    -right-40
+                    h-[520px]
+                    w-[520px]
+                    rounded-full
+                    bg-[#7C9A82]/[0.12]
+                    blur-[140px]
+                "
+            />
+
+            {/* Center glow */}
+            <div
+                className="
+                    pointer-events-none
+                    absolute
+                    left-1/2
+                    top-1/2
+                    h-[500px]
+                    w-[700px]
+                    -translate-x-1/2
+                    -translate-y-1/2
+                    rounded-full
+                    bg-[#F3EEDD]/[0.025]
+                    blur-[100px]
+                "
+            />
+
+            {/* Chalk dust */}
+            <div
+                className="
+                    pointer-events-none
+                    absolute
+                    inset-0
+                    opacity-[0.08]
+                "
+                style={{
+                    backgroundImage:
+                        "radial-gradient(rgba(243,238,221,0.7) 1px, transparent 1px)",
+                    backgroundSize: "24px 24px",
+                }}
+            />
+
+            {/* ======================================================
+                MAIN AUTH CARD
+            ======================================================= */}
 
             <div
                 className="
                     relative
+                    z-10
+                    mx-auto
                     w-full
-                    max-w-4xl
-                    min-h-[560px]
-                    bg-white
-                    dark:bg-slate-900
-                    rounded-3xl
-                    shadow-2xl
-                    dark:shadow-black/40
+                    max-w-5xl
                     overflow-hidden
-                    transition-colors
-                    duration-300
+                    rounded-2xl
+                    border
+                    border-[#F3EEDD]/10
+                    bg-[#F3EEDD]
+                    shadow-[0_30px_90px_rgba(0,0,0,0.55)]
+                    md:min-h-[640px]
+                    lg:rounded-3xl
                 "
             >
 
-                {/* =====================================================
-                    DESKTOP LOGIN
-                ====================================================== */}
+                {/* desktop login */}
 
                 <div
                     className={`
-                        hidden md:flex
                         absolute
-                        top-0
                         left-0
-                        w-1/2
+                        top-0
+                        hidden
                         h-full
+                        w-1/2
                         items-center
                         justify-center
-                        px-8
+                        px-10
                         transition-all
                         duration-700
                         ease-in-out
-
+                        md:flex
                         ${isSignup
-                            ? "translate-x-full opacity-0 pointer-events-none"
+                            ? "pointer-events-none translate-x-full opacity-0"
                             : "translate-x-0 opacity-100"
                         }
                     `}
@@ -303,241 +443,234 @@ function Auth() {
                         zIndex: isSignup ? 1 : 10,
                     }}
                 >
-
                     <div className="w-full max-w-sm">
 
-                        {/* LOGO */}
-
-                        <div className="flex justify-center mb-4">
-
+                        {/* Logo */}
+                        <div className="mb-5 flex justify-center">
                             <div
                                 className="
-                                    w-11
-                                    h-11
-                                    rounded-xl
-                                    bg-indigo-600
-                                    text-white
                                     flex
+                                    h-14
+                                    w-14
                                     items-center
                                     justify-center
-                                    font-bold
-                                    text-lg
-                                    shadow-md
+                                    rounded-2xl
+                                    border
+                                    border-[#1C2A22]/10
+                                    bg-white/60
+                                    shadow-[0_10px_30px_rgba(28,42,34,0.10)]
                                 "
                             >
-                                S
+                                <img
+                                    src={shiyoraLogo}
+                                    alt="Shiyora Logo"
+                                    className="h-11 w-11 object-contain"
+                                />
                             </div>
-
                         </div>
 
-                        <h2
-                            className="
-                                text-3xl
-                                font-bold
-                                text-gray-900
-                                dark:text-white
-                                text-center
-                            "
-                        >
-                            Welcome Back
-                        </h2>
-
-                        <p
-                            className="
-                                text-sm
-                                text-gray-500
-                                dark:text-gray-400
-                                text-center
-                                mt-2
-                            "
-                        >
-                            Sign in to continue to Shiyora
-                        </p>
-
-                        {/* ERROR */}
-
-                        {error && !isSignup && (
-                            <div
+                        {/* Heading */}
+                        <div className="text-center">
+                            <p
                                 className="
-                                    mt-4
-                                    rounded-xl
-                                    bg-red-50
-                                    dark:bg-red-950/40
-                                    border
-                                    border-red-200
-                                    dark:border-red-900
-                                    px-4
-                                    py-3
-                                    text-sm
-                                    text-red-600
-                                    dark:text-red-400
+                                    font-['JetBrains_Mono']
+                                    text-[10px]
+                                    font-semibold
+                                    uppercase
+                                    tracking-[0.2em]
+                                    text-[#D6402C]
                                 "
                             >
+                                Welcome Back
+                            </p>
+
+                            <h2
+                                className="
+                                    mt-2
+                                    font-['Space_Grotesk']
+                                    text-3xl
+                                    font-semibold
+                                    tracking-tight
+                                    text-[#1C2A22]
+                                "
+                            >
+                                Sign in to Shiyora
+                            </h2>
+
+                            <p className="mt-2 text-sm text-[#1C2A22]/50">
+                                Continue your learning journey.
+                            </p>
+                        </div>
+
+                        {/* Error */}
+                        {error && !isSignup && (
+                            <div className={`${errorStyle} mt-5`}>
                                 {error}
                             </div>
                         )}
 
-                        {/* SUCCESS */}
-
                         {success && !isSignup && (
-                            <div
-                                className="
-                                    mt-4
-                                    rounded-xl
-                                    bg-emerald-50
-                                    dark:bg-emerald-950/40
-                                    border
-                                    border-emerald-200
-                                    dark:border-emerald-900
-                                    px-4
-                                    py-3
-                                    text-sm
-                                    text-emerald-600
-                                    dark:text-emerald-400
-                                "
-                            >
+                            <div className={`${successStyle} mt-5`}>
                                 {success}
                             </div>
                         )}
 
-                        {/* LOGIN FORM */}
-
+                        {/* Login Form */}
                         <form
                             onSubmit={handleLogin}
-                            className="mt-7 space-y-4"
+                            className="mt-7 space-y-5"
                         >
-
-                            {/* EMAIL */}
-
+                            {/* Email */}
                             <div>
-
                                 <label
                                     className="
+                                        mb-2
                                         block
-                                        text-sm
+                                        text-xs
                                         font-semibold
-                                        text-gray-700
-                                        dark:text-gray-300
-                                        mb-1.5
+                                        uppercase
+                                        tracking-wide
+                                        text-[#1C2A22]/60
                                     "
                                 >
                                     Email Address
                                 </label>
 
-                                <input
-                                    type="email"
-                                    value={loginEmail}
-                                    onChange={(e) =>
-                                        setLoginEmail(e.target.value)
-                                    }
-                                    placeholder="Enter your email"
-                                    className={inputStyle}
-                                />
+                                <div className="relative">
+                                    <MailIcon
+                                        className="
+                                            pointer-events-none
+                                            absolute
+                                            left-4
+                                            top-1/2
+                                            h-4
+                                            w-4
+                                            -translate-y-1/2
+                                            text-[#1C2A22]/35
+                                        "
+                                    />
 
+                                    <input
+                                        type="email"
+                                        value={loginEmail}
+                                        onChange={(e) =>
+                                            setLoginEmail(
+                                                e.target.value
+                                            )
+                                        }
+                                        placeholder="Enter your email"
+                                        className={`${inputStyle} pl-11`}
+                                    />
+                                </div>
                             </div>
 
-                            {/* PASSWORD */}
-
+                            {/* Password */}
                             <div>
-
                                 <label
                                     className="
+                                        mb-2
                                         block
-                                        text-sm
+                                        text-xs
                                         font-semibold
-                                        text-gray-700
-                                        dark:text-gray-300
-                                        mb-1.5
+                                        uppercase
+                                        tracking-wide
+                                        text-[#1C2A22]/60
                                     "
                                 >
                                     Password
                                 </label>
 
-                                <input
-                                    type="password"
-                                    value={loginPassword}
-                                    onChange={(e) =>
-                                        setLoginPassword(e.target.value)
-                                    }
-                                    placeholder="Enter your password"
-                                    className={inputStyle}
-                                />
-
-                            </div>
-
-                            {/* REMEMBER / FORGOT */}
-
-                            <div
-                                className="
-                                    flex
-                                    items-center
-                                    justify-between
-                                    text-xs
-                                "
-                            >
-
-                                <label
-                                    className="
-                                        flex
-                                        items-center
-                                        gap-2
-                                        text-gray-600
-                                        dark:text-gray-400
-                                    "
-                                >
-
-                                    <input
-                                        type="checkbox"
-                                        className="accent-indigo-600"
+                                <div className="relative">
+                                    <LockIcon
+                                        className="
+                                            pointer-events-none
+                                            absolute
+                                            left-4
+                                            top-1/2
+                                            h-4
+                                            w-4
+                                            -translate-y-1/2
+                                            text-[#1C2A22]/35
+                                        "
                                     />
 
-                                    Remember me
+                                    <input
+                                        type="password"
+                                        value={loginPassword}
+                                        onChange={(e) =>
+                                            setLoginPassword(
+                                                e.target.value
+                                            )
+                                        }
+                                        placeholder="Enter your password"
+                                        className={`${inputStyle} pl-11`}
+                                    />
+                                </div>
+                            </div>
 
+                            {/* Remember */}
+                            <div className="flex items-center justify-between text-xs">
+                                <label className="flex items-center gap-2 text-[#1C2A22]/50">
+                                    <input
+                                        type="checkbox"
+                                        className="
+                                            h-3.5
+                                            w-3.5
+                                            accent-[#D6402C]
+                                        "
+                                    />
+                                    Remember me
                                 </label>
 
                                 <button
                                     type="button"
                                     className="
-                                        text-indigo-600
-                                        dark:text-indigo-400
-                                        font-semibold
+                                        font-medium
+                                        text-[#D6402C]
+                                        transition-colors
+                                        hover:text-[#B82F22]
                                     "
                                 >
                                     Forgot Password?
                                 </button>
-
                             </div>
 
-                            {/* LOGIN BUTTON */}
-
+                            {/* Button */}
                             <button
                                 type="submit"
                                 className="
+                                    group
+                                    flex
                                     w-full
-                                    py-3
+                                    items-center
+                                    justify-center
+                                    gap-2
                                     rounded-xl
-                                    bg-indigo-600
-                                    text-white
+                                    bg-[#F2B84B]
+                                    py-3.5
                                     font-semibold
-                                    hover:bg-indigo-700
+                                    text-[#161F19]
+                                    shadow-[0_10px_30px_rgba(242,184,75,0.18)]
+                                    transition-all
+                                    duration-300
+                                    hover:-translate-y-0.5
+                                    hover:bg-[#f7c968]
+                                    hover:shadow-[0_14px_35px_rgba(242,184,75,0.25)]
                                     active:scale-[0.98]
-                                    transition
+                                    focus-visible:outline
+                                    focus-visible:outline-2
+                                    focus-visible:outline-offset-2
+                                    focus-visible:outline-[#F2B84B]
                                 "
                             >
                                 Sign In
-                            </button>
 
+                                <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                            </button>
                         </form>
 
-                        <p
-                            className="
-                                text-center
-                                text-sm
-                                text-gray-600
-                                dark:text-gray-400
-                                mt-6
-                            "
-                        >
+                        {/* Switch */}
+                        <p className="mt-6 text-center text-sm text-[#1C2A22]/50">
                             Don't have an account?
 
                             <button
@@ -545,704 +678,195 @@ function Auth() {
                                 onClick={switchToSignup}
                                 className="
                                     ml-1
-                                    text-indigo-600
-                                    dark:text-indigo-400
                                     font-semibold
+                                    text-[#D6402C]
+                                    transition-colors
+                                    hover:text-[#B82F22]
                                 "
                             >
                                 Create Account
                             </button>
-
                         </p>
-
                     </div>
-
                 </div>
 
-
-                {/* =====================================================
+                {/* ==================================================
                     DESKTOP SIGNUP
-                ====================================================== */}
+                =================================================== */}
 
                 <div
                     className={`
-                        hidden md:flex
                         absolute
-                        top-0
                         left-0
-                        w-1/2
+                        top-0
+                        hidden
                         h-full
+                        w-1/2
                         items-center
                         justify-center
-                        px-8
+                        px-10
                         transition-all
                         duration-700
-                        ease-in-out
-
+                        md:flex
                         ${isSignup
                             ? "translate-x-full opacity-100"
-                            : "translate-x-0 opacity-0 pointer-events-none"
+                            : "pointer-events-none translate-x-0 opacity-0"
                         }
                     `}
                     style={{
                         zIndex: isSignup ? 10 : 1,
                     }}
                 >
-
                     <div className="w-full max-w-sm">
 
-                        <div className="flex justify-center mb-3">
-
+                        {/* Logo */}
+                        <div className="mb-4 flex justify-center">
                             <div
                                 className="
-                                    w-11
-                                    h-11
-                                    rounded-xl
-                                    bg-indigo-600
-                                    text-white
                                     flex
+                                    h-12
+                                    w-12
                                     items-center
                                     justify-center
-                                    font-bold
-                                    text-lg
+                                    rounded-2xl
+                                    border
+                                    border-[#1C2A22]/10
+                                    bg-white/60
                                 "
                             >
-                                S
+                                <img
+                                    src={shiyoraLogo}
+                                    alt="Shiyora Logo"
+                                    className="h-9 w-9 object-contain"
+                                />
                             </div>
-
                         </div>
 
-                        <h2
-                            className="
-                                text-3xl
-                                font-bold
-                                text-gray-900
-                                dark:text-white
-                                text-center
-                            "
-                        >
-                            Create Account
-                        </h2>
-
-                        <p
-                            className="
-                                text-sm
-                                text-gray-500
-                                dark:text-gray-400
-                                text-center
-                                mt-2
-                            "
-                        >
-                            Start your journey with Shiyora
-                        </p>
-
-                        {/* ERROR */}
-
-                        {error && isSignup && (
-                            <div
+                        {/* Heading */}
+                        <div className="text-center">
+                            <p
                                 className="
-                                    mt-3
-                                    rounded-xl
-                                    bg-red-50
-                                    dark:bg-red-950/40
-                                    border
-                                    border-red-200
-                                    dark:border-red-900
-                                    px-4
-                                    py-2
-                                    text-sm
-                                    text-red-600
+                                    font-['JetBrains_Mono']
+                                    text-[10px]
+                                    font-semibold
+                                    uppercase
+                                    tracking-[0.2em]
+                                    text-[#D6402C]
                                 "
                             >
+                                Start Learning
+                            </p>
+
+                            <h2
+                                className="
+                                    mt-2
+                                    font-['Space_Grotesk']
+                                    text-3xl
+                                    font-semibold
+                                    tracking-tight
+                                    text-[#1C2A22]
+                                "
+                            >
+                                Create Account
+                            </h2>
+
+                            <p className="mt-2 text-sm text-[#1C2A22]/50">
+                                Build your learning profile with Shiyora.
+                            </p>
+                        </div>
+
+                        {/* Error */}
+                        {error && isSignup && (
+                            <div className={`${errorStyle} mt-4`}>
                                 {error}
                             </div>
                         )}
 
-                        {/* SIGNUP FORM */}
-
+                        {/* Signup Form */}
                         <form
                             onSubmit={handleSignup}
                             className="mt-5 space-y-3"
                         >
-
-                            <input
-                                type="text"
-                                value={signupName}
-                                onChange={(e) =>
-                                    setSignupName(e.target.value)
-                                }
-                                placeholder="Full Name"
-                                className={inputStyle}
-                            />
-
-                            <input
-                                type="email"
-                                value={signupEmail}
-                                onChange={(e) =>
-                                    setSignupEmail(e.target.value)
-                                }
-                                placeholder="Email Address"
-                                className={inputStyle}
-                            />
-
-                            <select
-                                value={signupRole}
-                                onChange={(e) =>
-                                    setSignupRole(e.target.value)
-                                }
-                                className={`
-                                    ${inputStyle}
-                                    text-gray-600
-                                    dark:text-gray-300
-                                `}
-                            >
-
-                                <option value="" disabled>
-                                    Select Account Type
-                                </option>
-
-                                <option value="student">
-                                    Student
-                                </option>
-
-                                <option value="teacher">
-                                    Teacher
-                                </option>
-
-                            </select>
-
-                            <input
-                                type="password"
-                                value={signupPassword}
-                                onChange={(e) =>
-                                    setSignupPassword(e.target.value)
-                                }
-                                placeholder="Create Password"
-                                className={inputStyle}
-                            />
-
-                            <input
-                                type="password"
-                                value={confirmPassword}
-                                onChange={(e) =>
-                                    setConfirmPassword(e.target.value)
-                                }
-                                placeholder="Confirm Password"
-                                className={inputStyle}
-                            />
-
-                            <label
-                                className="
-                                    flex
-                                    items-start
-                                    gap-2
-                                    text-xs
-                                    text-gray-600
-                                    dark:text-gray-400
-                                    pt-1
-                                "
-                            >
-
-                                <input
-                                    type="checkbox"
-                                    checked={agreeTerms}
-                                    onChange={(e) =>
-                                        setAgreeTerms(e.target.checked)
-                                    }
-                                    className="mt-0.5 accent-indigo-600"
+                            {/* Name */}
+                            <div className="relative">
+                                <UserIcon
+                                    className="
+                                        pointer-events-none
+                                        absolute
+                                        left-4
+                                        top-1/2
+                                        h-4
+                                        w-4
+                                        -translate-y-1/2
+                                        text-[#1C2A22]/35
+                                    "
                                 />
-
-                                <span>
-                                    I agree to the Shiyora terms and
-                                    conditions.
-                                </span>
-
-                            </label>
-
-                            <button
-                                type="submit"
-                                className="
-                                    w-full
-                                    py-3
-                                    rounded-xl
-                                    bg-indigo-600
-                                    text-white
-                                    font-semibold
-                                    hover:bg-indigo-700
-                                    active:scale-[0.98]
-                                    transition
-                                "
-                            >
-                                Create Account
-                            </button>
-
-                        </form>
-
-                        <p
-                            className="
-                                text-center
-                                text-sm
-                                text-gray-600
-                                dark:text-gray-400
-                                mt-4
-                            "
-                        >
-                            Already have an account?
-
-                            <button
-                                type="button"
-                                onClick={switchToLogin}
-                                className="
-                                    ml-1
-                                    text-indigo-600
-                                    dark:text-indigo-400
-                                    font-semibold
-                                "
-                            >
-                                Sign In
-                            </button>
-
-                        </p>
-
-                    </div>
-
-                </div>
-
-
-                {/* =====================================================
-                    SLIDING PANEL
-                ====================================================== */}
-
-                <div
-                    className="
-                        hidden md:block
-                        absolute
-                        top-0
-                        left-1/2
-                        w-1/2
-                        h-full
-                        bg-indigo-600
-                        text-white
-                        transition-transform
-                        duration-700
-                        ease-[cubic-bezier(0.65,0,0.35,1)]
-                    "
-                    style={{
-                        transform: isSignup
-                            ? "translateX(-100%)"
-                            : "translateX(0)",
-                        zIndex: 20,
-                    }}
-                >
-
-                    {/* NEW USER */}
-
-                    <div
-                        className={`
-                            absolute
-                            inset-0
-                            flex
-                            items-center
-                            justify-center
-                            text-center
-                            px-10
-                            transition-all
-                            duration-500
-
-                            ${isSignup
-                                ? "opacity-0 scale-90 pointer-events-none"
-                                : "opacity-100 scale-100"
-                            }
-                        `}
-                    >
-
-                        <div className="max-w-xs">
-
-                            <div
-                                className="
-                                    w-16
-                                    h-16
-                                    mx-auto
-                                    rounded-2xl
-                                    bg-white/10
-                                    border
-                                    border-white/20
-                                    flex
-                                    items-center
-                                    justify-center
-                                "
-                            >
-                                <span className="text-2xl font-bold">
-                                    S
-                                </span>
-                            </div>
-
-                            <h2 className="text-3xl font-bold mt-6">
-                                New Here?
-                            </h2>
-
-                            <p className="text-indigo-100 text-sm leading-relaxed mt-4">
-                                Create your account and join Shiyora.
-                                Manage courses, learning resources and
-                                your progress in one place.
-                            </p>
-
-                            <button
-                                type="button"
-                                onClick={switchToSignup}
-                                className="
-                                    mt-7
-                                    px-8
-                                    py-3
-                                    rounded-xl
-                                    border-2
-                                    border-white
-                                    font-semibold
-                                    hover:bg-white
-                                    hover:text-indigo-600
-                                    active:scale-95
-                                    transition-all
-                                "
-                            >
-                                Create Account
-                            </button>
-
-                        </div>
-
-                    </div>
-
-
-                    {/* WELCOME BACK */}
-
-                    <div
-                        className={`
-                            absolute
-                            inset-0
-                            flex
-                            items-center
-                            justify-center
-                            text-center
-                            px-10
-                            transition-all
-                            duration-500
-
-                            ${isSignup
-                                ? "opacity-100 scale-100"
-                                : "opacity-0 scale-90 pointer-events-none"
-                            }
-                        `}
-                    >
-
-                        <div className="max-w-xs">
-
-                            <div
-                                className="
-                                    w-16
-                                    h-16
-                                    mx-auto
-                                    rounded-2xl
-                                    bg-white/10
-                                    border
-                                    border-white/20
-                                    flex
-                                    items-center
-                                    justify-center
-                                "
-                            >
-                                <span className="text-2xl font-bold">
-                                    S
-                                </span>
-                            </div>
-
-                            <h2 className="text-3xl font-bold mt-6">
-                                Welcome Back
-                            </h2>
-
-                            <p className="text-indigo-100 text-sm leading-relaxed mt-4">
-                                Already have an account?
-                                Sign in and continue your learning
-                                journey with Shiyora.
-                            </p>
-
-                            <button
-                                type="button"
-                                onClick={switchToLogin}
-                                className="
-                                    mt-7
-                                    px-8
-                                    py-3
-                                    rounded-xl
-                                    border-2
-                                    border-white
-                                    font-semibold
-                                    hover:bg-white
-                                    hover:text-indigo-600
-                                    active:scale-95
-                                    transition-all
-                                "
-                            >
-                                Sign In
-                            </button>
-
-                        </div>
-
-                    </div>
-
-                </div>
-
-
-                {/* =====================================================
-                    MOBILE VIEW
-                ====================================================== */}
-
-                <div
-                    className="
-                        md:hidden
-                        w-full
-                        min-h-[560px]
-                        bg-white
-                        dark:bg-slate-900
-                    "
-                >
-
-                    {!isSignup ? (
-
-                        <div className="px-6 py-10">
-
-                            <div className="flex justify-center">
-
-                                <div
-                                    className="
-                                        w-11
-                                        h-11
-                                        rounded-xl
-                                        bg-indigo-600
-                                        text-white
-                                        flex
-                                        items-center
-                                        justify-center
-                                        font-bold
-                                    "
-                                >
-                                    S
-                                </div>
-
-                            </div>
-
-                            <h2
-                                className="
-                                    text-2xl
-                                    font-bold
-                                    text-gray-900
-                                    dark:text-white
-                                    text-center
-                                    mt-4
-                                "
-                            >
-                                Welcome Back
-                            </h2>
-
-                            <p
-                                className="
-                                    text-sm
-                                    text-gray-500
-                                    dark:text-gray-400
-                                    text-center
-                                    mt-2
-                                "
-                            >
-                                Sign in to Shiyora
-                            </p>
-
-                            {error && (
-                                <div
-                                    className="
-                                        mt-4
-                                        rounded-xl
-                                        bg-red-50
-                                        border
-                                        border-red-200
-                                        px-4
-                                        py-3
-                                        text-sm
-                                        text-red-600
-                                    "
-                                >
-                                    {error}
-                                </div>
-                            )}
-
-                            <form
-                                onSubmit={handleLogin}
-                                className="mt-6 space-y-4"
-                            >
-
-                                <input
-                                    type="email"
-                                    value={loginEmail}
-                                    onChange={(e) =>
-                                        setLoginEmail(e.target.value)
-                                    }
-                                    placeholder="Email Address"
-                                    className={inputStyle}
-                                />
-
-                                <input
-                                    type="password"
-                                    value={loginPassword}
-                                    onChange={(e) =>
-                                        setLoginPassword(e.target.value)
-                                    }
-                                    placeholder="Password"
-                                    className={inputStyle}
-                                />
-
-                                <button
-                                    type="submit"
-                                    className="
-                                        w-full
-                                        py-3
-                                        rounded-xl
-                                        bg-indigo-600
-                                        text-white
-                                        font-semibold
-                                        hover:bg-indigo-700
-                                        transition
-                                    "
-                                >
-                                    Sign In
-                                </button>
-
-                            </form>
-
-                            <p
-                                className="
-                                    text-center
-                                    text-sm
-                                    text-gray-600
-                                    dark:text-gray-400
-                                    mt-6
-                                "
-                            >
-                                Don't have an account?
-
-                                <button
-                                    type="button"
-                                    onClick={switchToSignup}
-                                    className="
-                                        ml-1
-                                        text-indigo-600
-                                        dark:text-indigo-400
-                                        font-semibold
-                                    "
-                                >
-                                    Create Account
-                                </button>
-
-                            </p>
-
-                        </div>
-
-                    ) : (
-
-                        <div className="px-6 py-8">
-
-                            <div className="flex justify-center">
-
-                                <div
-                                    className="
-                                        w-11
-                                        h-11
-                                        rounded-xl
-                                        bg-indigo-600
-                                        text-white
-                                        flex
-                                        items-center
-                                        justify-center
-                                        font-bold
-                                    "
-                                >
-                                    S
-                                </div>
-
-                            </div>
-
-                            <h2
-                                className="
-                                    text-2xl
-                                    font-bold
-                                    text-gray-900
-                                    dark:text-white
-                                    text-center
-                                    mt-4
-                                "
-                            >
-                                Create Account
-                            </h2>
-
-                            <p
-                                className="
-                                    text-sm
-                                    text-gray-500
-                                    dark:text-gray-400
-                                    text-center
-                                    mt-2
-                                "
-                            >
-                                Join Shiyora today
-                            </p>
-
-                            {error && (
-                                <div
-                                    className="
-                                        mt-4
-                                        rounded-xl
-                                        bg-red-50
-                                        border
-                                        border-red-200
-                                        px-4
-                                        py-3
-                                        text-sm
-                                        text-red-600
-                                    "
-                                >
-                                    {error}
-                                </div>
-                            )}
-
-                            <form
-                                onSubmit={handleSignup}
-                                className="mt-5 space-y-3"
-                            >
 
                                 <input
                                     type="text"
                                     value={signupName}
                                     onChange={(e) =>
-                                        setSignupName(e.target.value)
+                                        setSignupName(
+                                            e.target.value
+                                        )
                                     }
                                     placeholder="Full Name"
-                                    className={inputStyle}
+                                    className={`${inputStyle} pl-11`}
+                                />
+                            </div>
+
+                            {/* Email */}
+                            <div className="relative">
+                                <MailIcon
+                                    className="
+                                        pointer-events-none
+                                        absolute
+                                        left-4
+                                        top-1/2
+                                        h-4
+                                        w-4
+                                        -translate-y-1/2
+                                        text-[#1C2A22]/35
+                                    "
                                 />
 
                                 <input
                                     type="email"
                                     value={signupEmail}
                                     onChange={(e) =>
-                                        setSignupEmail(e.target.value)
+                                        setSignupEmail(
+                                            e.target.value
+                                        )
                                     }
                                     placeholder="Email Address"
-                                    className={inputStyle}
+                                    className={`${inputStyle} pl-11`}
+                                />
+                            </div>
+
+                            {/* Role */}
+                            <div className="relative">
+                                <CapIcon
+                                    className="
+                                        pointer-events-none
+                                        absolute
+                                        left-4
+                                        top-1/2
+                                        h-4
+                                        w-4
+                                        -translate-y-1/2
+                                        text-[#1C2A22]/35
+                                    "
                                 />
 
                                 <select
                                     value={signupRole}
                                     onChange={(e) =>
-                                        setSignupRole(e.target.value)
+                                        setSignupRole(
+                                            e.target.value
+                                        )
                                     }
-                                    className={inputStyle}
+                                    className={`${inputStyle} appearance-none pl-11`}
                                 >
-
                                     <option value="" disabled>
                                         Select Account Type
                                     </option>
@@ -1254,40 +878,833 @@ function Auth() {
                                     <option value="teacher">
                                         Teacher
                                     </option>
-
                                 </select>
+                            </div>
+
+                            {/* Password */}
+                            <div className="relative">
+                                <LockIcon
+                                    className="
+                                        pointer-events-none
+                                        absolute
+                                        left-4
+                                        top-1/2
+                                        h-4
+                                        w-4
+                                        -translate-y-1/2
+                                        text-[#1C2A22]/35
+                                    "
+                                />
 
                                 <input
                                     type="password"
                                     value={signupPassword}
                                     onChange={(e) =>
-                                        setSignupPassword(e.target.value)
+                                        setSignupPassword(
+                                            e.target.value
+                                        )
                                     }
                                     placeholder="Create Password"
-                                    className={inputStyle}
+                                    className={`${inputStyle} pl-11`}
+                                />
+                            </div>
+
+                            {/* Confirm */}
+                            <div className="relative">
+                                <LockIcon
+                                    className="
+                                        pointer-events-none
+                                        absolute
+                                        left-4
+                                        top-1/2
+                                        h-4
+                                        w-4
+                                        -translate-y-1/2
+                                        text-[#1C2A22]/35
+                                    "
                                 />
 
                                 <input
                                     type="password"
                                     value={confirmPassword}
                                     onChange={(e) =>
-                                        setConfirmPassword(e.target.value)
+                                        setConfirmPassword(
+                                            e.target.value
+                                        )
                                     }
                                     placeholder="Confirm Password"
-                                    className={inputStyle}
+                                    className={`${inputStyle} pl-11`}
                                 />
+                            </div>
+
+                            {/* Terms */}
+                            <label
+                                className="
+                                    flex
+                                    items-start
+                                    gap-2
+                                    pt-1
+                                    text-xs
+                                    leading-relaxed
+                                    text-[#1C2A22]/50
+                                "
+                            >
+                                <input
+                                    type="checkbox"
+                                    checked={agreeTerms}
+                                    onChange={(e) =>
+                                        setAgreeTerms(
+                                            e.target.checked
+                                        )
+                                    }
+                                    className="
+                                        mt-0.5
+                                        h-3.5
+                                        w-3.5
+                                        shrink-0
+                                        accent-[#D6402C]
+                                    "
+                                />
+
+                                <span>
+                                    I agree to the Shiyora terms and
+                                    conditions.
+                                </span>
+                            </label>
+
+                            {/* Button */}
+                            <button
+                                type="submit"
+                                className="
+                                    group
+                                    flex
+                                    w-full
+                                    items-center
+                                    justify-center
+                                    gap-2
+                                    rounded-xl
+                                    bg-[#F2B84B]
+                                    py-3.5
+                                    font-semibold
+                                    text-[#161F19]
+                                    shadow-[0_10px_30px_rgba(242,184,75,0.18)]
+                                    transition-all
+                                    duration-300
+                                    hover:-translate-y-0.5
+                                    hover:bg-[#f7c968]
+                                    hover:shadow-[0_14px_35px_rgba(242,184,75,0.25)]
+                                    active:scale-[0.98]
+                                "
+                            >
+                                Create Account
+
+                                <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                            </button>
+                        </form>
+
+                        {/* Switch */}
+                        <p className="mt-5 text-center text-sm text-[#1C2A22]/50">
+                            Already have an account?
+
+                            <button
+                                type="button"
+                                onClick={switchToLogin}
+                                className="
+                                    ml-1
+                                    font-semibold
+                                    text-[#D6402C]
+                                    transition-colors
+                                    hover:text-[#B82F22]
+                                "
+                            >
+                                Sign In
+                            </button>
+                        </p>
+                    </div>
+                </div>
+
+                {/* ==================================================
+                    SLIDING PANEL
+                =================================================== */}
+
+                <div
+                    className="
+                        absolute
+                        left-1/2
+                        top-0
+                        hidden
+                        h-full
+                        w-1/2
+                        overflow-hidden
+                        border-l
+                        border-[#F3EEDD]/10
+                        bg-[#1B241E]
+                        md:block
+                        transition-transform
+                        duration-700
+                        ease-[cubic-bezier(0.65,0,0.35,1)]
+                    "
+                    style={{
+                        transform: isSignup
+                            ? "translateX(-100%)"
+                            : "translateX(0)",
+                        zIndex: 20,
+                    }}
+                >
+                    {/* Golden glow */}
+                    <div
+                        className="
+                            pointer-events-none
+                            absolute
+                            -right-32
+                            -top-32
+                            h-80
+                            w-80
+                            rounded-full
+                            bg-[#F2B84B]/[0.12]
+                            blur-[100px]
+                        "
+                    />
+
+                    {/* Green glow */}
+                    <div
+                        className="
+                            pointer-events-none
+                            absolute
+                            -bottom-32
+                            -left-32
+                            h-80
+                            w-80
+                            rounded-full
+                            bg-[#7C9A82]/[0.15]
+                            blur-[100px]
+                        "
+                    />
+
+                    {/* Chalk texture */}
+                    <div
+                        className="
+                            pointer-events-none
+                            absolute
+                            inset-0
+                            opacity-[0.07]
+                        "
+                        style={{
+                            backgroundImage:
+                                "radial-gradient(rgba(243,238,221,0.8) 1px, transparent 1px)",
+                            backgroundSize: "22px 22px",
+                        }}
+                    />
+
+                    {/*NEW USER PANEL*/}
+
+                    <div
+                        className={`
+                            absolute
+                            inset-0
+                            flex
+                            items-center
+                            justify-center
+                            px-10
+                            text-center
+                            transition-all
+                            duration-500
+                            ${isSignup
+                                ? "pointer-events-none scale-90 opacity-0"
+                                : "scale-100 opacity-100"
+                            }
+                        `}
+                    >
+                        <div className="relative z-10 max-w-sm">
+
+                            {/* Icon */}
+                            <div
+                                className="
+                                    mx-auto
+                                    flex
+                                    h-20
+                                    w-20
+                                    items-center
+                                    justify-center
+                                    rounded-3xl
+                                    border
+                                    border-[#F2B84B]/30
+                                    bg-[#F2B84B]/10
+                                    text-[#F2B84B]
+                                    shadow-[0_15px_40px_rgba(242,184,75,0.10)]
+                                "
+                            >
+                                <CapIcon className="h-9 w-9" />
+                            </div>
+
+                            <p
+                                className="
+                                    mt-7
+                                    font-['JetBrains_Mono']
+                                    text-[10px]
+                                    font-semibold
+                                    uppercase
+                                    tracking-[0.2em]
+                                    text-[#F2B84B]
+                                "
+                            >
+                                Your learning desk
+                            </p>
+
+                            <h2
+                                className="
+                                    mt-3
+                                    font-['Space_Grotesk']
+                                    text-4xl
+                                    font-semibold
+                                    tracking-tight
+                                    text-[#F3EEDD]
+                                "
+                            >
+                                New Here?
+                            </h2>
+
+                            <p
+                                className="
+                                    mt-4
+                                    text-sm
+                                    leading-relaxed
+                                    text-[#F3EEDD]/55
+                                "
+                            >
+                                Create your Shiyora account and keep
+                                courses, resources, assessments and
+                                progress together in one place.
+                            </p>
+
+                            <button
+                                type="button"
+                                onClick={switchToSignup}
+                                className="
+                                    group
+                                    mt-7
+                                    inline-flex
+                                    items-center
+                                    gap-2
+                                    rounded-xl
+                                    border
+                                    border-[#F2B84B]/50
+                                    bg-[#F2B84B]/5
+                                    px-7
+                                    py-3
+                                    font-semibold
+                                    text-[#F2B84B]
+                                    transition-all
+                                    duration-300
+                                    hover:bg-[#F2B84B]
+                                    hover:text-[#161F19]
+                                    active:scale-95
+                                "
+                            >
+                                Create Account
+                                <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                            </button>
+                        </div>
+                    </div>
+
+                    {/* ==================================================
+                        WELCOME BACK PANEL
+                    =================================================== */}
+
+                    <div
+                        className={`
+                            absolute
+                            inset-0
+                            flex
+                            items-center
+                            justify-center
+                            px-10
+                            text-center
+                            transition-all
+                            duration-500
+                            ${isSignup
+                                ? "scale-100 opacity-100"
+                                : "pointer-events-none scale-90 opacity-0"
+                            }
+                        `}
+                    >
+                        <div className="relative z-10 max-w-sm">
+
+                            {/* Logo */}
+                            <div
+                                className="
+                                    mx-auto
+                                    flex
+                                    h-20
+                                    w-20
+                                    items-center
+                                    justify-center
+                                    rounded-3xl
+                                    border
+                                    border-[#F3EEDD]/15
+                                    bg-[#F3EEDD]/5
+                                "
+                            >
+                                <img
+                                    src={shiyoraLogo}
+                                    alt="Shiyora Logo"
+                                    className="h-14 w-14 object-contain"
+                                />
+                            </div>
+
+                            <p
+                                className="
+                                    mt-7
+                                    font-['JetBrains_Mono']
+                                    text-[10px]
+                                    font-semibold
+                                    uppercase
+                                    tracking-[0.2em]
+                                    text-[#F2B84B]
+                                "
+                            >
+                                Continue learning
+                            </p>
+
+                            <h2
+                                className="
+                                    mt-3
+                                    font-['Space_Grotesk']
+                                    text-4xl
+                                    font-semibold
+                                    tracking-tight
+                                    text-[#F3EEDD]
+                                "
+                            >
+                                Welcome Back
+                            </h2>
+
+                            <p
+                                className="
+                                    mt-4
+                                    text-sm
+                                    leading-relaxed
+                                    text-[#F3EEDD]/55
+                                "
+                            >
+                                Already have an account? Sign in and
+                                continue building your skills with
+                                Shiyora.
+                            </p>
+
+                            <button
+                                type="button"
+                                onClick={switchToLogin}
+                                className="
+                                    group
+                                    mt-7
+                                    inline-flex
+                                    items-center
+                                    gap-2
+                                    rounded-xl
+                                    border
+                                    border-[#F2B84B]/50
+                                    bg-[#F2B84B]/5
+                                    px-7
+                                    py-3
+                                    font-semibold
+                                    text-[#F2B84B]
+                                    transition-all
+                                    duration-300
+                                    hover:bg-[#F2B84B]
+                                    hover:text-[#161F19]
+                                    active:scale-95
+                                "
+                            >
+                                Sign In
+                                <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+                {/* ==================================================
+                    MOBILE
+                =================================================== */}
+
+                <div
+                    className="
+                        min-h-[640px]
+                        bg-[#F3EEDD]
+                        md:hidden
+                    "
+                >
+                    {!isSignup ? (
+                        /* ================= MOBILE LOGIN ================= */
+                        <div className="px-6 py-10">
+
+                            <div className="flex justify-center">
+                                <div
+                                    className="
+                                        flex
+                                        h-14
+                                        w-14
+                                        items-center
+                                        justify-center
+                                        rounded-2xl
+                                        border
+                                        border-[#1C2A22]/10
+                                        bg-white/60
+                                    "
+                                >
+                                    <img
+                                        src={shiyoraLogo}
+                                        alt="Shiyora Logo"
+                                        className="h-11 w-11 object-contain"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="mt-5 text-center">
+                                <p
+                                    className="
+                                        font-['JetBrains_Mono']
+                                        text-[10px]
+                                        font-semibold
+                                        uppercase
+                                        tracking-[0.2em]
+                                        text-[#D6402C]
+                                    "
+                                >
+                                    Welcome Back
+                                </p>
+
+                                <h2
+                                    className="
+                                        mt-2
+                                        font-['Space_Grotesk']
+                                        text-3xl
+                                        font-semibold
+                                        text-[#1C2A22]
+                                    "
+                                >
+                                    Sign in to Shiyora
+                                </h2>
+
+                                <p className="mt-2 text-sm text-[#1C2A22]/50">
+                                    Continue your learning journey.
+                                </p>
+                            </div>
+
+                            {error && (
+                                <div className={`${errorStyle} mt-5`}>
+                                    {error}
+                                </div>
+                            )}
+
+                            <form
+                                onSubmit={handleLogin}
+                                className="mt-7 space-y-4"
+                            >
+                                <div className="relative">
+                                    <MailIcon
+                                        className="
+                                            pointer-events-none
+                                            absolute
+                                            left-4
+                                            top-1/2
+                                            h-4
+                                            w-4
+                                            -translate-y-1/2
+                                            text-[#1C2A22]/35
+                                        "
+                                    />
+
+                                    <input
+                                        type="email"
+                                        value={loginEmail}
+                                        onChange={(e) =>
+                                            setLoginEmail(
+                                                e.target.value
+                                            )
+                                        }
+                                        placeholder="Email Address"
+                                        className={`${inputStyle} pl-11`}
+                                    />
+                                </div>
+
+                                <div className="relative">
+                                    <LockIcon
+                                        className="
+                                            pointer-events-none
+                                            absolute
+                                            left-4
+                                            top-1/2
+                                            h-4
+                                            w-4
+                                            -translate-y-1/2
+                                            text-[#1C2A22]/35
+                                        "
+                                    />
+
+                                    <input
+                                        type="password"
+                                        value={loginPassword}
+                                        onChange={(e) =>
+                                            setLoginPassword(
+                                                e.target.value
+                                            )
+                                        }
+                                        placeholder="Password"
+                                        className={`${inputStyle} pl-11`}
+                                    />
+                                </div>
+
+                                <button
+                                    type="submit"
+                                    className="
+                                        group
+                                        flex
+                                        w-full
+                                        items-center
+                                        justify-center
+                                        gap-2
+                                        rounded-xl
+                                        bg-[#F2B84B]
+                                        py-3.5
+                                        font-semibold
+                                        text-[#161F19]
+                                        transition-all
+                                        duration-300
+                                        hover:-translate-y-0.5
+                                        hover:bg-[#f7c968]
+                                        active:scale-[0.98]
+                                    "
+                                >
+                                    Sign In
+                                    <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
+                                </button>
+                            </form>
+
+                            <p className="mt-6 text-center text-sm text-[#1C2A22]/50">
+                                Don't have an account?
+
+                                <button
+                                    type="button"
+                                    onClick={switchToSignup}
+                                    className="
+                                        ml-1
+                                        font-semibold
+                                        text-[#D6402C]
+                                    "
+                                >
+                                    Create Account
+                                </button>
+                            </p>
+                        </div>
+                    ) : (
+                        /* ================= MOBILE SIGNUP ================= */
+                        <div className="px-6 py-8">
+
+                            <div className="flex justify-center">
+                                <div
+                                    className="
+                                        flex
+                                        h-14
+                                        w-14
+                                        items-center
+                                        justify-center
+                                        rounded-2xl
+                                        border
+                                        border-[#1C2A22]/10
+                                        bg-white/60
+                                    "
+                                >
+                                    <img
+                                        src={shiyoraLogo}
+                                        alt="Shiyora Logo"
+                                        className="h-11 w-11 object-contain"
+                                    />
+                                </div>
+                            </div>
+
+                            <div className="mt-5 text-center">
+                                <p
+                                    className="
+                                        font-['JetBrains_Mono']
+                                        text-[10px]
+                                        font-semibold
+                                        uppercase
+                                        tracking-[0.2em]
+                                        text-[#D6402C]
+                                    "
+                                >
+                                    Start Learning
+                                </p>
+
+                                <h2
+                                    className="
+                                        mt-2
+                                        font-['Space_Grotesk']
+                                        text-3xl
+                                        font-semibold
+                                        text-[#1C2A22]
+                                    "
+                                >
+                                    Create Account
+                                </h2>
+
+                                <p className="mt-2 text-sm text-[#1C2A22]/50">
+                                    Build your learning profile.
+                                </p>
+                            </div>
+
+                            {error && (
+                                <div className={`${errorStyle} mt-5`}>
+                                    {error}
+                                </div>
+                            )}
+
+                            <form
+                                onSubmit={handleSignup}
+                                className="mt-6 space-y-3"
+                            >
+                                <div className="relative">
+                                    <UserIcon
+                                        className="
+                                            pointer-events-none
+                                            absolute
+                                            left-4
+                                            top-1/2
+                                            h-4
+                                            w-4
+                                            -translate-y-1/2
+                                            text-[#1C2A22]/35
+                                        "
+                                    />
+
+                                    <input
+                                        type="text"
+                                        value={signupName}
+                                        onChange={(e) =>
+                                            setSignupName(
+                                                e.target.value
+                                            )
+                                        }
+                                        placeholder="Full Name"
+                                        className={`${inputStyle} pl-11`}
+                                    />
+                                </div>
+
+                                <div className="relative">
+                                    <MailIcon
+                                        className="
+                                            pointer-events-none
+                                            absolute
+                                            left-4
+                                            top-1/2
+                                            h-4
+                                            w-4
+                                            -translate-y-1/2
+                                            text-[#1C2A22]/35
+                                        "
+                                    />
+
+                                    <input
+                                        type="email"
+                                        value={signupEmail}
+                                        onChange={(e) =>
+                                            setSignupEmail(
+                                                e.target.value
+                                            )
+                                        }
+                                        placeholder="Email Address"
+                                        className={`${inputStyle} pl-11`}
+                                    />
+                                </div>
+
+                                <select
+                                    value={signupRole}
+                                    onChange={(e) =>
+                                        setSignupRole(
+                                            e.target.value
+                                        )
+                                    }
+                                    className={inputStyle}
+                                >
+                                    <option value="" disabled>
+                                        Select Account Type
+                                    </option>
+
+                                    <option value="student">
+                                        Student
+                                    </option>
+
+                                    <option value="teacher">
+                                        Teacher
+                                    </option>
+                                </select>
+
+                                <div className="relative">
+                                    <LockIcon
+                                        className="
+                                            pointer-events-none
+                                            absolute
+                                            left-4
+                                            top-1/2
+                                            h-4
+                                            w-4
+                                            -translate-y-1/2
+                                            text-[#1C2A22]/35
+                                        "
+                                    />
+
+                                    <input
+                                        type="password"
+                                        value={signupPassword}
+                                        onChange={(e) =>
+                                            setSignupPassword(
+                                                e.target.value
+                                            )
+                                        }
+                                        placeholder="Create Password"
+                                        className={`${inputStyle} pl-11`}
+                                    />
+                                </div>
+
+                                <div className="relative">
+                                    <LockIcon
+                                        className="
+                                            pointer-events-none
+                                            absolute
+                                            left-4
+                                            top-1/2
+                                            h-4
+                                            w-4
+                                            -translate-y-1/2
+                                            text-[#1C2A22]/35
+                                        "
+                                    />
+
+                                    <input
+                                        type="password"
+                                        value={confirmPassword}
+                                        onChange={(e) =>
+                                            setConfirmPassword(
+                                                e.target.value
+                                            )
+                                        }
+                                        placeholder="Confirm Password"
+                                        className={`${inputStyle} pl-11`}
+                                    />
+                                </div>
 
                                 <label
                                     className="
                                         flex
                                         items-start
                                         gap-2
+                                        pt-1
                                         text-xs
-                                        text-gray-600
-                                        dark:text-gray-400
+                                        leading-relaxed
+                                        text-[#1C2A22]/50
                                     "
                                 >
-
                                     <input
                                         type="checkbox"
                                         checked={agreeTerms}
@@ -1296,43 +1713,47 @@ function Auth() {
                                                 e.target.checked
                                             )
                                         }
-                                        className="mt-0.5 accent-indigo-600"
+                                        className="
+                                            mt-0.5
+                                            h-3.5
+                                            w-3.5
+                                            accent-[#D6402C]
+                                        "
                                     />
 
                                     <span>
-                                        I agree to the Shiyora terms and
-                                        conditions.
+                                        I agree to the Shiyora terms
+                                        and conditions.
                                     </span>
-
                                 </label>
 
                                 <button
                                     type="submit"
                                     className="
+                                        group
+                                        flex
                                         w-full
-                                        py-3
+                                        items-center
+                                        justify-center
+                                        gap-2
                                         rounded-xl
-                                        bg-indigo-600
-                                        text-white
+                                        bg-[#F2B84B]
+                                        py-3.5
                                         font-semibold
-                                        hover:bg-indigo-700
-                                        transition
+                                        text-[#161F19]
+                                        transition-all
+                                        duration-300
+                                        hover:-translate-y-0.5
+                                        hover:bg-[#f7c968]
+                                        active:scale-[0.98]
                                     "
                                 >
                                     Create Account
+                                    <ArrowIcon className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-1" />
                                 </button>
-
                             </form>
 
-                            <p
-                                className="
-                                    text-center
-                                    text-sm
-                                    text-gray-600
-                                    dark:text-gray-400
-                                    mt-5
-                                "
-                            >
+                            <p className="mt-5 text-center text-sm text-[#1C2A22]/50">
                                 Already have an account?
 
                                 <button
@@ -1340,25 +1761,18 @@ function Auth() {
                                     onClick={switchToLogin}
                                     className="
                                         ml-1
-                                        text-indigo-600
-                                        dark:text-indigo-400
                                         font-semibold
+                                        text-[#D6402C]
                                     "
                                 >
                                     Sign In
                                 </button>
-
                             </p>
-
                         </div>
-
                     )}
-
                 </div>
-
             </div>
-
-        </div>
+        </main>
     );
 }
 

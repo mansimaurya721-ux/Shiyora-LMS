@@ -1,5 +1,9 @@
 @import "tailwindcss";
-@custom-variant dark (&:where(.dark, .dark *));
+
+/* =====================================================
+   SHIYORA GLOBAL THEME
+   ===================================================== */
+
 html {
     scroll-behavior: smooth;
 }
@@ -7,12 +11,67 @@ html {
 body {
     margin: 0;
     min-width: 320px;
-    background: #f8f9fc;
-    color: #0f172a;
+    background: #FFF5F5;
+    color: #4A4A4A;
     transition: background-color 0.35s ease, color 0.35s ease;
 }
 
-html.dark body {
-    background: #080b14;
-    color: #f8fafc;
+
+/* =====================================================
+   GLOBAL BOX SIZING
+   ===================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+
+/* =====================================================
+   LINKS
+   ===================================================== */
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+
+/* =====================================================
+   BUTTONS
+   ===================================================== */
+
+button {
+    font-family: inherit;
+}
+
+
+/* =====================================================
+   SCROLLBAR
+   ===================================================== */
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: #FFF5F5;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #E2B4BD;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #F7D6D0;
+}
+
+
+/* =====================================================
+   TEXT SELECTION
+   ===================================================== */
+
+::selection {
+    background: #E2B4BD;
+    color: #4A4A4A;
 }

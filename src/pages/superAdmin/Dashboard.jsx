@@ -12,33 +12,52 @@ import {
     MoreVertical,
 } from "lucide-react";
 
+// ============================================================
+// SHIYORA TYPOGRAPHY
+// ============================================================
+
+const FONT_IMPORTS =
+    "@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap');";
+
+// ============================================================
+// DASHBOARD
+// ============================================================
+
 const Dashboard = () => {
+    // ============================================================
+    // STATISTICS
+    // ============================================================
+
     const stats = [
         {
             title: "Total Organizations",
             value: "128",
             change: "+12.5%",
-            icon: <Building2 size={24} />,
+            icon: Building2,
         },
         {
             title: "Total Users",
             value: "12,480",
             change: "+18.2%",
-            icon: <Users size={24} />,
+            icon: Users,
         },
         {
             title: "Total Courses",
             value: "1,245",
             change: "+8.4%",
-            icon: <BookOpen size={24} />,
+            icon: BookOpen,
         },
         {
             title: "Revenue",
             value: "₹8.42L",
             change: "+24.6%",
-            icon: <CreditCard size={24} />,
+            icon: CreditCard,
         },
     ];
+
+    // ============================================================
+    // ORGANIZATIONS
+    // ============================================================
 
     const organizations = [
         {
@@ -71,352 +90,1136 @@ const Dashboard = () => {
         },
     ];
 
+    // ============================================================
+    // CHART DATA
+    // ============================================================
+
+    const chartData = [
+        45,
+        60,
+        48,
+        72,
+        58,
+        82,
+        68,
+        90,
+        75,
+        95,
+        84,
+        100,
+    ];
+
+    // ============================================================
+    // RENDER
+    // ============================================================
+
     return (
-        <div className="min-h-screen bg-slate-50 p-4 md:p-6 lg:p-8">
+        <main className="relative min-h-screen overflow-hidden bg-[#161F19] font-['Inter'] text-[#F3EEDD]">
+            <style>{FONT_IMPORTS}</style>
 
-            {/* Header */}
-            <div className="mb-8 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
-                <div>
-                    <h1 className="text-2xl font-bold text-slate-800 md:text-3xl">
-                        SuperAdmin Dashboard
-                    </h1>
+            {/* ========================================================
+                BACKGROUND GLOW
+            ======================================================== */}
 
-                    <p className="mt-1 text-sm text-slate-500">
-                        Welcome back to Shiyora LMS administration panel.
-                    </p>
-                </div>
+            <div
+                className="
+                    pointer-events-none
+                    fixed
+                    -left-40
+                    -top-40
+                    h-[520px]
+                    w-[520px]
+                    rounded-full
+                    bg-[#F2B84B]/[0.08]
+                    blur-[140px]
+                "
+            />
 
-                <div className="flex items-center gap-3">
-                    <div className="rounded-xl bg-white px-4 py-2 text-sm shadow-sm">
-                        <span className="text-slate-400">Today</span>
-                        <span className="ml-2 font-medium text-slate-700">
-                            Aug 26, 2026
-                        </span>
-                    </div>
-                </div>
-            </div>
+            <div
+                className="
+                    pointer-events-none
+                    fixed
+                    right-[-100px]
+                    top-32
+                    h-[500px]
+                    w-[500px]
+                    rounded-full
+                    bg-[#7C9A82]/[0.07]
+                    blur-[150px]
+                "
+            />
 
-            {/* Statistics Cards */}
-            <div className="grid grid-cols-1 gap-5 sm:grid-cols-2 xl:grid-cols-4">
-                {stats.map((stat, index) => (
-                    <div
-                        key={index}
-                        className="rounded-2xl border border-slate-100 bg-white p-5 shadow-sm transition duration-300 hover:-translate-y-1 hover:shadow-lg"
-                    >
-                        <div className="flex items-start justify-between">
-                            <div>
-                                <p className="text-sm font-medium text-slate-500">
-                                    {stat.title}
-                                </p>
+            {/* ========================================================
+                CHALK DUST
+            ======================================================== */}
 
-                                <h2 className="mt-2 text-2xl font-bold text-slate-800">
-                                    {stat.value}
-                                </h2>
+            <div
+                className="
+                    pointer-events-none
+                    fixed
+                    inset-0
+                    opacity-[0.035]
+                "
+                style={{
+                    backgroundImage:
+                        "radial-gradient(rgba(243,238,221,0.8) 1px, transparent 1px)",
+                    backgroundSize: "24px 24px",
+                }}
+            />
 
-                                <div className="mt-2 flex items-center gap-1 text-sm font-medium text-emerald-500">
-                                    <TrendingUp size={15} />
-                                    {stat.change}
-                                    <span className="font-normal text-slate-400">
-                                        this month
-                                    </span>
-                                </div>
-                            </div>
+            {/* ========================================================
+                CONTENT
+            ======================================================== */}
 
-                            <div className="flex h-12 w-12 items-center justify-center rounded-xl bg-indigo-50 text-indigo-600">
-                                {stat.icon}
-                            </div>
-                        </div>
-                    </div>
-                ))}
-            </div>
+            <div className="relative z-10 mx-auto w-full max-w-[1600px] p-4 md:p-6 lg:p-8">
 
-            {/* Main Grid */}
-            <div className="mt-6 grid grid-cols-1 gap-6 xl:grid-cols-3">
+                {/* ====================================================
+                    HEADER
+                ==================================================== */}
 
-                {/* Platform Overview */}
-                <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm xl:col-span-2">
-                    <div className="mb-6 flex items-center justify-between">
-                        <div>
-                            <h2 className="text-lg font-bold text-slate-800">
-                                Platform Overview
-                            </h2>
-
-                            <p className="text-sm text-slate-400">
-                                Shiyora LMS platform statistics
-                            </p>
-                        </div>
-
-                        <button className="rounded-lg border border-slate-200 px-3 py-2 text-sm text-slate-600 hover:bg-slate-50">
-                            This Year
-                        </button>
-                    </div>
-
-                    {/* Fake Chart */}
-                    <div className="flex h-64 items-end gap-3 overflow-hidden">
-                        {[45, 60, 48, 72, 58, 82, 68, 90, 75, 95, 84, 100].map(
-                            (height, index) => (
-                                <div
-                                    key={index}
-                                    className="group flex h-full flex-1 items-end"
-                                >
-                                    <div
-                                        style={{ height: `${height}%` }}
-                                        className="w-full rounded-t-lg bg-indigo-500/80 transition-all duration-300 group-hover:bg-indigo-600"
-                                    ></div>
-                                </div>
-                            )
-                        )}
-                    </div>
-
-                    <div className="mt-4 flex justify-between text-xs text-slate-400">
-                        <span>Jan</span>
-                        <span>Mar</span>
-                        <span>May</span>
-                        <span>Jul</span>
-                        <span>Sep</span>
-                        <span>Nov</span>
-                    </div>
-                </div>
-
-                {/* Quick Stats */}
-                <div className="rounded-2xl border border-slate-100 bg-white p-6 shadow-sm">
-                    <h2 className="text-lg font-bold text-slate-800">
-                        Platform Users
-                    </h2>
-
-                    <p className="mt-1 text-sm text-slate-400">
-                        User distribution
-                    </p>
-
-                    <div className="mt-6 space-y-5">
-
-                        <div>
-                            <div className="mb-2 flex justify-between text-sm">
-                                <span className="flex items-center gap-2 text-slate-600">
-                                    <UserCheck size={17} />
-                                    Teachers
-                                </span>
-
-                                <span className="font-semibold text-slate-700">
-                                    2,140
-                                </span>
-                            </div>
-
-                            <div className="h-2 rounded-full bg-slate-100">
-                                <div className="h-2 w-[65%] rounded-full bg-indigo-500"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="mb-2 flex justify-between text-sm">
-                                <span className="flex items-center gap-2 text-slate-600">
-                                    <GraduationCap size={17} />
-                                    Students
-                                </span>
-
-                                <span className="font-semibold text-slate-700">
-                                    9,850
-                                </span>
-                            </div>
-
-                            <div className="h-2 rounded-full bg-slate-100">
-                                <div className="h-2 w-[85%] rounded-full bg-emerald-500"></div>
-                            </div>
-                        </div>
-
-                        <div>
-                            <div className="mb-2 flex justify-between text-sm">
-                                <span className="flex items-center gap-2 text-slate-600">
-                                    <Activity size={17} />
-                                    Admins
-                                </span>
-
-                                <span className="font-semibold text-slate-700">
-                                    490
-                                </span>
-                            </div>
-
-                            <div className="h-2 rounded-full bg-slate-100">
-                                <div className="h-2 w-[35%] rounded-full bg-purple-500"></div>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            {/* Organizations Table */}
-            <div className="mt-6 rounded-2xl border border-slate-100 bg-white shadow-sm">
-
-                <div className="flex flex-col gap-3 border-b border-slate-100 p-6 sm:flex-row sm:items-center sm:justify-between">
+                <header
+                    className="
+                        mb-8
+                        flex
+                        flex-col
+                        gap-5
+                        md:flex-row
+                        md:items-end
+                        md:justify-between
+                    "
+                >
                     <div>
-                        <h2 className="text-lg font-bold text-slate-800">
-                            Recent Organizations
-                        </h2>
+                        <p
+                            className="
+                                font-['JetBrains_Mono']
+                                text-[10px]
+                                font-semibold
+                                uppercase
+                                tracking-[0.22em]
+                                text-[#F2B84B]
+                            "
+                        >
+                            Administration
+                        </p>
 
-                        <p className="text-sm text-slate-400">
-                            Recently registered organizations on Shiyora
+                        <h1
+                            className="
+                                mt-2
+                                font-['Space_Grotesk']
+                                text-3xl
+                                font-semibold
+                                tracking-tight
+                                text-[#F3EEDD]
+                                md:text-4xl
+                            "
+                        >
+                            SuperAdmin Dashboard
+                        </h1>
+
+                        <p
+                            className="
+                                mt-2
+                                max-w-2xl
+                                text-sm
+                                leading-relaxed
+                                text-[#F3EEDD]/50
+                            "
+                        >
+                            Welcome back to the Shiyora LMS administration
+                            panel. Manage organizations, users, courses and
+                            platform activity from one place.
                         </p>
                     </div>
 
-                    <button className="flex items-center gap-1 text-sm font-medium text-indigo-600 hover:text-indigo-700">
-                        View All
-                        <ArrowUpRight size={16} />
-                    </button>
-                </div>
+                    {/* DATE */}
 
-                <div className="overflow-x-auto">
-                    <table className="w-full min-w-[700px]">
+                    <div
+                        className="
+                            relative
+                            overflow-hidden
+                            rounded-xl
+                            border
+                            border-[#F3EEDD]/10
+                            bg-[#1B241E]
+                            px-5
+                            py-3
+                            shadow-[0_15px_40px_rgba(0,0,0,0.25)]
+                        "
+                    >
+                        <span
+                            className="
+                                font-['JetBrains_Mono']
+                                text-[9px]
+                                uppercase
+                                tracking-[0.2em]
+                                text-[#F3EEDD]/35
+                            "
+                        >
+                            Today
+                        </span>
 
-                        <thead className="bg-slate-50">
-                            <tr>
-                                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
-                                    Organization
-                                </th>
+                        <p
+                            className="
+                                mt-1
+                                font-['Space_Grotesk']
+                                text-sm
+                                font-semibold
+                                text-[#F3EEDD]
+                            "
+                        >
+                            Aug 31, 2026
+                        </p>
 
-                                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
-                                    Users
-                                </th>
+                        <span
+                            className="
+                                absolute
+                                -right-5
+                                -top-5
+                                h-10
+                                w-16
+                                rotate-45
+                                bg-[#F2B84B]/10
+                            "
+                        />
+                    </div>
+                </header>
 
-                                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
-                                    Courses
-                                </th>
+                {/* ====================================================
+                    STATISTICS
+                ==================================================== */}
 
-                                <th className="px-6 py-4 text-left text-xs font-semibold uppercase tracking-wider text-slate-400">
-                                    Status
-                                </th>
+                <section
+                    className="
+                        grid
+                        grid-cols-1
+                        gap-4
+                        sm:grid-cols-2
+                        xl:grid-cols-4
+                    "
+                >
+                    {stats.map((stat) => {
+                        const Icon = stat.icon;
 
-                                <th className="px-6 py-4 text-right text-xs font-semibold uppercase tracking-wider text-slate-400">
-                                    Action
-                                </th>
-                            </tr>
-                        </thead>
+                        return (
+                            <div
+                                key={stat.title}
+                                className="
+                                    group
+                                    relative
+                                    overflow-hidden
+                                    rounded-xl
+                                    border
+                                    border-[#F3EEDD]/10
+                                    bg-[#1B241E]
+                                    p-5
+                                    shadow-[0_15px_40px_rgba(0,0,0,0.18)]
+                                    transition-all
+                                    duration-300
+                                    hover:-translate-y-1
+                                    hover:border-[#F2B84B]/30
+                                    hover:shadow-[0_25px_55px_rgba(0,0,0,0.28)]
+                                "
+                            >
+                                {/* Decorative tape */}
 
-                        <tbody className="divide-y divide-slate-100">
+                                <span
+                                    className="
+                                        absolute
+                                        -right-6
+                                        -top-6
+                                        h-12
+                                        w-20
+                                        rotate-45
+                                        bg-[#F2B84B]/10
+                                        transition-all
+                                        duration-300
+                                        group-hover:bg-[#F2B84B]/15
+                                    "
+                                />
 
-                            {organizations.map((org, index) => (
-                                <tr
-                                    key={index}
-                                    className="transition hover:bg-slate-50"
-                                >
-                                    <td className="px-6 py-4">
-                                        <div className="flex items-center gap-3">
-
-                                            <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-indigo-50 font-semibold text-indigo-600">
-                                                {org.name.charAt(0)}
-                                            </div>
-
-                                            <div>
-                                                <p className="font-medium text-slate-700">
-                                                    {org.name}
-                                                </p>
-
-                                                <p className="text-xs text-slate-400">
-                                                    {org.email}
-                                                </p>
-                                            </div>
-
-                                        </div>
-                                    </td>
-
-                                    <td className="px-6 py-4 text-sm text-slate-600">
-                                        {org.users}
-                                    </td>
-
-                                    <td className="px-6 py-4 text-sm text-slate-600">
-                                        {org.courses}
-                                    </td>
-
-                                    <td className="px-6 py-4">
-                                        <span
-                                            className={`rounded-full px-3 py-1 text-xs font-medium ${org.status === "Active"
-                                                ? "bg-emerald-50 text-emerald-600"
-                                                : "bg-amber-50 text-amber-600"
-                                                }`}
+                                <div className="relative flex items-start justify-between">
+                                    <div>
+                                        <p
+                                            className="
+                                                text-xs
+                                                font-medium
+                                                text-[#F3EEDD]/45
+                                            "
                                         >
-                                            {org.status}
-                                        </span>
-                                    </td>
+                                            {stat.title}
+                                        </p>
 
-                                    <td className="px-6 py-4 text-right">
-                                        <button className="rounded-lg p-2 text-slate-400 hover:bg-slate-100 hover:text-slate-700">
-                                            <MoreVertical size={18} />
-                                        </button>
-                                    </td>
-                                </tr>
+                                        <h2
+                                            className="
+                                                mt-2
+                                                font-['JetBrains_Mono']
+                                                text-2xl
+                                                font-semibold
+                                                text-[#F3EEDD]
+                                            "
+                                        >
+                                            {stat.value}
+                                        </h2>
+
+                                        <div className="mt-3 flex items-center gap-1.5">
+                                            <TrendingUp
+                                                size={14}
+                                                className="text-[#7C9A82]"
+                                            />
+
+                                            <span
+                                                className="
+                                                    font-['JetBrains_Mono']
+                                                    text-xs
+                                                    font-semibold
+                                                    text-[#7C9A82]
+                                                "
+                                            >
+                                                {stat.change}
+                                            </span>
+
+                                            <span className="text-[10px] text-[#F3EEDD]/30">
+                                                this month
+                                            </span>
+                                        </div>
+                                    </div>
+
+                                    <div
+                                        className="
+                                            flex
+                                            h-11
+                                            w-11
+                                            shrink-0
+                                            items-center
+                                            justify-center
+                                            rounded-lg
+                                            border
+                                            border-[#F2B84B]/20
+                                            bg-[#F2B84B]/10
+                                            text-[#F2B84B]
+                                            transition-all
+                                            duration-300
+                                            group-hover:border-[#F2B84B]/40
+                                            group-hover:bg-[#F2B84B]/15
+                                        "
+                                    >
+                                        <Icon size={20} strokeWidth={1.7} />
+                                    </div>
+                                </div>
+                            </div>
+                        );
+                    })}
+                </section>
+
+                {/* ====================================================
+                    MAIN ANALYTICS GRID
+                ==================================================== */}
+
+                <section
+                    className="
+                        mt-5
+                        grid
+                        grid-cols-1
+                        gap-5
+                        xl:grid-cols-3
+                    "
+                >
+
+                    {/* =================================================
+                        PLATFORM OVERVIEW
+                    ================================================= */}
+
+                    <div
+                        className="
+                            relative
+                            overflow-hidden
+                            rounded-xl
+                            border
+                            border-[#F3EEDD]/10
+                            bg-[#1B241E]
+                            p-6
+                            shadow-[0_15px_40px_rgba(0,0,0,0.18)]
+                            xl:col-span-2
+                        "
+                    >
+                        {/* Tape */}
+
+                        <span
+                            className="
+                                absolute
+                                -top-2
+                                left-10
+                                h-5
+                                w-14
+                                -rotate-3
+                                bg-[#F2B84B]/60
+                            "
+                            style={{
+                                clipPath:
+                                    "polygon(4% 0,96% 0,100% 100%,0% 100%)",
+                            }}
+                        />
+
+                        <div className="mb-7 flex items-start justify-between gap-4">
+                            <div>
+                                <p
+                                    className="
+                                        font-['JetBrains_Mono']
+                                        text-[10px]
+                                        uppercase
+                                        tracking-[0.2em]
+                                        text-[#F2B84B]
+                                    "
+                                >
+                                    Analytics
+                                </p>
+
+                                <h2
+                                    className="
+                                        mt-1
+                                        font-['Space_Grotesk']
+                                        text-xl
+                                        font-semibold
+                                        text-[#F3EEDD]
+                                    "
+                                >
+                                    Platform Overview
+                                </h2>
+
+                                <p className="mt-1 text-xs text-[#F3EEDD]/35">
+                                    Shiyora LMS platform statistics
+                                </p>
+                            </div>
+
+                            <button
+                                type="button"
+                                className="
+                                    rounded-lg
+                                    border
+                                    border-[#F3EEDD]/10
+                                    bg-[#F3EEDD]/5
+                                    px-3
+                                    py-2
+                                    font-['JetBrains_Mono']
+                                    text-[9px]
+                                    uppercase
+                                    tracking-widest
+                                    text-[#F3EEDD]/45
+                                    transition-all
+                                    duration-200
+                                    hover:border-[#F2B84B]/30
+                                    hover:bg-[#F2B84B]/10
+                                    hover:text-[#F2B84B]
+                                "
+                            >
+                                This Year
+                            </button>
+                        </div>
+
+                        {/* CHART */}
+
+                        <div
+                            className="
+                                relative
+                                flex
+                                h-64
+                                items-end
+                                gap-2
+                                border-b
+                                border-[#F3EEDD]/10
+                            "
+                        >
+                            {/* Horizontal guide lines */}
+
+                            <div className="pointer-events-none absolute inset-0 flex flex-col justify-between pb-0">
+                                {[1, 2, 3, 4].map((line) => (
+                                    <div
+                                        key={line}
+                                        className="border-t border-dashed border-[#F3EEDD]/[0.05]"
+                                    />
+                                ))}
+                            </div>
+
+                            {chartData.map((height, index) => (
+                                <div
+                                    key={index}
+                                    className="
+                                        group
+                                        relative
+                                        z-10
+                                        flex
+                                        h-full
+                                        flex-1
+                                        items-end
+                                    "
+                                >
+                                    <div
+                                        style={{
+                                            height: `${height}%`,
+                                        }}
+                                        className="
+                                            relative
+                                            w-full
+                                            rounded-t-md
+                                            bg-[#7C9A82]/55
+                                            transition-all
+                                            duration-300
+                                            group-hover:bg-[#F2B84B]
+                                            group-hover:shadow-[0_0_18px_rgba(242,184,75,0.18)]
+                                        "
+                                    >
+                                        <div
+                                            className="
+                                                absolute
+                                                left-0
+                                                right-0
+                                                top-0
+                                                h-1
+                                                rounded-full
+                                                bg-[#F3EEDD]/20
+                                            "
+                                        />
+                                    </div>
+                                </div>
                             ))}
+                        </div>
 
-                        </tbody>
-                    </table>
-                </div>
+                        {/* MONTHS */}
+
+                        <div
+                            className="
+                                mt-4
+                                flex
+                                justify-between
+                                font-['JetBrains_Mono']
+                                text-[9px]
+                                uppercase
+                                tracking-wider
+                                text-[#F3EEDD]/30
+                            "
+                        >
+                            <span>Jan</span>
+                            <span>Mar</span>
+                            <span>May</span>
+                            <span>Jul</span>
+                            <span>Sep</span>
+                            <span>Nov</span>
+                        </div>
+                    </div>
+
+                    {/* =================================================
+                        PLATFORM USERS
+                    ================================================= */}
+
+                    <div
+                        className="
+                            relative
+                            overflow-hidden
+                            rounded-xl
+                            border
+                            border-[#F3EEDD]/10
+                            bg-[#1B241E]
+                            p-6
+                            shadow-[0_15px_40px_rgba(0,0,0,0.18)]
+                        "
+                    >
+                        <p
+                            className="
+                                font-['JetBrains_Mono']
+                                text-[10px]
+                                uppercase
+                                tracking-[0.2em]
+                                text-[#F2B84B]
+                            "
+                        >
+                            Distribution
+                        </p>
+
+                        <h2
+                            className="
+                                mt-1
+                                font-['Space_Grotesk']
+                                text-xl
+                                font-semibold
+                            "
+                        >
+                            Platform Users
+                        </h2>
+
+                        <p className="mt-1 text-xs text-[#F3EEDD]/35">
+                            User distribution
+                        </p>
+
+                        <div className="mt-7 space-y-6">
+
+                            {/* TEACHERS */}
+
+                            <div>
+                                <div className="mb-2 flex justify-between text-sm">
+                                    <span className="flex items-center gap-2 text-[#F3EEDD]/65">
+                                        <UserCheck
+                                            size={16}
+                                            className="text-[#F2B84B]"
+                                        />
+                                        Teachers
+                                    </span>
+
+                                    <span
+                                        className="
+                                            font-['JetBrains_Mono']
+                                            text-xs
+                                            font-semibold
+                                        "
+                                    >
+                                        2,140
+                                    </span>
+                                </div>
+
+                                <div className="h-2 overflow-hidden rounded-full bg-[#F3EEDD]/10">
+                                    <div className="h-full w-[65%] rounded-full bg-[#F2B84B]" />
+                                </div>
+                            </div>
+
+                            {/* STUDENTS */}
+
+                            <div>
+                                <div className="mb-2 flex justify-between text-sm">
+                                    <span className="flex items-center gap-2 text-[#F3EEDD]/65">
+                                        <GraduationCap
+                                            size={16}
+                                            className="text-[#7C9A82]"
+                                        />
+                                        Students
+                                    </span>
+
+                                    <span
+                                        className="
+                                            font-['JetBrains_Mono']
+                                            text-xs
+                                            font-semibold
+                                        "
+                                    >
+                                        9,850
+                                    </span>
+                                </div>
+
+                                <div className="h-2 overflow-hidden rounded-full bg-[#F3EEDD]/10">
+                                    <div className="h-full w-[85%] rounded-full bg-[#7C9A82]" />
+                                </div>
+                            </div>
+
+                            {/* ADMINS */}
+
+                            <div>
+                                <div className="mb-2 flex justify-between text-sm">
+                                    <span className="flex items-center gap-2 text-[#F3EEDD]/65">
+                                        <Activity
+                                            size={16}
+                                            className="text-[#D6402C]"
+                                        />
+                                        Admins
+                                    </span>
+
+                                    <span
+                                        className="
+                                            font-['JetBrains_Mono']
+                                            text-xs
+                                            font-semibold
+                                        "
+                                    >
+                                        490
+                                    </span>
+                                </div>
+
+                                <div className="h-2 overflow-hidden rounded-full bg-[#F3EEDD]/10">
+                                    <div className="h-full w-[35%] rounded-full bg-[#D6402C]" />
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </section>
+
+                {/* ====================================================
+                    RECENT ORGANIZATIONS
+                ==================================================== */}
+
+                <section
+                    className="
+                        relative
+                        mt-5
+                        overflow-hidden
+                        rounded-xl
+                        border
+                        border-[#F3EEDD]/10
+                        bg-[#1B241E]
+                        shadow-[0_15px_40px_rgba(0,0,0,0.18)]
+                    "
+                >
+                    {/* HEADER */}
+
+                    <div
+                        className="
+                            flex
+                            flex-col
+                            gap-3
+                            border-b
+                            border-[#F3EEDD]/10
+                            p-6
+                            sm:flex-row
+                            sm:items-center
+                            sm:justify-between
+                        "
+                    >
+                        <div>
+                            <p
+                                className="
+                                    font-['JetBrains_Mono']
+                                    text-[10px]
+                                    uppercase
+                                    tracking-[0.2em]
+                                    text-[#F2B84B]
+                                "
+                            >
+                                Organizations
+                            </p>
+
+                            <h2
+                                className="
+                                    mt-1
+                                    font-['Space_Grotesk']
+                                    text-xl
+                                    font-semibold
+                                "
+                            >
+                                Recent Organizations
+                            </h2>
+
+                            <p className="mt-1 text-xs text-[#F3EEDD]/35">
+                                Recently registered organizations on Shiyora
+                            </p>
+                        </div>
+
+                        <button
+                            type="button"
+                            className="
+                                flex
+                                items-center
+                                gap-1
+                                self-start
+                                font-['JetBrains_Mono']
+                                text-xs
+                                font-semibold
+                                text-[#F2B84B]
+                                transition
+                                hover:text-[#F7C968]
+                            "
+                        >
+                            View All
+                            <ArrowUpRight size={15} />
+                        </button>
+                    </div>
+
+                    {/* TABLE */}
+
+                    <div className="overflow-x-auto">
+                        <table className="w-full min-w-[720px]">
+
+                            <thead className="border-b border-[#F3EEDD]/10 bg-[#141C17]">
+                                <tr>
+                                    {[
+                                        "Organization",
+                                        "Users",
+                                        "Courses",
+                                        "Status",
+                                        "Action",
+                                    ].map((heading, index) => (
+                                        <th
+                                            key={heading}
+                                            className={`
+                                                px-6
+                                                py-4
+                                                font-['JetBrains_Mono']
+                                                text-[9px]
+                                                font-semibold
+                                                uppercase
+                                                tracking-[0.16em]
+                                                text-[#F3EEDD]/30
+                                                ${index === 4
+                                                    ? "text-right"
+                                                    : "text-left"
+                                                }
+                                            `}
+                                        >
+                                            {heading}
+                                        </th>
+                                    ))}
+                                </tr>
+                            </thead>
+
+                            <tbody className="divide-y divide-[#F3EEDD]/[0.07]">
+                                {organizations.map((org, index) => (
+                                    <tr
+                                        key={index}
+                                        className="
+                                            transition-all
+                                            duration-200
+                                            hover:bg-[#F3EEDD]/[0.025]
+                                        "
+                                    >
+                                        {/* ORGANIZATION */}
+
+                                        <td className="px-6 py-4">
+                                            <div className="flex items-center gap-3">
+                                                <div
+                                                    className="
+                                                        flex
+                                                        h-10
+                                                        w-10
+                                                        shrink-0
+                                                        items-center
+                                                        justify-center
+                                                        rounded-lg
+                                                        border
+                                                        border-[#F2B84B]/20
+                                                        bg-[#F2B84B]/10
+                                                        font-['Space_Grotesk']
+                                                        font-semibold
+                                                        text-[#F2B84B]
+                                                    "
+                                                >
+                                                    {org.name.charAt(0)}
+                                                </div>
+
+                                                <div>
+                                                    <p className="font-medium text-[#F3EEDD]">
+                                                        {org.name}
+                                                    </p>
+
+                                                    <p className="mt-0.5 text-xs text-[#F3EEDD]/35">
+                                                        {org.email}
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        {/* USERS */}
+
+                                        <td
+                                            className="
+                                                px-6
+                                                py-4
+                                                font-['JetBrains_Mono']
+                                                text-xs
+                                                text-[#F3EEDD]/55
+                                            "
+                                        >
+                                            {org.users}
+                                        </td>
+
+                                        {/* COURSES */}
+
+                                        <td
+                                            className="
+                                                px-6
+                                                py-4
+                                                font-['JetBrains_Mono']
+                                                text-xs
+                                                text-[#F3EEDD]/55
+                                            "
+                                        >
+                                            {org.courses}
+                                        </td>
+
+                                        {/* STATUS */}
+
+                                        <td className="px-6 py-4">
+                                            <span
+                                                className={`
+                                                    inline-flex
+                                                    rounded-full
+                                                    border
+                                                    px-3
+                                                    py-1
+                                                    font-['JetBrains_Mono']
+                                                    text-[9px]
+                                                    font-semibold
+                                                    uppercase
+                                                    tracking-wider
+
+                                                    ${org.status === "Active"
+                                                        ? "border-[#7C9A82]/30 bg-[#7C9A82]/10 text-[#7C9A82]"
+                                                        : "border-[#F2B84B]/30 bg-[#F2B84B]/10 text-[#F2B84B]"
+                                                    }
+                                                `}
+                                            >
+                                                {org.status}
+                                            </span>
+                                        </td>
+
+                                        {/* ACTION */}
+
+                                        <td className="px-6 py-4 text-right">
+                                            <button
+                                                type="button"
+                                                aria-label={`Actions for ${org.name}`}
+                                                className="
+                                                    rounded-lg
+                                                    p-2
+                                                    text-[#F3EEDD]/30
+                                                    transition-all
+                                                    hover:bg-[#F2B84B]/10
+                                                    hover:text-[#F2B84B]
+                                                "
+                                            >
+                                                <MoreVertical size={18} />
+                                            </button>
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                {/* ====================================================
+                    SUMMARY CARDS
+                ==================================================== */}
+
+                <section
+                    className="
+                        mt-5
+                        grid
+                        grid-cols-1
+                        gap-5
+                        md:grid-cols-3
+                    "
+                >
+
+                    {/* SUBSCRIPTIONS */}
+
+                    <div
+                        className="
+                            group
+                            relative
+                            overflow-hidden
+                            rounded-xl
+                            border
+                            border-[#F2B84B]/20
+                            bg-[#1B241E]
+                            p-6
+                            shadow-[0_15px_35px_rgba(0,0,0,0.20)]
+                            transition-all
+                            duration-300
+                            hover:-translate-y-1
+                            hover:border-[#F2B84B]/35
+                        "
+                    >
+                        <div
+                            className="
+                                absolute
+                                -right-10
+                                -top-10
+                                h-28
+                                w-28
+                                rounded-full
+                                bg-[#F2B84B]/10
+                                blur-2xl
+                            "
+                        />
+
+                        <div className="relative flex items-center justify-between">
+                            <div>
+                                <p className="text-xs text-[#F3EEDD]/50">
+                                    Active Subscriptions
+                                </p>
+
+                                <h3
+                                    className="
+                                        mt-2
+                                        font-['JetBrains_Mono']
+                                        text-3xl
+                                        font-semibold
+                                        text-[#F3EEDD]
+                                    "
+                                >
+                                    96
+                                </h3>
+                            </div>
+
+                            <div
+                                className="
+                                    flex
+                                    h-12
+                                    w-12
+                                    items-center
+                                    justify-center
+                                    rounded-lg
+                                    border
+                                    border-[#F2B84B]/20
+                                    bg-[#F2B84B]/10
+                                    text-[#F2B84B]
+                                "
+                            >
+                                <CreditCard size={24} />
+                            </div>
+                        </div>
+
+                        <p className="relative mt-4 text-xs text-[#F3EEDD]/40">
+                            14 new subscriptions this month
+                        </p>
+                    </div>
+
+                    {/* COURSES */}
+
+                    <div
+                        className="
+                            group
+                            relative
+                            overflow-hidden
+                            rounded-xl
+                            border
+                            border-[#7C9A82]/20
+                            bg-[#1B241E]
+                            p-6
+                            shadow-[0_15px_35px_rgba(0,0,0,0.20)]
+                            transition-all
+                            duration-300
+                            hover:-translate-y-1
+                            hover:border-[#7C9A82]/35
+                        "
+                    >
+                        <div
+                            className="
+                                absolute
+                                -right-10
+                                -top-10
+                                h-28
+                                w-28
+                                rounded-full
+                                bg-[#7C9A82]/10
+                                blur-2xl
+                            "
+                        />
+
+                        <div className="relative flex items-center justify-between">
+                            <div>
+                                <p className="text-xs text-[#F3EEDD]/50">
+                                    Active Courses
+                                </p>
+
+                                <h3
+                                    className="
+                                        mt-2
+                                        font-['JetBrains_Mono']
+                                        text-3xl
+                                        font-semibold
+                                        text-[#F3EEDD]
+                                    "
+                                >
+                                    1,245
+                                </h3>
+                            </div>
+
+                            <div
+                                className="
+                                    flex
+                                    h-12
+                                    w-12
+                                    items-center
+                                    justify-center
+                                    rounded-lg
+                                    border
+                                    border-[#7C9A82]/20
+                                    bg-[#7C9A82]/10
+                                    text-[#7C9A82]
+                                "
+                            >
+                                <BookOpen size={24} />
+                            </div>
+                        </div>
+
+                        <p className="relative mt-4 text-xs text-[#F3EEDD]/40">
+                            87 courses added this month
+                        </p>
+                    </div>
+
+                    {/* REVENUE */}
+
+                    <div
+                        className="
+                            group
+                            relative
+                            overflow-hidden
+                            rounded-xl
+                            border
+                            border-[#D6402C]/20
+                            bg-[#1B241E]
+                            p-6
+                            shadow-[0_15px_35px_rgba(0,0,0,0.20)]
+                            transition-all
+                            duration-300
+                            hover:-translate-y-1
+                            hover:border-[#D6402C]/35
+                        "
+                    >
+                        <div
+                            className="
+                                absolute
+                                -right-10
+                                -top-10
+                                h-28
+                                w-28
+                                rounded-full
+                                bg-[#D6402C]/10
+                                blur-2xl
+                            "
+                        />
+
+                        <div className="relative flex items-center justify-between">
+                            <div>
+                                <p className="text-xs text-[#F3EEDD]/50">
+                                    Monthly Revenue
+                                </p>
+
+                                <h3
+                                    className="
+                                        mt-2
+                                        font-['JetBrains_Mono']
+                                        text-3xl
+                                        font-semibold
+                                        text-[#F3EEDD]
+                                    "
+                                >
+                                    ₹2.18L
+                                </h3>
+                            </div>
+
+                            <div
+                                className="
+                                    flex
+                                    h-12
+                                    w-12
+                                    items-center
+                                    justify-center
+                                    rounded-lg
+                                    border
+                                    border-[#D6402C]/20
+                                    bg-[#D6402C]/10
+                                    text-[#D6402C]
+                                "
+                            >
+                                <TrendingUp size={24} />
+                            </div>
+                        </div>
+
+                        <p className="relative mt-4 text-xs text-[#F3EEDD]/40">
+                            24.6% increase from last month
+                        </p>
+                    </div>
+                </section>
             </div>
-
-            {/* Bottom Cards */}
-            <div className="mt-6 grid grid-cols-1 gap-6 md:grid-cols-3">
-
-                <div className="rounded-2xl bg-indigo-600 p-6 text-white shadow-lg">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm text-indigo-100">
-                                Active Subscriptions
-                            </p>
-
-                            <h3 className="mt-2 text-3xl font-bold">
-                                96
-                            </h3>
-                        </div>
-
-                        <CreditCard size={32} />
-                    </div>
-
-                    <p className="mt-4 text-sm text-indigo-100">
-                        14 new subscriptions this month
-                    </p>
-                </div>
-
-                <div className="rounded-2xl bg-slate-800 p-6 text-white shadow-lg">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm text-slate-300">
-                                Active Courses
-                            </p>
-
-                            <h3 className="mt-2 text-3xl font-bold">
-                                1,245
-                            </h3>
-                        </div>
-
-                        <BookOpen size={32} />
-                    </div>
-
-                    <p className="mt-4 text-sm text-slate-300">
-                        87 courses added this month
-                    </p>
-                </div>
-
-                <div className="rounded-2xl bg-emerald-600 p-6 text-white shadow-lg">
-                    <div className="flex items-center justify-between">
-                        <div>
-                            <p className="text-sm text-emerald-100">
-                                Monthly Revenue
-                            </p>
-
-                            <h3 className="mt-2 text-3xl font-bold">
-                                ₹2.18L
-                            </h3>
-                        </div>
-
-                        <TrendingUp size={32} />
-                    </div>
-
-                    <p className="mt-4 text-sm text-emerald-100">
-                        24.6% increase from last month
-                    </p>
-                </div>
-
-            </div>
-
-        </div>
+        </main>
     );
 };
 

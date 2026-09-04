@@ -1,11 +1,21 @@
 import { Link } from "react-router-dom";
 
+/**
+ * Shiyora Subscription
+ * Design language: "The Study Desk"
+ * Same visual language as the Shiyora Home page.
+ */
+
+const FONT_IMPORTS =
+    "@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap');";
+
 const plans = [
     {
         name: "Free",
         price: "₹0",
         description:
             "Perfect for individuals and small organizations getting started with digital learning.",
+        accent: "#7C9A82",
         features: [
             "Up to 25 Students",
             "2 Teachers",
@@ -24,6 +34,7 @@ const plans = [
         description:
             "Designed for growing organizations that need more learning capacity.",
         popular: true,
+        accent: "#F2B84B",
         features: [
             "Up to 250 Students",
             "20 Teachers",
@@ -42,6 +53,7 @@ const plans = [
         price: "₹2,499",
         description:
             "For larger organizations that need powerful learning management capabilities.",
+        accent: "#D6402C",
         features: [
             "Unlimited Students",
             "Unlimited Teachers",
@@ -56,270 +68,335 @@ const plans = [
     },
 ];
 
-function Subscription() {
+function CheckIcon() {
     return (
-        <div
+        <span
             className="
-                min-h-screen
-                bg-[#f8f9fc]
-                text-slate-900
-
-                dark:bg-[#080b14]
-                dark:text-white
-
-                transition-colors duration-500
-                overflow-hidden
+                mt-0.5
+                flex
+                h-5
+                w-5
+                shrink-0
+                items-center
+                justify-center
+                rounded-full
+                bg-[#7C9A82]/15
+                text-[#527B59]
+                text-xs
+                font-bold
             "
         >
+            ✓
+        </span>
+    );
+}
+
+function Subscription() {
+    return (
+        <main
+            className="
+                min-h-screen
+                overflow-hidden
+                bg-[#161F19]
+                font-['Inter']
+                text-[#F3EEDD]
+            "
+        >
+            <style>{FONT_IMPORTS}</style>
 
             {/* =====================================================
-                BACKGROUND GLOW
+                BACKGROUND
             ====================================================== */}
 
+            {/* Desk lamp glow */}
             <div
                 className="
                     pointer-events-none
                     fixed
-                    -top-40
-                    -right-40
-                    w-[500px]
-                    h-[500px]
-                    rounded-full
-                    bg-violet-300/20
-                    dark:bg-violet-600/10
-                    blur-[130px]
-                "
-            ></div>
-
-            <div
-                className="
-                    pointer-events-none
-                    fixed
-                    bottom-0
                     -left-40
-                    w-[450px]
-                    h-[450px]
+                    -top-40
+                    h-[520px]
+                    w-[520px]
                     rounded-full
-                    bg-cyan-300/20
-                    dark:bg-cyan-500/10
-                    blur-[130px]
+                    bg-[#F2B84B]/[0.10]
+                    blur-[140px]
                 "
-            ></div>
+            />
 
+            <div
+                className="
+                    pointer-events-none
+                    fixed
+                    -right-40
+                    top-40
+                    h-[500px]
+                    w-[500px]
+                    rounded-full
+                    bg-[#7C9A82]/[0.10]
+                    blur-[150px]
+                "
+            />
+
+            {/* Chalk dust */}
+            <div
+                className="
+                    pointer-events-none
+                    fixed
+                    inset-0
+                    opacity-[0.08]
+                "
+                style={{
+                    backgroundImage:
+                        "radial-gradient(rgba(243,238,221,0.6) 1px, transparent 1px)",
+                    backgroundSize: "24px 24px",
+                }}
+            />
 
             {/* =====================================================
                 HEADER
             ====================================================== */}
 
-            <section className="relative z-10 pt-20 pb-14 px-6 text-center">
+            <section
+                className="
+                    relative
+                    z-10
+                    px-6
+                    pb-16
+                    pt-24
+                    text-center
+                "
+            >
+                <div className="mx-auto max-w-3xl">
 
-                <p
-                    className="
-                        text-sm
-                        font-bold
-                        uppercase
-                        tracking-[0.2em]
-                        text-violet-600
-                        dark:text-cyan-400
-                    "
-                >
-                    Shiyora Plans
-                </p>
-
-
-                <h1
-                    className="
-                        mt-4
-                        text-4xl
-                        md:text-5xl
-                        lg:text-6xl
-                        font-black
-                        tracking-tight
-                        text-slate-900
-                        dark:text-white
-                    "
-                >
-                    Plans That Grow
-                    <br />
-
-                    <span
+                    <p
                         className="
-                            bg-gradient-to-r
-                            from-violet-600
-                            via-purple-500
-                            to-cyan-400
-                            bg-clip-text
-                            text-transparent
+                            font-['JetBrains_Mono']
+                            text-xs
+                            font-semibold
+                            uppercase
+                            tracking-[0.2em]
+                            text-[#F2B84B]
                         "
                     >
-                        With Your Organization
-                    </span>
-                </h1>
+                        Shiyora Plans
+                    </p>
 
+                    <h1
+                        className="
+                            mt-4
+                            font-['Space_Grotesk']
+                            text-4xl
+                            font-semibold
+                            leading-tight
+                            tracking-tight
+                            text-[#F3EEDD]
+                            sm:text-5xl
+                            lg:text-6xl
+                        "
+                    >
+                        Plans that grow
+                        <br />
 
-                <p
-                    className="
-                        mt-5
-                        max-w-2xl
-                        mx-auto
-                        text-lg
-                        leading-relaxed
-                        text-slate-600
-                        dark:text-slate-400
-                    "
-                >
-                    Choose a plan that fits your learning requirements
-                    and upgrade whenever your organization grows.
-                </p>
+                        <span className="relative inline-block">
+                            with your organization.
 
+                            {/* Red underline */}
+                            <svg
+                                viewBox="0 0 420 18"
+                                className="
+                                    absolute
+                                    -bottom-2
+                                    left-0
+                                    h-3
+                                    w-full
+                                    text-[#D6402C]
+                                "
+                                preserveAspectRatio="none"
+                                aria-hidden="true"
+                            >
+                                <path
+                                    d="M3 12c80-10 250-10 414 1"
+                                    fill="none"
+                                    stroke="currentColor"
+                                    strokeWidth="4"
+                                    strokeLinecap="round"
+                                />
+                            </svg>
+                        </span>
+                    </h1>
+
+                    <p
+                        className="
+                            mx-auto
+                            mt-8
+                            max-w-2xl
+                            text-base
+                            leading-relaxed
+                            text-[#F3EEDD]/55
+                            md:text-lg
+                        "
+                    >
+                        Choose a plan that fits your learning requirements
+                        and upgrade whenever your organization grows.
+                    </p>
+
+                </div>
             </section>
-
 
             {/* =====================================================
                 PRICING CARDS
             ====================================================== */}
 
-            <section className="relative z-10 pb-24 px-6">
-
+            <section
+                className="
+                    relative
+                    z-10
+                    px-6
+                    pb-24
+                "
+            >
                 <div
                     className="
-                        max-w-7xl
                         mx-auto
                         grid
-                        md:grid-cols-3
-                        gap-7
+                        max-w-7xl
                         items-stretch
+                        gap-6
+                        md:grid-cols-3
                     "
                 >
 
-                    {plans.map((plan) => (
+                    {plans.map((plan, index) => (
 
                         <div
                             key={plan.name}
                             className={`
                                 relative
-                                rounded-[1.5rem]
-                                p-[1px]
-
                                 transition-all
                                 duration-300
+                                motion-safe:hover:-translate-y-2
 
-                                hover:-translate-y-2
-
-                                ${plan.popular
-                                    ? `
-                                            bg-gradient-to-br
-                                            from-violet-500
-                                            via-purple-500
-                                            to-cyan-400
-
-                                            shadow-2xl
-                                            shadow-violet-500/20
-                                        `
-                                    : `
-                                            bg-slate-200
-                                            dark:bg-white/10
-                                        `
+                                ${index === 0
+                                    ? "rotate-[-0.5deg]"
+                                    : index === 1
+                                        ? "rotate-0"
+                                        : "rotate-[0.5deg]"
                                 }
                             `}
                         >
 
-                            {/* CARD INNER */}
+                            {/* Popular tape */}
+                            {plan.popular && (
+                                <div
+                                    className="
+                                        absolute
+                                        -top-3
+                                        left-1/2
+                                        z-20
+                                        -translate-x-1/2
+                                    "
+                                >
+                                    <span
+                                        className="
+                                            inline-block
+                                            bg-[#F2B84B]/80
+                                            px-6
+                                            py-1.5
+                                            font-['JetBrains_Mono']
+                                            text-[10px]
+                                            font-semibold
+                                            uppercase
+                                            tracking-widest
+                                            text-[#161F19]
+                                            shadow-[0_3px_8px_rgba(0,0,0,0.25)]
+                                        "
+                                        style={{
+                                            clipPath:
+                                                "polygon(3% 0, 97% 0, 100% 100%, 0% 100%)",
+                                        }}
+                                    >
+                                        Most Popular
+                                    </span>
+                                </div>
+                            )}
 
+                            {/* Card */}
                             <div
                                 className="
                                     h-full
-                                    rounded-[1.45rem]
-                                    p-7 md:p-8
-
-                                    bg-white
-                                    dark:bg-[#0d111c]
-
-                                    transition-colors
-                                    duration-300
+                                    rounded-2xl
+                                    border
+                                    border-[#1C2A22]/10
+                                    bg-[#F3EEDD]
+                                    p-7
+                                    text-[#1C2A22]
+                                    shadow-[0_25px_60px_rgba(0,0,0,0.30)]
                                 "
                             >
 
-                                {/* POPULAR BADGE */}
+                                {/* Card heading */}
 
-                                {plan.popular && (
-                                    <div
-                                        className="
-                                            absolute
-                                            -top-3
-                                            left-1/2
-                                            -translate-x-1/2
-                                        "
-                                    >
+                                <div className="flex items-start justify-between">
 
-                                        <span
+                                    <div>
+                                        <p
                                             className="
-                                                px-5
-                                                py-1.5
-                                                rounded-full
-                                                text-[11px]
-                                                font-bold
-                                                tracking-wider
-                                                text-white
-
-                                                bg-gradient-to-r
-                                                from-violet-600
-                                                to-cyan-500
-
-                                                shadow-lg
-                                                shadow-violet-500/30
-
-                                                whitespace-nowrap
+                                                font-['JetBrains_Mono']
+                                                text-[10px]
+                                                font-semibold
+                                                uppercase
+                                                tracking-widest
+                                                text-[#1C2A22]/40
                                             "
                                         >
-                                            MOST POPULAR
-                                        </span>
+                                            Plan {String(index + 1).padStart(2, "0")}
+                                        </p>
 
+                                        <h2
+                                            className="
+                                                mt-2
+                                                font-['Space_Grotesk']
+                                                text-2xl
+                                                font-semibold
+                                            "
+                                        >
+                                            {plan.name}
+                                        </h2>
                                     </div>
-                                )}
 
+                                    <div
+                                        className="h-3 w-3 rounded-full"
+                                        style={{
+                                            backgroundColor: plan.accent,
+                                            boxShadow: `0 0 12px ${plan.accent}55`,
+                                        }}
+                                    />
 
-                                {/* PLAN NAME */}
+                                </div>
 
-                                <h2
-                                    className="
-                                        text-2xl
-                                        font-black
-                                        text-slate-900
-                                        dark:text-white
-                                    "
-                                >
-                                    {plan.name}
-                                </h2>
-
-
-                                {/* DESCRIPTION */}
+                                {/* Description */}
 
                                 <p
                                     className="
-                                        mt-3
+                                        mt-4
+                                        min-h-[80px]
                                         text-sm
                                         leading-relaxed
-                                        min-h-[80px]
-
-                                        text-slate-600
-                                        dark:text-slate-400
+                                        text-[#1C2A22]/55
                                     "
                                 >
                                     {plan.description}
                                 </p>
 
-
-                                {/* PRICE */}
+                                {/* Price */}
 
                                 <div className="mt-6 flex items-end gap-2">
 
                                     <span
                                         className="
+                                            font-['JetBrains_Mono']
                                             text-4xl
-                                            font-black
-                                            text-slate-900
-                                            dark:text-white
+                                            font-semibold
                                         "
                                     >
                                         {plan.price}
@@ -328,9 +405,8 @@ function Subscription() {
                                     <span
                                         className="
                                             mb-1
-                                            text-sm
-                                            text-slate-500
-                                            dark:text-slate-500
+                                            text-xs
+                                            text-[#1C2A22]/45
                                         "
                                     >
                                         / month
@@ -338,79 +414,85 @@ function Subscription() {
 
                                 </div>
 
+                                {/* Button */}
 
-                                {/* BUTTON */}
-
-                                <button
-                                    type="button"
+                                <Link
+                                    to="/signup"
                                     className={`
-                                        w-full
                                         mt-7
-                                        py-3
-                                        rounded-xl
+                                        flex
+                                        w-full
+                                        items-center
+                                        justify-center
+                                        gap-2
+                                        rounded-lg
+                                        px-5
+                                        py-3.5
                                         font-semibold
                                         transition-all
                                         duration-300
-
                                         hover:-translate-y-0.5
 
                                         ${plan.popular
                                             ? `
-                                                    text-white
-                                                    bg-gradient-to-r
-                                                    from-violet-600
-                                                    to-cyan-500
-
-                                                    hover:shadow-lg
-                                                    hover:shadow-violet-500/20
+                                                    bg-[#F2B84B]
+                                                    text-[#161F19]
+                                                    shadow-[0_8px_25px_rgba(242,184,75,0.20)]
+                                                    hover:bg-[#f7c968]
                                                 `
                                             : `
                                                     border
-                                                    border-violet-300
-                                                    dark:border-white/10
-
-                                                    text-violet-600
-                                                    dark:text-cyan-400
-
-                                                    hover:bg-violet-50
-                                                    dark:hover:bg-white/5
-
-                                                    hover:border-violet-400
-                                                    dark:hover:border-cyan-400/30
+                                                    border-[#1C2A22]/15
+                                                    bg-[#1C2A22]/5
+                                                    text-[#1C2A22]
+                                                    hover:border-[#F2B84B]/50
+                                                    hover:bg-[#F2B84B]/10
+                                                    hover:text-[#1C2A22]
                                                 `
                                         }
                                     `}
                                 >
                                     Choose {plan.name}
-                                </button>
+                                    <span>→</span>
+                                </Link>
 
-
-                                {/* DIVIDER */}
+                                {/* Divider */}
 
                                 <div
                                     className="
-                                        border-t
-                                        border-slate-200
-                                        dark:border-white/10
                                         my-8
+                                        border-t
+                                        border-[#1C2A22]/10
                                     "
-                                ></div>
+                                />
 
+                                {/* Includes */}
 
-                                {/* FEATURES TITLE */}
+                                <div className="flex items-center justify-between">
 
-                                <h3
-                                    className="
-                                        font-bold
-                                        text-slate-900
-                                        dark:text-white
-                                    "
-                                >
-                                    Plan Includes
-                                </h3>
+                                    <h3
+                                        className="
+                                            font-['Space_Grotesk']
+                                            text-base
+                                            font-semibold
+                                        "
+                                    >
+                                        Plan Includes
+                                    </h3>
 
+                                    <span
+                                        className="
+                                            font-['JetBrains_Mono']
+                                            text-[10px]
+                                            uppercase
+                                            tracking-wider
+                                            text-[#1C2A22]/35
+                                        "
+                                    >
+                                        {plan.features.length} features
+                                    </span>
 
-                                {/* FEATURES */}
+                                </div>
 
                                 <ul className="mt-5 space-y-4">
 
@@ -423,43 +505,13 @@ function Subscription() {
                                                 items-start
                                                 gap-3
                                                 text-sm
-                                                text-slate-600
-                                                dark:text-slate-400
+                                                text-[#1C2A22]/65
                                             "
                                         >
 
-                                            <span
-                                                className="
-                                                    mt-0.5
-                                                    w-5
-                                                    h-5
-                                                    shrink-0
-                                                    rounded-full
+                                            <CheckIcon />
 
-                                                    bg-violet-50
-                                                    dark:bg-violet-500/10
-
-                                                    text-violet-600
-                                                    dark:text-cyan-400
-
-                                                    border
-                                                    border-violet-200
-                                                    dark:border-violet-500/20
-
-                                                    flex
-                                                    items-center
-                                                    justify-center
-
-                                                    text-xs
-                                                    font-bold
-                                                "
-                                            >
-                                                ✓
-                                            </span>
-
-                                            <span>
-                                                {feature}
-                                            </span>
+                                            <span>{feature}</span>
 
                                         </li>
 
@@ -474,9 +526,7 @@ function Subscription() {
                     ))}
 
                 </div>
-
             </section>
-
 
             {/* =====================================================
                 WHY SHIYORA
@@ -486,275 +536,221 @@ function Subscription() {
                 className="
                     relative
                     z-10
-                    pb-24
+                    border-t
+                    border-[#F3EEDD]/10
+                    bg-[#141C17]
                     px-6
+                    py-24
                 "
             >
 
-                <div
-                    className="
-                        max-w-5xl
-                        mx-auto
-                        rounded-[1.5rem]
-                        p-[1px]
+                <div className="mx-auto max-w-5xl">
 
-                        bg-slate-200
-                        dark:bg-white/10
-                    "
-                >
+                    <div className="text-center">
+
+                        <p
+                            className="
+                                font-['JetBrains_Mono']
+                                text-xs
+                                font-semibold
+                                uppercase
+                                tracking-[0.2em]
+                                text-[#F2B84B]
+                            "
+                        >
+                            Why Shiyora
+                        </p>
+
+                        <h2
+                            className="
+                                mt-3
+                                font-['Space_Grotesk']
+                                text-3xl
+                                font-semibold
+                                tracking-tight
+                                md:text-4xl
+                            "
+                        >
+                            A flexible learning platform.
+                        </h2>
+
+                        <p
+                            className="
+                                mx-auto
+                                mt-4
+                                max-w-2xl
+                                leading-relaxed
+                                text-[#F3EEDD]/55
+                            "
+                        >
+                            Start with the Free plan and upgrade as your
+                            organization grows. Shiyora provides the essential
+                            tools needed to manage modern digital learning.
+                        </p>
+
+                    </div>
+
+                    {/* Summary Cards */}
 
                     <div
                         className="
-                            rounded-[1.45rem]
-                            p-8
-                            md:p-12
-
-                            bg-white
-                            dark:bg-[#0d111c]
+                            mt-14
+                            grid
+                            gap-5
+                            sm:grid-cols-3
                         "
                     >
 
-                        <div className="text-center">
+                        {/* Free */}
 
-                            <p
+                        <div
+                            className="
+                                rounded-xl
+                                border
+                                border-[#F3EEDD]/10
+                                bg-[#1B241E]
+                                p-6
+                                text-center
+                                transition-all
+                                duration-300
+                                hover:-translate-y-1
+                                hover:border-[#F3EEDD]/20
+                            "
+                        >
+
+                            <div
                                 className="
-                                    text-sm
-                                    font-bold
-                                    uppercase
-                                    tracking-[0.2em]
-                                    text-violet-600
-                                    dark:text-cyan-400
-                                "
-                            >
-                                Why Shiyora
-                            </p>
-
-
-                            <h2
-                                className="
-                                    mt-3
-                                    text-3xl
-                                    font-black
-                                    text-slate-900
-                                    dark:text-white
-                                "
-                            >
-                                A Flexible Learning Platform
-                            </h2>
-
-
-                            <p
-                                className="
-                                    mt-4
-                                    max-w-2xl
                                     mx-auto
-                                    leading-relaxed
-                                    text-slate-600
-                                    dark:text-slate-400
+                                    h-1
+                                    w-10
+                                    rounded-full
+                                    bg-[#7C9A82]
+                                "
+                            />
+
+                            <h3
+                                className="
+                                    mt-5
+                                    font-['Space_Grotesk']
+                                    text-lg
+                                    font-semibold
                                 "
                             >
-                                Start with the Free plan and upgrade as your
-                                organization grows. Shiyora provides the
-                                essential tools needed to manage modern
-                                digital learning.
+                                Free
+                            </h3>
+
+                            <p
+                                className="
+                                    mt-2
+                                    text-sm
+                                    leading-relaxed
+                                    text-[#F3EEDD]/50
+                                "
+                            >
+                                Start your digital learning journey.
                             </p>
 
                         </div>
 
-
-                        {/* PLAN SUMMARY */}
+                        {/* Professional */}
 
                         <div
                             className="
-                                mt-10
-                                grid
-                                sm:grid-cols-3
-                                gap-5
+                                rounded-xl
+                                border
+                                border-[#F2B84B]/30
+                                bg-[#1B241E]
+                                p-6
+                                text-center
+                                shadow-[0_15px_40px_rgba(242,184,75,0.06)]
+                                transition-all
+                                duration-300
+                                hover:-translate-y-1
                             "
                         >
 
-                            {/* FREE */}
+                            <div
+                                className="
+                                    mx-auto
+                                    h-1
+                                    w-10
+                                    rounded-full
+                                    bg-[#F2B84B]
+                                "
+                            />
+
+                            <h3
+                                className="
+                                    mt-5
+                                    font-['Space_Grotesk']
+                                    text-lg
+                                    font-semibold
+                                "
+                            >
+                                Professional
+                            </h3>
+
+                            <p
+                                className="
+                                    mt-2
+                                    text-sm
+                                    leading-relaxed
+                                    text-[#F3EEDD]/50
+                                "
+                            >
+                                Designed for growing organizations.
+                            </p>
+
+                        </div>
+
+                        {/* Enterprise */}
+
+                        <div
+                            className="
+                                rounded-xl
+                                border
+                                border-[#D6402C]/20
+                                bg-[#1B241E]
+                                p-6
+                                text-center
+                                transition-all
+                                duration-300
+                                hover:-translate-y-1
+                                hover:border-[#D6402C]/40
+                            "
+                        >
 
                             <div
                                 className="
-                                    p-6
-                                    rounded-xl
-
-                                    border
-                                    border-slate-200
-                                    dark:border-white/10
-
-                                    bg-slate-50
-                                    dark:bg-white/[0.02]
-
-                                    text-center
-
-                                    hover:-translate-y-1
-                                    hover:border-violet-300
-                                    dark:hover:border-violet-500/30
-
-                                    transition-all
+                                    mx-auto
+                                    h-1
+                                    w-10
+                                    rounded-full
+                                    bg-[#D6402C]
                                 "
-                            >
+                            />
 
-                                <div
-                                    className="
-                                        w-10
-                                        h-1
-                                        mx-auto
-                                        rounded-full
-                                        bg-slate-400
-                                    "
-                                ></div>
-
-                                <h3
-                                    className="
-                                        mt-5
-                                        text-lg
-                                        font-bold
-                                        text-slate-900
-                                        dark:text-white
-                                    "
-                                >
-                                    Free
-                                </h3>
-
-                                <p
-                                    className="
-                                        mt-2
-                                        text-sm
-                                        text-slate-600
-                                        dark:text-slate-400
-                                    "
-                                >
-                                    Start your digital learning journey.
-                                </p>
-
-                            </div>
-
-
-                            {/* PROFESSIONAL */}
-
-                            <div
+                            <h3
                                 className="
-                                    p-6
-                                    rounded-xl
-
-                                    border
-                                    border-violet-200
-                                    dark:border-violet-500/30
-
-                                    bg-violet-50
-                                    dark:bg-violet-500/[0.06]
-
-                                    text-center
-
-                                    hover:-translate-y-1
-                                    hover:shadow-lg
-                                    hover:shadow-violet-500/10
-
-                                    transition-all
+                                    mt-5
+                                    font-['Space_Grotesk']
+                                    text-lg
+                                    font-semibold
                                 "
                             >
+                                Enterprise
+                            </h3>
 
-                                <div
-                                    className="
-                                        w-10
-                                        h-1
-                                        mx-auto
-                                        rounded-full
-
-                                        bg-gradient-to-r
-                                        from-violet-600
-                                        to-cyan-400
-                                    "
-                                ></div>
-
-                                <h3
-                                    className="
-                                        mt-5
-                                        text-lg
-                                        font-bold
-                                        text-slate-900
-                                        dark:text-white
-                                    "
-                                >
-                                    Professional
-                                </h3>
-
-                                <p
-                                    className="
-                                        mt-2
-                                        text-sm
-                                        text-slate-600
-                                        dark:text-slate-400
-                                    "
-                                >
-                                    Designed for growing organizations.
-                                </p>
-
-                            </div>
-
-
-                            {/* ENTERPRISE */}
-
-                            <div
+                            <p
                                 className="
-                                    p-6
-                                    rounded-xl
-
-                                    border
-                                    border-slate-200
-                                    dark:border-white/10
-
-                                    bg-slate-50
-                                    dark:bg-white/[0.02]
-
-                                    text-center
-
-                                    hover:-translate-y-1
-                                    hover:border-cyan-300
-                                    dark:hover:border-cyan-500/30
-
-                                    transition-all
+                                    mt-2
+                                    text-sm
+                                    leading-relaxed
+                                    text-[#F3EEDD]/50
                                 "
                             >
-
-                                <div
-                                    className="
-                                        w-10
-                                        h-1
-                                        mx-auto
-                                        rounded-full
-                                        bg-slate-700
-                                        dark:bg-slate-500
-                                    "
-                                ></div>
-
-                                <h3
-                                    className="
-                                        mt-5
-                                        text-lg
-                                        font-bold
-                                        text-slate-900
-                                        dark:text-white
-                                    "
-                                >
-                                    Enterprise
-                                </h3>
-
-                                <p
-                                    className="
-                                        mt-2
-                                        text-sm
-                                        text-slate-600
-                                        dark:text-slate-400
-                                    "
-                                >
-                                    Built for larger learning communities.
-                                </p>
-
-                            </div>
+                                Built for larger learning communities.
+                            </p>
 
                         </div>
 
@@ -764,130 +760,116 @@ function Subscription() {
 
             </section>
 
-
             {/* =====================================================
                 CTA
             ====================================================== */}
 
-            <section className="relative z-10 pb-24 px-6">
+            <section
+                className="
+                    relative
+                    z-10
+                    bg-[#161F19]
+                    px-6
+                    py-24
+                "
+            >
 
-                <div className="max-w-5xl mx-auto">
+                <div className="mx-auto max-w-5xl">
 
                     <div
                         className="
                             relative
                             overflow-hidden
-                            rounded-[2rem]
-
-                            bg-gradient-to-br
-                            from-violet-700
-                            via-purple-600
-                            to-cyan-500
-
+                            rounded-2xl
+                            border
+                            border-[#F2B84B]/20
+                            bg-[#1B241E]
                             px-8
                             py-16
-                            md:px-16
-
                             text-center
-
-                            shadow-2xl
-                            shadow-violet-500/20
+                            md:px-16
                         "
                     >
 
-                        {/* GLOW */}
+                        {/* Glow */}
 
                         <div
                             className="
+                                pointer-events-none
                                 absolute
-                                -top-32
-                                -right-32
-                                w-80
-                                h-80
-                                rounded-full
-                                bg-white/10
-                                blur-3xl
+                                left-1/2
+                                top-0
+                                h-40
+                                w-72
+                                -translate-x-1/2
+                                bg-[#F2B84B]/10
+                                blur-[90px]
                             "
-                        ></div>
-
-                        <div
-                            className="
-                                absolute
-                                -bottom-32
-                                -left-32
-                                w-80
-                                h-80
-                                rounded-full
-                                bg-cyan-300/10
-                                blur-3xl
-                            "
-                        ></div>
-
+                        />
 
                         <div className="relative z-10">
 
                             <p
                                 className="
-                                    text-cyan-100
-                                    text-sm
-                                    font-bold
-                                    tracking-[0.2em]
+                                    font-['JetBrains_Mono']
+                                    text-xs
+                                    font-semibold
                                     uppercase
+                                    tracking-[0.2em]
+                                    text-[#F2B84B]
                                 "
                             >
                                 Start Your Journey
                             </p>
 
-
                             <h2
                                 className="
                                     mt-4
+                                    font-['Space_Grotesk']
                                     text-3xl
+                                    font-semibold
                                     md:text-4xl
-                                    font-black
-                                    text-white
                                 "
                             >
-                                Ready to Get Started?
+                                Ready to learn with Shiyora?
                             </h2>
-
 
                             <p
                                 className="
-                                    mt-5
-                                    text-violet-100
-                                    text-lg
-                                    max-w-2xl
                                     mx-auto
+                                    mt-5
+                                    max-w-2xl
                                     leading-relaxed
+                                    text-[#F3EEDD]/55
                                 "
                             >
-                                Create your Shiyora account and start
-                                building a better digital learning experience.
+                                Create your account, choose the plan that
+                                works for you and take control of your
+                                learning journey.
                             </p>
-
 
                             <Link
                                 to="/signup"
                                 className="
-                                    inline-flex
                                     mt-8
+                                    inline-flex
+                                    items-center
+                                    gap-2
+                                    rounded-lg
+                                    bg-[#F2B84B]
                                     px-8
                                     py-3.5
-                                    rounded-xl
-
-                                    bg-white
-                                    text-violet-700
-
-                                    font-bold
-
-                                    hover:bg-slate-100
-                                    hover:-translate-y-1
-
+                                    font-semibold
+                                    text-[#161F19]
+                                    shadow-[0_0_30px_rgba(242,184,75,0.15)]
                                     transition-all
+                                    duration-300
+                                    hover:-translate-y-1
+                                    hover:bg-[#f7c968]
                                 "
                             >
-                                Get Started
+                                Create Your Account
+                                <span>→</span>
                             </Link>
 
                         </div>
@@ -898,7 +880,7 @@ function Subscription() {
 
             </section>
 
-        </div>
+        </main>
     );
 }
 

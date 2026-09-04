@@ -1,4 +1,5 @@
-import shiyoraLogo from "../assets/shiyora-logo.png";
+import { Link } from "react-router-dom";
+import shiyoraLogo from "../assets/shiyora.logo.png";
 
 function Footer() {
     return (
@@ -6,29 +7,35 @@ function Footer() {
             className="
                 relative
                 overflow-hidden
-                bg-white
-                dark:bg-slate-950
+
+                bg-[#141C17]
+
                 border-t
-                border-gray-200
-                dark:border-slate-800
-                transition-colors
-                duration-500
+                border-[#F3EEDD]/10
+
+                text-[#F3EEDD]
+                font-['Inter']
             "
         >
 
-            {/* ================= BACKGROUND GLOW ================= */}
+            {/* =====================================================
+                BACKGROUND GLOW
+            ====================================================== */}
 
             <div
                 className="
                     absolute
                     -top-32
                     left-1/4
-                    w-72
-                    h-72
-                    bg-indigo-500/10
-                    dark:bg-indigo-500/10
+
+                    w-80
+                    h-80
+
+                    bg-[#F2B84B]/10
+
                     rounded-full
                     blur-3xl
+
                     pointer-events-none
                 "
             />
@@ -38,27 +45,58 @@ function Footer() {
                     absolute
                     -bottom-32
                     right-1/4
-                    w-72
-                    h-72
-                    bg-purple-500/10
-                    dark:bg-purple-500/10
+
+                    w-80
+                    h-80
+
+                    bg-[#7C9A82]/10
+
                     rounded-full
                     blur-3xl
+
+                    pointer-events-none
+                "
+            />
+
+            {/* Subtle center glow */}
+
+            <div
+                className="
+                    absolute
+                    top-1/2
+                    left-1/2
+
+                    -translate-x-1/2
+                    -translate-y-1/2
+
+                    w-96
+                    h-40
+
+                    bg-[#D6402C]/5
+
+                    blur-3xl
+                    rounded-full
+
                     pointer-events-none
                 "
             />
 
 
-            {/* ================= MAIN ================= */}
+            {/* =====================================================
+                MAIN
+            ====================================================== */}
 
             <div
                 className="
                     relative
+
                     max-w-7xl
                     mx-auto
+
                     px-6
                     sm:px-8
                     lg:px-10
+
                     py-14
                 "
             >
@@ -69,6 +107,7 @@ function Footer() {
                         grid-cols-1
                         sm:grid-cols-2
                         lg:grid-cols-4
+
                         gap-10
                     "
                 >
@@ -86,26 +125,38 @@ function Footer() {
 
                         {/* LOGO */}
 
-                        <div className="flex items-center gap-3">
+                        <Link
+                            to="/"
+                            className="flex items-center gap-3"
+                        >
 
                             <div
                                 className="
+                                    relative
+
                                     w-14
                                     h-14
+
                                     rounded-2xl
-                                    bg-indigo-50
-                                    dark:bg-indigo-500/10
+
+                                    bg-[#F3EEDD]
+
                                     border
-                                    border-indigo-100
-                                    dark:border-indigo-500/20
+                                    border-[#F2B84B]/30
+
                                     flex
                                     items-center
                                     justify-center
+
                                     overflow-hidden
-                                    shadow-sm
-                                    group-hover:shadow-indigo-500/30
+
+                                    shadow-[0_0_20px_rgba(242,184,75,0.08)]
+
                                     group-hover:scale-105
                                     group-hover:-rotate-2
+
+                                    group-hover:shadow-[0_0_30px_rgba(242,184,75,0.18)]
+
                                     transition-all
                                     duration-500
                                 "
@@ -117,8 +168,11 @@ function Footer() {
                                     className="
                                         w-11
                                         h-11
+
                                         object-contain
+
                                         group-hover:scale-110
+
                                         transition-transform
                                         duration-500
                                     "
@@ -127,19 +181,23 @@ function Footer() {
                             </div>
 
 
+                            {/* BRAND NAME */}
+
                             <h2
                                 className="
                                     text-2xl
+
+                                    font-['Space_Grotesk']
                                     font-bold
-                                    text-gray-900
-                                    dark:text-white
                                     tracking-tight
+
+                                    text-[#F3EEDD]
                                 "
                             >
                                 Shiyora
                             </h2>
 
-                        </div>
+                        </Link>
 
 
                         {/* DESCRIPTION */}
@@ -147,10 +205,12 @@ function Footer() {
                         <p
                             className="
                                 mt-5
+
                                 text-sm
                                 leading-6
-                                text-gray-500
-                                dark:text-gray-400
+
+                                text-[#F3EEDD]/55
+
                                 max-w-xs
                             "
                         >
@@ -165,19 +225,25 @@ function Footer() {
                         <div
                             className="
                                 inline-flex
+
                                 mt-5
+
                                 px-3
                                 py-1.5
+
                                 rounded-full
-                                bg-indigo-50
-                                dark:bg-indigo-500/10
+
+                                bg-[#F2B84B]/10
+
                                 border
-                                border-indigo-100
-                                dark:border-indigo-500/20
+                                border-[#F2B84B]/20
+
                                 text-xs
                                 font-medium
-                                text-indigo-600
-                                dark:text-indigo-400
+
+                                font-['JetBrains_Mono']
+
+                                text-[#F2B84B]
                             "
                         >
                             Learn • Grow • Achieve
@@ -199,11 +265,13 @@ function Footer() {
                         <h3
                             className="
                                 text-sm
+
+                                font-['Space_Grotesk']
                                 font-bold
                                 uppercase
                                 tracking-wider
-                                text-gray-900
-                                dark:text-white
+
+                                text-[#F3EEDD]
                             "
                         >
                             Platform
@@ -221,17 +289,20 @@ function Footer() {
 
                                 <li key={name}>
 
-                                    <a
-                                        href={link}
+                                    <Link
+                                        to={link}
                                         className="
                                             group/link
+
                                             inline-flex
                                             items-center
+
                                             text-sm
-                                            text-gray-500
-                                            dark:text-gray-400
-                                            hover:text-indigo-600
-                                            dark:hover:text-indigo-400
+
+                                            text-[#F3EEDD]/55
+
+                                            hover:text-[#F2B84B]
+
                                             transition-all
                                             duration-300
                                         "
@@ -241,11 +312,14 @@ function Footer() {
                                             className="
                                                 w-0
                                                 group-hover/link:w-3
+
                                                 h-px
-                                                bg-indigo-600
-                                                dark:bg-indigo-400
+
+                                                bg-[#F2B84B]
+
                                                 mr-0
                                                 group-hover/link:mr-2
+
                                                 transition-all
                                                 duration-300
                                             "
@@ -253,7 +327,7 @@ function Footer() {
 
                                         {name}
 
-                                    </a>
+                                    </Link>
 
                                 </li>
 
@@ -277,11 +351,13 @@ function Footer() {
                         <h3
                             className="
                                 text-sm
+
+                                font-['Space_Grotesk']
                                 font-bold
                                 uppercase
                                 tracking-wider
-                                text-gray-900
-                                dark:text-white
+
+                                text-[#F3EEDD]
                             "
                         >
                             Resources
@@ -299,17 +375,20 @@ function Footer() {
 
                                 <li key={name}>
 
-                                    <a
-                                        href={link}
+                                    <Link
+                                        to={link}
                                         className="
                                             group/link
+
                                             inline-flex
                                             items-center
+
                                             text-sm
-                                            text-gray-500
-                                            dark:text-gray-400
-                                            hover:text-indigo-600
-                                            dark:hover:text-indigo-400
+
+                                            text-[#F3EEDD]/55
+
+                                            hover:text-[#F2B84B]
+
                                             transition-all
                                             duration-300
                                         "
@@ -319,11 +398,14 @@ function Footer() {
                                             className="
                                                 w-0
                                                 group-hover/link:w-3
+
                                                 h-px
-                                                bg-indigo-600
-                                                dark:bg-indigo-400
+
+                                                bg-[#F2B84B]
+
                                                 mr-0
                                                 group-hover/link:mr-2
+
                                                 transition-all
                                                 duration-300
                                             "
@@ -331,7 +413,7 @@ function Footer() {
 
                                         {name}
 
-                                    </a>
+                                    </Link>
 
                                 </li>
 
@@ -355,11 +437,13 @@ function Footer() {
                         <h3
                             className="
                                 text-sm
+
+                                font-['Space_Grotesk']
                                 font-bold
                                 uppercase
                                 tracking-wider
-                                text-gray-900
-                                dark:text-white
+
+                                text-[#F3EEDD]
                             "
                         >
                             Connect With Us
@@ -369,9 +453,11 @@ function Footer() {
                         <p
                             className="
                                 mt-5
+
                                 text-sm
-                                text-gray-500
-                                dark:text-gray-400
+                                leading-6
+
+                                text-[#F3EEDD]/55
                             "
                         >
                             Stay connected with Shiyora and never stop
@@ -379,7 +465,9 @@ function Footer() {
                         </p>
 
 
-                        {/* SOCIAL ICONS */}
+                        {/* =================================================
+                            SOCIAL ICONS
+                        ================================================== */}
 
                         <div className="flex items-center gap-3 mt-6">
 
@@ -391,22 +479,31 @@ function Footer() {
                                 className="
                                     w-10
                                     h-10
+
                                     rounded-xl
+
                                     border
-                                    border-gray-200
-                                    dark:border-slate-700
+                                    border-[#F3EEDD]/10
+
+                                    bg-[#1B241E]
+
                                     flex
                                     items-center
                                     justify-center
+
+                                    font-['Space_Grotesk']
                                     font-semibold
-                                    text-gray-600
-                                    dark:text-gray-300
-                                    hover:bg-indigo-600
-                                    hover:text-white
-                                    hover:border-indigo-600
+
+                                    text-[#F3EEDD]/65
+
+                                    hover:bg-[#F2B84B]
+                                    hover:text-[#161F19]
+                                    hover:border-[#F2B84B]
+
                                     hover:-translate-y-1
-                                    hover:shadow-lg
-                                    hover:shadow-indigo-500/20
+
+                                    hover:shadow-[0_8px_25px_rgba(242,184,75,0.18)]
+
                                     transition-all
                                     duration-300
                                 "
@@ -423,22 +520,31 @@ function Footer() {
                                 className="
                                     w-10
                                     h-10
+
                                     rounded-xl
+
                                     border
-                                    border-gray-200
-                                    dark:border-slate-700
+                                    border-[#F3EEDD]/10
+
+                                    bg-[#1B241E]
+
                                     flex
                                     items-center
                                     justify-center
+
+                                    font-['Space_Grotesk']
                                     font-semibold
-                                    text-gray-600
-                                    dark:text-gray-300
-                                    hover:bg-indigo-600
-                                    hover:text-white
-                                    hover:border-indigo-600
+
+                                    text-[#F3EEDD]/65
+
+                                    hover:bg-[#F2B84B]
+                                    hover:text-[#161F19]
+                                    hover:border-[#F2B84B]
+
                                     hover:-translate-y-1
-                                    hover:shadow-lg
-                                    hover:shadow-indigo-500/20
+
+                                    hover:shadow-[0_8px_25px_rgba(242,184,75,0.18)]
+
                                     transition-all
                                     duration-300
                                 "
@@ -455,22 +561,31 @@ function Footer() {
                                 className="
                                     w-10
                                     h-10
+
                                     rounded-xl
+
                                     border
-                                    border-gray-200
-                                    dark:border-slate-700
+                                    border-[#F3EEDD]/10
+
+                                    bg-[#1B241E]
+
                                     flex
                                     items-center
                                     justify-center
+
+                                    font-['Space_Grotesk']
                                     font-semibold
-                                    text-gray-600
-                                    dark:text-gray-300
-                                    hover:bg-indigo-600
-                                    hover:text-white
-                                    hover:border-indigo-600
+
+                                    text-[#F3EEDD]/65
+
+                                    hover:bg-[#F2B84B]
+                                    hover:text-[#161F19]
+                                    hover:border-[#F2B84B]
+
                                     hover:-translate-y-1
-                                    hover:shadow-lg
-                                    hover:shadow-indigo-500/20
+
+                                    hover:shadow-[0_8px_25px_rgba(242,184,75,0.18)]
+
                                     transition-all
                                     duration-300
                                 "
@@ -485,13 +600,15 @@ function Footer() {
                 </div>
 
 
-                {/* ================= DIVIDER ================= */}
+                {/* =====================================================
+                    DIVIDER
+                ====================================================== */}
 
                 <div
                     className="
                         border-t
-                        border-gray-200
-                        dark:border-slate-800
+                        border-[#F3EEDD]/10
+
                         mt-12
                         pt-6
                     "
@@ -502,17 +619,22 @@ function Footer() {
                             flex
                             flex-col
                             sm:flex-row
+
                             items-center
                             justify-between
+
                             gap-3
                         "
                     >
 
+                        {/* COPYRIGHT */}
+
                         <p
                             className="
                                 text-sm
-                                text-gray-500
-                                dark:text-gray-400
+
+                                text-[#F3EEDD]/35
+
                                 text-center
                             "
                         >
@@ -521,14 +643,21 @@ function Footer() {
                         </p>
 
 
+                        {/* TAGLINE */}
+
                         <p
                             className="
                                 text-sm
-                                text-gray-500
-                                dark:text-gray-400
+
+                                text-[#F3EEDD]/35
+
+                                text-center
                             "
                         >
-                            Learn smarter. Grow faster.
+                            Learn smarter.
+                            <span className="text-[#F2B84B]">
+                                {" "}Grow faster.
+                            </span>
                         </p>
 
                     </div>

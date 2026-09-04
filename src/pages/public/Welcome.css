@@ -1,0 +1,859 @@
+/* =========================================================
+   SHIYORA WELCOME SCREEN
+   Theme:
+   Chalkboard Green #161F19
+   Deep Green     #141C17
+   Mustard        #F2B84B
+   Red            #D6402C
+   Warm Ivory     #F3EEDD
+========================================================= */
+
+
+/* =========================================================
+   MAIN SCREEN
+========================================================= */
+
+.welcome-screen {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: radial-gradient( circle at 50% 45%, rgba(242, 184, 75, 0.08), transparent 36%), #161F19;
+    color: #F3EEDD;
+    font-family: Inter, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+
+/* =========================================================
+   BACKGROUND
+========================================================= */
+
+.welcome-background {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   SUBTLE GRID
+========================================================= */
+
+.welcome-grid {
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient( rgba(243, 238, 221, 0.025) 1px, transparent 1px), linear-gradient( 90deg, rgba(243, 238, 221, 0.025) 1px, transparent 1px);
+    background-size: 55px 55px;
+    mask-image: radial-gradient( ellipse at center, black 15%, transparent 80%);
+    -webkit-mask-image: radial-gradient( ellipse at center, black 15%, transparent 80%);
+}
+
+
+/* =========================================================
+   ORBS
+========================================================= */
+
+.welcome-orb {
+    position: absolute;
+    border-radius: 50%;
+    filter: blur(120px);
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   MUSTARD ORB
+========================================================= */
+
+.welcome-orb-cyan {
+    width: 480px;
+    height: 480px;
+    left: -220px;
+    top: -220px;
+    background: #F2B84B;
+    opacity: 0.055;
+    animation: orbFloat 12s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   GREEN ORB
+========================================================= */
+
+.welcome-orb-purple {
+    width: 500px;
+    height: 500px;
+    right: -250px;
+    bottom: -250px;
+    background: #7C9A82;
+    opacity: 0.055;
+    animation: orbFloat 15s ease-in-out infinite reverse;
+}
+
+
+/* =========================================================
+   RED ACCENT ORB
+========================================================= */
+
+.welcome-orb-blue {
+    width: 260px;
+    height: 260px;
+    right: 18%;
+    top: 15%;
+    background: #D6402C;
+    opacity: 0.018;
+    animation: orbPulse 8s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   TOP BRAND
+========================================================= */
+
+.welcome-top-brand {
+    position: absolute;
+    top: 28px;
+    left: 36px;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    gap: 9px;
+    opacity: 0;
+    animation: brandReveal 0.8s ease forwards;
+}
+
+
+/* =========================================================
+   TOP BRAND LOGO
+========================================================= */
+
+.welcome-top-brand img {
+    width: 38px;
+    height: 38px;
+    object-fit: contain;
+    display: block;
+    filter: drop-shadow( 0 0 12px rgba(242, 184, 75, 0.25));
+}
+
+
+/* =========================================================
+   TOP BRAND NAME
+========================================================= */
+
+.welcome-top-brand span {
+    font-family: "Space Grotesk", sans-serif;
+    font-size: 14px;
+    font-weight: 650;
+    letter-spacing: 2px;
+    color: #F3EEDD;
+}
+
+
+/* =========================================================
+   MAIN CONTENT
+========================================================= */
+
+.welcome-content {
+    position: relative;
+    z-index: 5;
+    width: min(850px, 92%);
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px 0 45px;
+}
+
+
+/* =========================================================
+   CONTENT GLOW
+========================================================= */
+
+.welcome-content::before {
+    content: "";
+    position: absolute;
+    width: 650px;
+    height: 500px;
+    top: 45%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: radial-gradient( ellipse, rgba(242, 184, 75, 0.075), rgba(124, 154, 130, 0.035), transparent 70%);
+    filter: blur(30px);
+    z-index: -1;
+    pointer-events: none;
+}
+
+
+/* =========================================================
+   LOGO CONTAINER
+========================================================= */
+
+.welcome-logo-container {
+    position: relative;
+    width: 190px;
+    height: 155px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 25px;
+    opacity: 0;
+    animation: logoReveal 1s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+
+
+/* =========================================================
+   LOGO GLOW
+========================================================= */
+
+.welcome-logo-glow {
+    position: absolute;
+    width: 230px;
+    height: 230px;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: radial-gradient( circle, rgba(242, 184, 75, 0.15), rgba(124, 154, 130, 0.055), transparent 68%);
+    filter: blur(25px);
+    animation: logoGlow 4s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.welcome-logo {
+    position: relative;
+    z-index: 5;
+    width: 135px;
+    height: 135px;
+    display: block;
+    object-fit: contain;
+    filter: drop-shadow( 0 0 17px rgba(242, 184, 75, 0.22)) drop-shadow( 0 10px 25px rgba(0, 0, 0, 0.4));
+    animation: logoFloat 4s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   WELCOME TEXT
+========================================================= */
+
+.welcome-text {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+
+/* =========================================================
+   BADGE
+========================================================= */
+
+.welcome-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 7px 14px;
+    margin: 0 auto 17px;
+    border-radius: 50px;
+    background: rgba(242, 184, 75, 0.055);
+    border: 1px solid rgba(242, 184, 75, 0.20);
+    color: #F2B84B;
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    font-weight: 650;
+    letter-spacing: 1.6px;
+    white-space: nowrap;
+    opacity: 0;
+    animation: fadeUp 0.7s ease 0.25s forwards;
+}
+
+
+/* =========================================================
+   BADGE DOT
+========================================================= */
+
+.badge-dot {
+    width: 6px;
+    height: 6px;
+    flex-shrink: 0;
+    border-radius: 50%;
+    background: #F2B84B;
+    box-shadow: 0 0 9px rgba(242, 184, 75, 0.75);
+    animation: dotPulse 1.5s ease-in-out infinite;
+}
+
+
+/* =========================================================
+   TITLE
+========================================================= */
+
+.welcome-title {
+    width: 100%;
+    max-width: 850px;
+    margin: 0 auto;
+    padding: 0;
+    display: block;
+    text-align: center;
+    font-family: "Space Grotesk", sans-serif;
+    font-size: clamp(48px, 7vw, 76px);
+    line-height: 1.05;
+    letter-spacing: -3px;
+    font-weight: 760;
+    color: #F3EEDD;
+    opacity: 0;
+    animation: fadeUp 0.85s ease 0.35s forwards;
+}
+
+
+/* =========================================================
+   GRADIENT WORD
+========================================================= */
+
+.welcome-title span {
+    display: inline;
+    background: linear-gradient( 100deg, #F2B84B 0%, #F3EEDD 48%, #D8A33E 100%);
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    animation: gradientShift 5s linear infinite;
+}
+
+
+/* =========================================================
+   SUBTITLE
+========================================================= */
+
+.welcome-subtitle {
+    width: 100%;
+    margin: 20px auto 0;
+    padding: 0;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.5;
+    font-weight: 450;
+    color: rgba(243, 238, 221, 0.72);
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.5s forwards;
+}
+
+
+/* =========================================================
+   SUBTITLE STRONG
+========================================================= */
+
+.welcome-subtitle strong {
+    color: #F2B84B;
+    font-weight: 650;
+}
+
+
+/* =========================================================
+   DESCRIPTION
+========================================================= */
+
+.welcome-description {
+    width: 100%;
+    max-width: 600px;
+    margin: 8px auto 0;
+    padding: 0;
+    text-align: center;
+    font-size: 12px;
+    line-height: 1.7;
+    color: rgba(243, 238, 221, 0.38);
+    letter-spacing: 0.2px;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.6s forwards;
+}
+
+
+/* =========================================================
+   LOADING
+========================================================= */
+
+.welcome-loading {
+    width: min(350px, 80%);
+    margin: 40px auto 0;
+    opacity: 0;
+    animation: fadeUp 0.8s ease 0.75s forwards;
+}
+
+
+/* =========================================================
+   LOADING INFORMATION
+========================================================= */
+
+.loading-info {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 7px;
+    margin-bottom: 10px;
+    text-align: center;
+    color: rgba(243, 238, 221, 0.38);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.8px;
+}
+
+
+/* =========================================================
+   LOADING DOTS
+========================================================= */
+
+.loading-dots {
+    display: flex;
+    align-items: center;
+    gap: 3px;
+}
+
+.loading-dots i {
+    width: 3px;
+    height: 3px;
+    border-radius: 50%;
+    background: #F2B84B;
+    animation: loadingDot 1.2s ease-in-out infinite;
+}
+
+.loading-dots i:nth-child(2) {
+    animation-delay: 0.15s;
+}
+
+.loading-dots i:nth-child(3) {
+    animation-delay: 0.3s;
+}
+
+
+/* =========================================================
+   LOADING TRACK
+========================================================= */
+
+.loading-track {
+    width: 100%;
+    height: 3px;
+    overflow: hidden;
+    border-radius: 50px;
+    background: rgba(243, 238, 221, 0.08);
+}
+
+
+/* =========================================================
+   LOADING PROGRESS
+========================================================= */
+
+.loading-progress {
+    width: 0%;
+    height: 100%;
+    border-radius: inherit;
+    background: linear-gradient( 90deg, #D6402C, #F2B84B, #E8C96A);
+    box-shadow: 0 0 12px rgba(242, 184, 75, 0.4);
+    animation: loadingProgress 2.5s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+
+/* =========================================================
+   FOOTER PILL
+========================================================= */
+
+.welcome-footer {
+    position: absolute;
+    left: 50%;
+    bottom: 55px;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    width: max-content;
+    padding: 7px 15px;
+    border: 1px solid rgba(243, 238, 221, 0.08);
+    border-radius: 50px;
+    background: rgba(20, 28, 23, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: rgba(243, 238, 221, 0.38);
+    font-family: "JetBrains Mono", monospace;
+    font-size: 8px;
+    font-weight: 600;
+    letter-spacing: 1.7px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    animation: footerReveal 0.8s ease 0.9s forwards;
+}
+
+
+/* =========================================================
+   FOOTER HIGHLIGHT
+========================================================= */
+
+.welcome-footer b {
+    color: #F2B84B;
+    font-size: 10px;
+    font-weight: 500;
+    text-shadow: 0 0 8px rgba(242, 184, 75, 0.5);
+}
+
+
+/* =========================================================
+   FOOTER REVEAL
+========================================================= */
+
+@keyframes footerReveal {
+    from {
+        opacity: 0;
+        transform: translate(-50%, 15px);
+    }
+    to {
+        opacity: 1;
+        transform: translate(-50%, 0);
+    }
+}
+
+
+/* =========================================================
+   LOGO REVEAL
+========================================================= */
+
+@keyframes logoReveal {
+    0% {
+        opacity: 0;
+        transform: translateY(25px) scale(0.82);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+
+/* =========================================================
+   LOGO FLOAT
+========================================================= */
+
+@keyframes logoFloat {
+    0%,
+    100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-6px);
+    }
+}
+
+
+/* =========================================================
+   LOGO GLOW
+========================================================= */
+
+@keyframes logoGlow {
+    0%,
+    100% {
+        opacity: 0.45;
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% {
+        opacity: 0.8;
+        transform: translate(-50%, -50%) scale(1.12);
+    }
+}
+
+
+/* =========================================================
+   FADE UP
+========================================================= */
+
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   BRAND REVEAL
+========================================================= */
+
+@keyframes brandReveal {
+    from {
+        opacity: 0;
+        transform: translateY(-12px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+/* =========================================================
+   ORB FLOAT
+========================================================= */
+
+@keyframes orbFloat {
+    0%,
+    100% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(25px, 25px);
+    }
+}
+
+
+/* =========================================================
+   ORB PULSE
+========================================================= */
+
+@keyframes orbPulse {
+    0%,
+    100% {
+        opacity: 0.018;
+        transform: scale(1);
+    }
+    50% {
+        opacity: 0.04;
+        transform: scale(1.18);
+    }
+}
+
+
+/* =========================================================
+   GRADIENT SHIFT
+========================================================= */
+
+@keyframes gradientShift {
+    0% {
+        background-position: 0% center;
+    }
+    100% {
+        background-position: 200% center;
+    }
+}
+
+
+/* =========================================================
+   LOADING PROGRESS
+========================================================= */
+
+@keyframes loadingProgress {
+    0% {
+        width: 0%;
+    }
+    30% {
+        width: 30%;
+    }
+    70% {
+        width: 72%;
+    }
+    100% {
+        width: 100%;
+    }
+}
+
+
+/* =========================================================
+   LOADING DOT
+========================================================= */
+
+@keyframes loadingDot {
+    0%,
+    100% {
+        opacity: 0.25;
+        transform: translateY(0);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(-2px);
+    }
+}
+
+
+/* =========================================================
+   BADGE DOT PULSE
+========================================================= */
+
+@keyframes dotPulse {
+    0%,
+    100% {
+        opacity: 0.45;
+        transform: scale(0.8);
+    }
+    50% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+/* =========================================================
+   TABLET
+========================================================= */
+
+@media (max-width: 768px) {
+    .welcome-top-brand {
+        top: 22px;
+        left: 24px;
+    }
+    .welcome-content {
+        width: 92%;
+    }
+    .welcome-logo-container {
+        width: 175px;
+        height: 140px;
+        margin-bottom: 20px;
+    }
+    .welcome-logo {
+        width: 120px;
+        height: 120px;
+    }
+    .welcome-title {
+        font-size: clamp(44px, 9vw, 64px);
+        letter-spacing: -2.5px;
+    }
+    .welcome-subtitle {
+        font-size: 16px;
+    }
+}
+
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media (max-width: 480px) {
+    .welcome-top-brand {
+        top: 18px;
+        left: 18px;
+        gap: 8px;
+    }
+    .welcome-top-brand img {
+        width: 32px;
+        height: 32px;
+    }
+    .welcome-top-brand span {
+        font-size: 11px;
+        letter-spacing: 1.5px;
+    }
+    .welcome-content {
+        width: 90%;
+        padding: 10px 0 40px;
+    }
+    .welcome-logo-container {
+        width: 145px;
+        height: 115px;
+        margin-bottom: 17px;
+    }
+    .welcome-logo {
+        width: 100px;
+        height: 100px;
+    }
+    .welcome-logo-glow {
+        width: 180px;
+        height: 180px;
+    }
+    .welcome-badge {
+        padding: 6px 11px;
+        font-size: 7px;
+        letter-spacing: 1px;
+    }
+    .welcome-title {
+        width: 100%;
+        max-width: 350px;
+        margin: 0 auto;
+        text-align: center;
+        font-size: 40px;
+        line-height: 1.08;
+        letter-spacing: -1.8px;
+    }
+    .welcome-subtitle {
+        width: 100%;
+        margin-top: 14px;
+        font-size: 14px;
+        text-align: center;
+    }
+    .welcome-description {
+        max-width: 300px;
+        font-size: 10px;
+        text-align: center;
+    }
+    .welcome-loading {
+        width: 270px;
+        max-width: 82%;
+        margin-top: 28px;
+    }
+    .welcome-footer {
+        bottom: 14px;
+        gap: 7px;
+        padding: 6px 11px;
+        font-size: 6.5px;
+        letter-spacing: 1px;
+    }
+    .welcome-grid {
+        background-size: 42px 42px;
+    }
+}
+
+
+/* =========================================================
+   SHORT SCREEN
+========================================================= */
+
+@media (max-height: 650px) {
+    .welcome-logo-container {
+        height: 110px;
+        margin-bottom: 10px;
+    }
+    .welcome-logo {
+        width: 92px;
+        height: 92px;
+    }
+    .welcome-logo-glow {
+        width: 170px;
+        height: 170px;
+    }
+    .welcome-title {
+        font-size: 42px;
+    }
+    .welcome-subtitle {
+        margin-top: 10px;
+    }
+    .welcome-loading {
+        margin-top: 22px;
+    }
+    .welcome-footer {
+        bottom: 9px;
+    }
+}
+
+
+/* =========================================================
+   REDUCED MOTION
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+    .welcome-screen *,
+    .welcome-screen *::before,
+    .welcome-screen *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+}

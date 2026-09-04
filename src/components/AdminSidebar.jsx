@@ -1,67 +1,72 @@
 import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import {
     LayoutDashboard,
-    Building2,
-    Users,
     BookOpen,
-    CreditCard,
+    Users,
+    UserRound,
+    ClipboardList,
     BarChart3,
-    MessageCircle,
     Settings,
+    LifeBuoy,
     LogOut,
     X,
 } from "lucide-react";
 
-const Sidebar = ({ isOpen, onClose }) => {
-    const navigate = useNavigate();
+const AdminSidebar = ({ isOpen, onClose }) => {
 
     // =====================================================
-    // SUPER ADMIN MENU ITEMS
+    // ADMIN MENU ITEMS
     // =====================================================
 
     const menuItems = [
         {
             name: "Dashboard",
-            path: "/superadmin/dashboard",
+            path: "/admin/dashboard",
             icon: LayoutDashboard,
         },
         {
-            name: "Organizations",
-            path: "/superadmin/organizations",
-            icon: Building2,
-        },
-        {
-            name: "Users",
-            path: "/superadmin/users",
-            icon: Users,
-        },
-        {
             name: "Courses",
-            path: "/superadmin/courses",
+            path: "/admin/courses",
             icon: BookOpen,
         },
         {
+            name: "Students",
+            path: "/admin/students",
+            icon: Users,
+        },
+        {
+            name: "Teachers",
+            path: "/admin/teachers",
+            icon: UserRound,
+        },
+        {
+            name: "Enrollments",
+            path: "/admin/enrollments",
+            icon: ClipboardList,
+        },
+        {
             name: "Subscriptions",
-            path: "/superadmin/subscriptions",
-            icon: CreditCard,
+            path: "/admin/subscriptions",
+            icon: ClipboardList,
         },
         {
             name: "Reports",
-            path: "/superadmin/reports",
+            path: "/admin/reports",
             icon: BarChart3,
         },
         {
-            name: "Support",
-            path: "/superadmin/support",
-            icon: MessageCircle,
+            name: "Help & Support",
+            path: "/admin/support",
+            icon: LifeBuoy,
         },
         {
             name: "Settings",
-            path: "/superadmin/settings",
+            path: "/admin/settings",
             icon: Settings,
         },
     ];
+
 
     // =====================================================
     // LOGOUT
@@ -71,16 +76,15 @@ const Sidebar = ({ isOpen, onClose }) => {
         localStorage.removeItem("isLoggedIn");
         localStorage.removeItem("userRole");
 
-        onClose();
-
-        navigate("/login");
+        window.location.href = "/login";
     };
+
 
     return (
         <>
-            {/* =====================================================
+            {/* =================================================
                 MOBILE OVERLAY
-            ====================================================== */}
+            ================================================== */}
 
             {isOpen && (
                 <div
@@ -89,7 +93,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                         inset-0
                         z-40
 
-                        bg-black/60
+                        bg-black/30
                         backdrop-blur-sm
 
                         lg:hidden
@@ -98,9 +102,10 @@ const Sidebar = ({ isOpen, onClose }) => {
                 />
             )}
 
-            {/* =====================================================
+
+            {/* =================================================
                 SIDEBAR
-            ====================================================== */}
+            ================================================== */}
 
             <aside
                 className={`
@@ -119,10 +124,11 @@ const Sidebar = ({ isOpen, onClose }) => {
 
                     bg-[#141C17]
 
-                    shadow-[15px_0_50px_rgba(0,0,0,0.25)]
+                    shadow-[4px_0_25px_rgba(226,180,189,0.18)]
 
                     transition-transform
                     duration-300
+                    ease-in-out
 
                     lg:translate-x-0
 
@@ -134,18 +140,19 @@ const Sidebar = ({ isOpen, onClose }) => {
             >
 
                 {/* =================================================
-                    LOGO / BRAND
+                    BRAND
                 ================================================== */}
 
                 <div
                     className="
                         flex
                         h-20
+                        shrink-0
                         items-center
                         justify-between
 
                         border-b
-                        border-[#F3EEDD]/10
+                       border-[#F3EEDD]/10
 
                         px-5
                     "
@@ -165,33 +172,30 @@ const Sidebar = ({ isOpen, onClose }) => {
 
                                 rounded-xl
 
-                                bg-[#F2B84B]
+                                 bg-[#F2B84B]
 
-                                font-['Space_Grotesk']
                                 text-lg
                                 font-bold
 
                                 text-[#161F19]
 
-                                shadow-[0_0_20px_rgba(242,184,75,0.15)]
+                                shadow-sm
                             "
                         >
                             S
                         </div>
 
-                        {/* Brand */}
+
+                        {/* Brand Name */}
 
                         <div>
 
                             <h1
                                 className="
-                                    font-['Space_Grotesk']
-
                                     text-lg
-                                    font-semibold
+                                    font-bold
                                     tracking-tight
-
-                                    text-[#F3EEDD]
+                                    text-[#f7f0f0]
                                 "
                             >
                                 Shiyora
@@ -199,10 +203,8 @@ const Sidebar = ({ isOpen, onClose }) => {
 
                             <p
                                 className="
-                                    font-['Inter']
-
                                     text-xs
-                                    text-[#F3EEDD]/40
+                                     text-[#F3EEDD]/40
                                 "
                             >
                                 LMS Platform
@@ -211,6 +213,7 @@ const Sidebar = ({ isOpen, onClose }) => {
                         </div>
 
                     </div>
+
 
                     {/* Mobile Close */}
 
@@ -222,12 +225,12 @@ const Sidebar = ({ isOpen, onClose }) => {
                             rounded-lg
                             p-2
 
-                            text-[#F3EEDD]/40
+                            text-[#F3EEDD]/50
 
                             transition
 
-                            hover:bg-[#F3EEDD]/5
-                            hover:text-[#F2B84B]
+                            hover:bg-[#F7D6D0]
+                            hover:text-[#F3EEDD]
 
                             lg:hidden
                         "
@@ -237,43 +240,28 @@ const Sidebar = ({ isOpen, onClose }) => {
 
                 </div>
 
+
                 {/* =================================================
                     ADMIN LABEL
                 ================================================== */}
 
-                <div className="px-5 pt-6">
+                <div className="shrink-0 px-5 pt-6">
 
                     <p
                         className="
-                            font-['JetBrains_Mono']
-
-                            text-[10px]
-
+                            text-[11px]
                             font-semibold
                             uppercase
-                            tracking-[0.2em]
+                            tracking-[0.15em]
 
-                            text-[#F2B84B]/70
+                            text-[#F3EEDD]/40
                         "
                     >
-                        Administration
-                    </p>
-
-                    <p
-                        className="
-                            mt-1
-
-                            font-['Inter']
-
-                            text-xs
-
-                            text-[#F3EEDD]/35
-                        "
-                    >
-                        SuperAdmin Panel
+                        Admin
                     </p>
 
                 </div>
+
 
                 {/* =================================================
                     NAVIGATION
@@ -281,14 +269,14 @@ const Sidebar = ({ isOpen, onClose }) => {
 
                 <nav
                     className="
-                        mt-5
+                        mt-3
                         flex-1
-
                         space-y-1
 
                         overflow-y-auto
 
                         px-3
+                        pb-4
                     "
                 >
 
@@ -301,11 +289,9 @@ const Sidebar = ({ isOpen, onClose }) => {
                                 key={item.name}
                                 to={item.path}
                                 onClick={onClose}
-
                                 className={({ isActive }) =>
                                     `
                                         group
-                                        relative
 
                                         flex
                                         items-center
@@ -316,8 +302,6 @@ const Sidebar = ({ isOpen, onClose }) => {
                                         px-4
                                         py-3
 
-                                        font-['Inter']
-
                                         text-sm
                                         font-medium
 
@@ -326,22 +310,18 @@ const Sidebar = ({ isOpen, onClose }) => {
 
                                         ${isActive
                                         ? `
-                                                    bg-[#F2B84B]/10
-                                                    text-[#F2B84B]
+                                                    bg-[#F7D6D0]
 
-                                                    border
-                                                    border-[#F2B84B]/10
+                                                    text-[#4A4A4A]
 
-                                                    shadow-[0_0_20px_rgba(242,184,75,0.05)]
+                                                    shadow-[inset_3px_0_0_#E2B4BD]
                                                 `
                                         : `
-                                                    border
-                                                    border-transparent
+                                                    text-[#4A4A4A]/70
 
-                                                    text-[#F3EEDD]/55
+                                                    hover:bg-[#F7D6D0]/60
 
-                                                    hover:bg-[#F3EEDD]/5
-                                                    hover:text-[#F3EEDD]
+                                                    hover:text-[#4A4A4A]
                                                 `
                                     }
                                     `
@@ -350,53 +330,53 @@ const Sidebar = ({ isOpen, onClose }) => {
 
                                 {({ isActive }) => (
                                     <>
+                                        {/* Icon */}
+
+                                        <Icon
+                                            size={19}
+                                            strokeWidth={
+                                                isActive ? 2.2 : 2
+                                            }
+                                            className={`
+                                                shrink-0
+
+                                                transition-colors
+                                                duration-200
+
+                                                ${isActive
+                                                    ? "text-[#4A4A4A]"
+                                                    : `
+                                                            text-[#4A4A4A]/45
+                                                            group-hover:text-[#4A4A4A]
+                                                        `
+                                                }
+                                            `}
+                                        />
+
+
+                                        {/* Menu Name */}
+
+                                        <span className="truncate">
+                                            {item.name}
+                                        </span>
+
 
                                         {/* Active Indicator */}
 
                                         {isActive && (
                                             <span
                                                 className="
-                                                    absolute
-                                                    left-0
+                                                    ml-auto
+                                                    h-1.5
+                                                    w-1.5
+                                                    shrink-0
 
-                                                    h-7
-                                                    w-1
+                                                    rounded-full
 
-                                                    rounded-r-full
-
-                                                    bg-[#D6402C]
-
-                                                    shadow-[0_0_10px_rgba(214,64,44,0.4)]
+                                                    bg-[#E2B4BD]
                                                 "
                                             />
                                         )}
-
-                                        {/* Icon */}
-
-                                        <Icon
-                                            size={19}
-                                            strokeWidth={
-                                                isActive
-                                                    ? 2.2
-                                                    : 1.7
-                                            }
-
-                                            className={`
-                                                transition-colors
-                                                duration-200
-
-                                                ${isActive
-                                                    ? "text-[#F2B84B]"
-                                                    : "text-[#F3EEDD]/35 group-hover:text-[#F2B84B]"
-                                                }
-                                            `}
-                                        />
-
-                                        {/* Text */}
-
-                                        <span>
-                                            {item.name}
-                                        </span>
 
                                     </>
                                 )}
@@ -407,121 +387,113 @@ const Sidebar = ({ isOpen, onClose }) => {
 
                 </nav>
 
+
                 {/* =================================================
-                    PLATFORM STATUS
+                    ADMIN PROFILE + LOGOUT
                 ================================================== */}
 
-                <div className="px-4 pb-4">
+                <div
+                    className="
+                        shrink-0
+
+                        border-t
+                        border-[#E2B4BD]/50
+
+                        bg-[#FFF5F5]
+
+                        p-3
+                    "
+                >
+
+                    {/* Admin Profile */}
 
                     <div
                         className="
-                            relative
+                            mb-2
 
-                            overflow-hidden
+                            flex
+                            items-center
+                            gap-3
 
                             rounded-xl
 
                             border
-                            border-[#F3EEDD]/10
+                            border-[#E2B4BD]/50
 
-                            bg-[#1B241E]
+                            bg-[#F7D6D0]/40
 
-                            p-4
+                            px-3
+                            py-3
                         "
                     >
 
-                        {/* Small warm glow */}
+                        {/* Avatar */}
 
                         <div
                             className="
-                                pointer-events-none
+                                flex
+                                h-9
+                                w-9
+                                shrink-0
 
-                                absolute
-                                -right-6
-                                -top-6
-
-                                h-20
-                                w-20
+                                items-center
+                                justify-center
 
                                 rounded-full
 
-                                bg-[#F2B84B]/10
+                                bg-[#E2B4BD]
 
-                                blur-2xl
+                                text-sm
+                                font-bold
+
+                                text-[#4A4A4A]
                             "
-                        />
+                        >
+                            A
+                        </div>
 
-                        <div className="relative">
 
-                            <div className="flex items-center gap-2">
+                        {/* Admin Details */}
 
-                                <div
-                                    className="
-                                        h-2
-                                        w-2
-
-                                        rounded-full
-
-                                        bg-[#7C9A82]
-
-                                        shadow-[0_0_10px_rgba(124,154,130,0.6)]
-                                    "
-                                />
-
-                                <span
-                                    className="
-                                        font-['JetBrains_Mono']
-
-                                        text-[10px]
-                                        uppercase
-                                        tracking-wider
-
-                                        text-[#F3EEDD]/40
-                                    "
-                                >
-                                    Platform Status
-                                </span>
-
-                            </div>
+                        <div className="min-w-0">
 
                             <p
                                 className="
-                                    mt-2
-
-                                    font-['Space_Grotesk']
+                                    truncate
 
                                     text-sm
                                     font-semibold
 
-                                    text-[#F3EEDD]
+                                    text-[#4A4A4A]
                                 "
                             >
-                                All systems operational
+                                Admin
+                            </p>
+
+                            <p
+                                className="
+                                    truncate
+
+                                    text-xs
+
+                                    text-[#4A4A4A]/55
+                                "
+                            >
+                                Organization Admin
                             </p>
 
                         </div>
 
                     </div>
 
-                </div>
 
-                {/* =================================================
-                    LOGOUT
-                ================================================== */}
-
-                <div
-                    className="
-                        border-t
-                        border-[#F3EEDD]/10
-
-                        p-3
-                    "
-                >
+                    {/* =================================================
+                        LOGOUT
+                    ================================================== */}
 
                     <button
                         type="button"
                         onClick={handleLogout}
-
                         className="
                             group
 
@@ -535,32 +507,29 @@ const Sidebar = ({ isOpen, onClose }) => {
                             px-4
                             py-3
 
-                            font-['Inter']
-
                             text-sm
                             font-medium
 
-                            text-[#F3EEDD]/50
+                            text-[#4A4A4A]/70
 
                             transition-all
                             duration-200
 
-                            hover:bg-[#D6402C]/10
-                            hover:text-[#D6402C]
-
-                            active:scale-[0.98]
+                            hover:bg-red-50
+                            hover:text-red-600
                         "
                     >
 
                         <LogOut
                             size={19}
-
                             className="
-                                text-[#F3EEDD]/30
+                                shrink-0
 
-                                transition
+                                text-[#4A4A4A]/45
 
-                                group-hover:text-[#D6402C]
+                                transition-colors
+
+                                group-hover:text-red-600
                             "
                         />
 
@@ -577,4 +546,4 @@ const Sidebar = ({ isOpen, onClose }) => {
     );
 };
 
-export default Sidebar;
+export default AdminSidebar;

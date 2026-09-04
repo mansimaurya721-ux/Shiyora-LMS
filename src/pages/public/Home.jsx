@@ -1,1232 +1,420 @@
 import { Link } from "react-router-dom";
 
-function Home() {
+/**
+ * ---------------------------------------------------------------------------
+ * Design language: "the study desk"
+ * A dark chalkboard-green backdrop, lit like a desk lamp, with warm ivory
+ * "index card" panels laid on top — annotated the way a tutor marks up your
+ * work: a red pen circle around the number that matters, a mustard
+ * highlighter for the thing to notice first. Space Grotesk carries the
+ * headlines, Inter carries the reading, JetBrains Mono carries anything
+ * that looks like a grade or a stat.
+ * ---------------------------------------------------------------------------
+ */
+
+const FONT_IMPORTS =
+    "@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;600&display=swap');";
+
+// ---- Small inline icons (no external icon dependency) ----------------------
+
+function CapIcon(props) {
     return (
-        <main
-            className="
-                min-h-screen
-                bg-[#f8f9fc]
-                text-slate-900
-                dark:bg-[#080b14]
-                dark:text-white
-                transition-colors duration-500
-            "
-        >
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M12 3 1 8l11 5 9-4.09V17h2V8L12 3Z" />
+            <path d="M5 10.5V16c0 1.5 3 3 7 3s7-1.5 7-3v-5.5" />
+        </svg>
+    );
+}
 
-            {/* =====================================================
-                HERO SECTION
-            ====================================================== */}
+function ClockIcon(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <circle cx="12" cy="12" r="9" />
+            <path d="M12 7v5l3.5 2" />
+        </svg>
+    );
+}
 
-            <section className="relative overflow-hidden">
+function ChartIcon(props) {
+    return (
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" {...props}>
+            <path d="M4 19V10M12 19V5M20 19v-7" />
+            <path d="M2 19h20" />
+        </svg>
+    );
+}
 
-                {/* Background Glow */}
+// A hand-drawn-looking circle, used to "grade" the numbers we're proudest of.
+function PenCircle({ className = "" }) {
+    return (
+        <svg viewBox="0 0 100 100" className={`pointer-events-none absolute inset-0 h-full w-full ${className}`}>
+            <path
+                d="M51 5C27 4 8 21 7 46c-1 26 18 47 44 48 25 1 46-19 47-45C99 24 78 6 51 5Z"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="3.5"
+                strokeLinecap="round"
+            />
+        </svg>
+    );
+}
 
+// A short strip of "washi tape" pinning a card to the board.
+function Tape({ className = "" }) {
+    return (
+        <span
+            className={`absolute -top-3 h-5 w-14 bg-[#F2B84B]/70 shadow-[0_2px_6px_rgba(0,0,0,0.25)] ${className}`}
+            style={{ clipPath: "polygon(4% 0, 96% 0, 100% 100%, 0% 100%)" }}
+            aria-hidden="true"
+        />
+    );
+}
+
+function Home() {
+    const features = [
+        {
+            icon: CapIcon,
+            title: "Expert Instructors",
+            text: "Learn from industry experts",
+        },
+        {
+            icon: ClockIcon,
+            title: "Flexible Learning",
+            text: "Learn anytime, anywhere",
+        },
+        {
+            icon: ChartIcon,
+            title: "Track Progress",
+            text: "Monitor your growth",
+        },
+    ];
+
+    const courses = [
+        {
+            title: "Web Development",
+            category: "React • Node.js",
+            progress: 65,
+            accent: "#F2B84B",
+        },
+        {
+            title: "UI/UX Design",
+            category: "Figma • Design",
+            progress: 40,
+            accent: "#7C9A82",
+        },
+        {
+            title: "Data Structures",
+            category: "DSA • Java",
+            progress: 75,
+            accent: "#D6402C",
+        },
+    ];
+
+    return (
+        <main className="min-h-screen overflow-hidden bg-[#161F19] font-['Inter'] text-[#F3EEDD]">
+            <style>{FONT_IMPORTS}</style>
+
+            {/* ================================================================
+                HERO
+            ================================================================= */}
+            <section className="relative min-h-[calc(100vh-70px)] overflow-hidden">
+                {/* Desk-lamp glow */}
+                <div className="pointer-events-none absolute -left-32 -top-32 h-[520px] w-[520px] rounded-full bg-[#F2B84B]/[0.12] blur-[140px]" />
+                <div className="pointer-events-none absolute right-0 top-40 h-[460px] w-[460px] rounded-full bg-[#7C9A82]/[0.10] blur-[150px]" />
+
+                {/* Chalk-dust texture, not a hard grid */}
                 <div
-                    className="
-                        absolute
-                        -top-40
-                        -right-40
-                        w-[550px]
-                        h-[550px]
-                        rounded-full
-                        bg-violet-200/40
-                        dark:bg-violet-600/10
-                        blur-[120px]
-                        pointer-events-none
-                    "
+                    className="pointer-events-none absolute inset-0 opacity-[0.10]"
+                    style={{
+                        backgroundImage: "radial-gradient(rgba(243,238,221,0.6) 1px, transparent 1px)",
+                        backgroundSize: "24px 24px",
+                    }}
                 />
 
-                <div
-                    className="
-                        absolute
-                        bottom-0
-                        -left-40
-                        w-[450px]
-                        h-[450px]
-                        rounded-full
-                        bg-cyan-200/30
-                        dark:bg-cyan-500/10
-                        blur-[120px]
-                        pointer-events-none
-                    "
-                />
-
-                <div
-                    className="
-                        relative
-                        z-10
-                        max-w-7xl
-                        mx-auto
-                        px-6
-                        py-20
-                        md:py-28
-                        grid
-                        lg:grid-cols-2
-                        gap-16
-                        items-center
-                    "
-                >
-
-                    {/* =================================================
-                        LEFT CONTENT
-                    ================================================= */}
-
+                <div className="relative z-10 mx-auto grid w-full max-w-7xl grid-cols-1 items-center gap-16 px-6 py-20 lg:grid-cols-2 lg:py-28">
+                    {/* LEFT: copy */}
                     <div>
-
-                        {/* Badge */}
-
-                        <div
-                            className="
-                                inline-flex
-                                items-center
-                                gap-2
-                                px-4
-                                py-2
-                                rounded-full
-                                bg-violet-50
-                                border border-violet-200
-                                text-violet-700
-                                dark:bg-violet-500/10
-                                dark:border-violet-500/20
-                                dark:text-violet-300
-                                text-sm
-                                font-semibold
-                            "
-                        >
-
-                            <span
-                                className="
-                                    w-2
-                                    h-2
-                                    rounded-full
-                                    bg-cyan-500
-                                    shadow-[0_0_12px_rgba(6,182,212,0.9)]
-                                "
-                            />
-
-                            Modern Learning Platform
-
+                        <div className="inline-flex items-center gap-2 rounded-full border border-[#F2B84B]/30 bg-[#F2B84B]/10 px-4 py-2 font-['JetBrains_Mono'] text-[11px] font-medium uppercase tracking-widest text-[#F2B84B]">
+                            <span className="h-1.5 w-1.5 rounded-full bg-[#F2B84B] shadow-[0_0_10px_rgba(242,184,75,0.8)]" />
+                            Now enrolling
                         </div>
 
-
-                        {/* Heading */}
-
-                        <h1
-                            className="
-                                mt-7
-                                text-5xl
-                                md:text-6xl
-                                lg:text-7xl
-                                font-black
-                                tracking-tight
-                                leading-[1.05]
-                                text-slate-900
-                                dark:text-white
-                            "
-                        >
-
-                            Learn smarter.
-
+                        <h1 className="mt-7 font-['Space_Grotesk'] text-5xl font-semibold leading-[1.05] tracking-tight text-[#F3EEDD] sm:text-6xl lg:text-[64px]">
+                            Learn it. Log it.
                             <br />
-
-                            <span
-                                className="
-                                    bg-gradient-to-r
-                                    from-violet-600
-                                    via-purple-500
-                                    to-cyan-400
-                                    bg-clip-text
-                                    text-transparent
-                                "
-                            >
-                                Grow faster.
+                            <span className="relative inline-block">
+                                Graduate with Shiyora.
+                                <svg
+                                    viewBox="0 0 320 18"
+                                    className="absolute -bottom-1 left-0 h-3 w-full text-[#D6402C]"
+                                    preserveAspectRatio="none"
+                                    aria-hidden="true"
+                                >
+                                    <path d="M2 12c60-10 200-10 316 2" fill="none" stroke="currentColor" strokeWidth="4" strokeLinecap="round" />
+                                </svg>
                             </span>
-
                         </h1>
 
-
-                        {/* Description */}
-
-                        <p
-                            className="
-                                mt-7
-                                text-lg
-                                leading-relaxed
-                                max-w-xl
-                                text-slate-600
-                                dark:text-slate-400
-                            "
-                        >
-                            Shiyora brings courses, learning resources,
-                            assessments and progress tracking together
-                            in one intelligent learning platform.
+                        <p className="mt-8 max-w-xl text-base leading-relaxed text-[#F3EEDD]/60 md:text-lg">
+                            Shiyora is your all-in-one learning platform. Access courses,
+                            study resources and assessments, and keep every bit of your
+                            progress in one notebook.
                         </p>
 
-
-                        {/* Buttons */}
-
-                        <div
-                            className="
-                                mt-9
-                                flex
-                                flex-wrap
-                                gap-4
-                            "
-                        >
-
+                        <div className="mt-9 flex flex-wrap gap-4">
                             <Link
                                 to="/signup"
-                                className="
-                                    inline-flex
-                                    items-center
-                                    justify-center
-                                    px-7
-                                    py-3.5
-                                    rounded-xl
-                                    bg-gradient-to-r
-                                    from-violet-600
-                                    to-cyan-500
-                                    text-white
-                                    font-semibold
-                                    shadow-lg
-                                    shadow-violet-500/20
-                                    hover:-translate-y-1
-                                    hover:shadow-cyan-500/20
-                                    transition-all
-                                    duration-300
-                                "
+                                className="group inline-flex items-center justify-center gap-2 rounded-lg bg-[#F2B84B] px-7 py-3.5 font-semibold text-[#161F19] shadow-[0_0_30px_rgba(242,184,75,0.2)] transition-all duration-300 hover:bg-[#f7c968] motion-safe:hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2B84B]"
                             >
-                                Start Learning
+                                Explore Courses
+                                <span className="transition-transform duration-300 group-hover:translate-x-1">→</span>
                             </Link>
-
 
                             <Link
                                 to="/subscription"
-                                className="
-                                    inline-flex
-                                    items-center
-                                    justify-center
-                                    px-7
-                                    py-3.5
-                                    rounded-xl
-                                    bg-white
-                                    border
-                                    border-slate-200
-                                    text-slate-700
-                                    dark:bg-white/5
-                                    dark:border-white/10
-                                    dark:text-slate-200
-                                    font-semibold
-                                    hover:border-violet-400
-                                    hover:text-violet-600
-                                    dark:hover:text-cyan-400
-                                    transition-all
-                                    duration-300
-                                "
+                                className="inline-flex items-center justify-center gap-2 rounded-lg border border-[#F3EEDD]/15 bg-[#F3EEDD]/5 px-7 py-3.5 font-semibold text-[#F3EEDD]/80 transition-all duration-300 hover:border-[#F2B84B]/40 hover:text-[#F2B84B] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2B84B]"
                             >
-                                Explore Plans
+                                <span aria-hidden="true">▷</span>
+                                How It Works
                             </Link>
-
                         </div>
 
-
-                        {/* Stats */}
-
-                        <div
-                            className="
-                                mt-12
-                                flex
-                                flex-wrap
-                                gap-10
-                            "
-                        >
-
-                            <div>
-                                <p
-                                    className="
-                                        text-2xl
-                                        font-black
-                                        text-slate-900
-                                        dark:text-white
-                                    "
-                                >
-                                    100+
-                                </p>
-
-                                <p
-                                    className="
-                                        mt-1
-                                        text-sm
-                                        text-slate-500
-                                        dark:text-slate-500
-                                    "
-                                >
-                                    Learning Resources
-                                </p>
-                            </div>
-
-
-                            <div>
-                                <p
-                                    className="
-                                        text-2xl
-                                        font-black
-                                        text-slate-900
-                                        dark:text-white
-                                    "
-                                >
-                                    50+
-                                </p>
-
-                                <p
-                                    className="
-                                        mt-1
-                                        text-sm
-                                        text-slate-500
-                                        dark:text-slate-500
-                                    "
-                                >
-                                    Courses
-                                </p>
-                            </div>
-
-
-                            <div>
-                                <p
-                                    className="
-                                        text-2xl
-                                        font-black
-                                        text-slate-900
-                                        dark:text-white
-                                    "
-                                >
-                                    24/7
-                                </p>
-
-                                <p
-                                    className="
-                                        mt-1
-                                        text-sm
-                                        text-slate-500
-                                        dark:text-slate-500
-                                    "
-                                >
-                                    Learning Access
-                                </p>
-                            </div>
-
-                        </div>
-
-                    </div>
-
-
-                    {/* =================================================
-                        DASHBOARD PREVIEW
-                    ================================================= */}
-
-                    <div className="relative flex justify-center">
-
-                        {/* Glow */}
-
-                        <div
-                            className="
-                                absolute
-                                w-80
-                                h-80
-                                rounded-full
-                                bg-violet-500/20
-                                dark:bg-violet-500/10
-                                blur-[100px]
-                            "
-                        />
-
-
-                        {/* Outer Border */}
-
-                        <div
-                            className="
-                                relative
-                                w-full
-                                max-w-lg
-                                rounded-[2rem]
-                                p-[1px]
-                                bg-gradient-to-br
-                                from-violet-500/60
-                                via-purple-500/20
-                                to-cyan-400/60
-                                shadow-2xl
-                            "
-                        >
-
-                            {/* Dashboard */}
-
-                            <div
-                                className="
-                                    rounded-[2rem]
-                                    p-6
-                                    md:p-8
-                                    bg-white
-                                    dark:bg-[#0d111c]
-                                    transition-colors
-                                "
-                            >
-
-                                {/* Header */}
-
-                                <div
-                                    className="
-                                        flex
-                                        items-center
-                                        justify-between
-                                    "
-                                >
-
+                        {/* Feature highlights */}
+                        <div className="mt-12 grid gap-6 sm:grid-cols-3">
+                            {features.map((feature) => (
+                                <div key={feature.title} className="flex items-start gap-3">
+                                    <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg border border-[#F3EEDD]/10 bg-[#F3EEDD]/5 text-[#F2B84B]">
+                                        <feature.icon className="h-5 w-5" />
+                                    </div>
                                     <div>
-
-                                        <p
-                                            className="
-                                                text-sm
-                                                text-slate-500
-                                                dark:text-slate-500
-                                            "
-                                        >
-                                            Learning Overview
-                                        </p>
-
-                                        <h2
-                                            className="
-                                                text-xl
-                                                font-bold
-                                                mt-1
-                                                text-slate-900
-                                                dark:text-white
-                                            "
-                                        >
-                                            Your Progress
-                                        </h2>
-
+                                        <h4 className="text-sm font-semibold text-[#F3EEDD]">{feature.title}</h4>
+                                        <p className="mt-1 text-[11px] text-[#F3EEDD]/50">{feature.text}</p>
                                     </div>
-
-
-                                    <div
-                                        className="
-                                            w-11
-                                            h-11
-                                            rounded-xl
-                                            bg-violet-100
-                                            dark:bg-violet-500/10
-                                            flex
-                                            items-center
-                                            justify-center
-                                        "
-                                    >
-
-                                        <div
-                                            className="
-                                                w-5
-                                                h-5
-                                                rounded-full
-                                                border-[3px]
-                                                border-violet-500
-                                                border-t-cyan-400
-                                            "
-                                        />
-
-                                    </div>
-
                                 </div>
-
-
-                                {/* Progress */}
-
-                                <div className="mt-8">
-
-                                    <div
-                                        className="
-                                            flex
-                                            items-center
-                                            justify-between
-                                            mb-2
-                                        "
-                                    >
-
-                                        <span
-                                            className="
-                                                text-sm
-                                                font-medium
-                                                text-slate-600
-                                                dark:text-slate-400
-                                            "
-                                        >
-                                            Overall Progress
-                                        </span>
-
-                                        <span
-                                            className="
-                                                text-sm
-                                                font-bold
-                                                text-violet-600
-                                                dark:text-cyan-400
-                                            "
-                                        >
-                                            75%
-                                        </span>
-
-                                    </div>
-
-
-                                    <div
-                                        className="
-                                            w-full
-                                            h-2.5
-                                            rounded-full
-                                            overflow-hidden
-                                            bg-slate-100
-                                            dark:bg-white/5
-                                        "
-                                    >
-
-                                        <div
-                                            className="
-                                                h-full
-                                                w-[75%]
-                                                rounded-full
-                                                bg-gradient-to-r
-                                                from-violet-600
-                                                to-cyan-400
-                                            "
-                                        />
-
-                                    </div>
-
-                                </div>
-
-
-                                {/* Continue Learning */}
-
-                                <div className="mt-8">
-
-                                    <div
-                                        className="
-                                            flex
-                                            items-center
-                                            justify-between
-                                            mb-4
-                                        "
-                                    >
-
-                                        <h3
-                                            className="
-                                                font-semibold
-                                                text-slate-900
-                                                dark:text-white
-                                            "
-                                        >
-                                            Continue Learning
-                                        </h3>
-
-                                        <span
-                                            className="
-                                                text-xs
-                                                font-semibold
-                                                text-violet-600
-                                                dark:text-cyan-400
-                                            "
-                                        >
-                                            View all
-                                        </span>
-
-                                    </div>
-
-
-                                    {/* Course 1 */}
-
-                                    <div
-                                        className="
-                                            flex
-                                            items-center
-                                            gap-4
-                                            p-4
-                                            rounded-2xl
-                                            bg-slate-50
-                                            border
-                                            border-slate-100
-                                            dark:bg-white/[0.03]
-                                            dark:border-white/10
-                                            hover:border-violet-400/30
-                                            transition-all
-                                        "
-                                    >
-
-                                        <div
-                                            className="
-                                                w-12
-                                                h-12
-                                                rounded-xl
-                                                bg-violet-100
-                                                dark:bg-violet-500/10
-                                                flex
-                                                items-center
-                                                justify-center
-                                                shrink-0
-                                            "
-                                        >
-
-                                            <span
-                                                className="
-                                                    font-bold
-                                                    text-violet-600
-                                                    dark:text-violet-400
-                                                "
-                                            >
-                                                WD
-                                            </span>
-
-                                        </div>
-
-
-                                        <div className="flex-1 min-w-0">
-
-                                            <h4
-                                                className="
-                                                    font-semibold
-                                                    text-slate-900
-                                                    dark:text-white
-                                                "
-                                            >
-                                                Web Development
-                                            </h4>
-
-                                            <p
-                                                className="
-                                                    text-sm
-                                                    mt-1
-                                                    text-slate-500
-                                                    dark:text-slate-500
-                                                "
-                                            >
-                                                12 lessons
-                                            </p>
-
-                                        </div>
-
-
-                                        <span
-                                            className="
-                                                text-xs
-                                                font-bold
-                                                text-cyan-500
-                                            "
-                                        >
-                                            75%
-                                        </span>
-
-                                    </div>
-
-
-                                    {/* Course 2 */}
-
-                                    <div
-                                        className="
-                                            flex
-                                            items-center
-                                            gap-4
-                                            p-4
-                                            mt-3
-                                            rounded-2xl
-                                            bg-slate-50
-                                            border
-                                            border-slate-100
-                                            dark:bg-white/[0.03]
-                                            dark:border-white/10
-                                            hover:border-cyan-400/30
-                                            transition-all
-                                        "
-                                    >
-
-                                        <div
-                                            className="
-                                                w-12
-                                                h-12
-                                                rounded-xl
-                                                bg-cyan-100
-                                                dark:bg-cyan-500/10
-                                                flex
-                                                items-center
-                                                justify-center
-                                                shrink-0
-                                            "
-                                        >
-
-                                            <span
-                                                className="
-                                                    font-bold
-                                                    text-cyan-600
-                                                    dark:text-cyan-400
-                                                "
-                                            >
-                                                DA
-                                            </span>
-
-                                        </div>
-
-
-                                        <div className="flex-1 min-w-0">
-
-                                            <h4
-                                                className="
-                                                    font-semibold
-                                                    text-slate-900
-                                                    dark:text-white
-                                                "
-                                            >
-                                                Data Analytics
-                                            </h4>
-
-                                            <p
-                                                className="
-                                                    text-sm
-                                                    mt-1
-                                                    text-slate-500
-                                                    dark:text-slate-500
-                                                "
-                                            >
-                                                8 lessons
-                                            </p>
-
-                                        </div>
-
-
-                                        <span
-                                            className="
-                                                text-xs
-                                                font-bold
-                                                text-violet-500
-                                                dark:text-violet-400
-                                            "
-                                        >
-                                            45%
-                                        </span>
-
-                                    </div>
-
-                                </div>
-
-
-                                {/* Learning Streak */}
-
-                                <div
-                                    className="
-                                        mt-6
-                                        p-4
-                                        rounded-2xl
-                                        bg-violet-50
-                                        border
-                                        border-violet-100
-                                        dark:bg-[#111625]
-                                        dark:border-violet-500/20
-                                        transition-colors
-                                    "
-                                >
-
-                                    <p
-                                        className="
-                                            text-xs
-                                            font-semibold
-                                            uppercase
-                                            tracking-wide
-                                            text-violet-600
-                                            dark:text-cyan-400
-                                        "
-                                    >
-                                        Learning Streak
-                                    </p>
-
-
-                                    <div
-                                        className="
-                                            flex
-                                            items-end
-                                            justify-between
-                                            mt-2
-                                        "
-                                    >
-
-                                        <p
-                                            className="
-                                                text-2xl
-                                                font-bold
-                                                text-slate-900
-                                                dark:text-white
-                                            "
-                                        >
-                                            7 Days
-                                        </p>
-
-                                        <p
-                                            className="
-                                                text-sm
-                                                text-slate-500
-                                                dark:text-slate-400
-                                            "
-                                        >
-                                            Keep going
-                                        </p>
-
-                                    </div>
-
-                                </div>
-
-                            </div>
-
+                            ))}
                         </div>
-
                     </div>
 
-                </div>
+                    {/* RIGHT: dashboard, styled as a clipboard of graded index cards */}
+                    <div className="relative flex justify-center lg:justify-end">
+                        <div className="relative w-full max-w-[560px] -rotate-1 rounded-2xl border border-[#F3EEDD]/10 bg-[#F3EEDD] text-[#1C2A22] shadow-[0_30px_80px_rgba(0,0,0,0.5)]">
+                            <Tape className="left-10 -rotate-6" />
+                            <Tape className="right-10 rotate-3" />
 
+                            {/* Top bar */}
+                            <div className="flex items-center justify-between border-b border-[#1C2A22]/10 px-5 py-4">
+                                <div className="flex items-center gap-2">
+                                    <div className="flex h-7 w-7 items-center justify-center rounded-md bg-[#1C2A22] font-['Space_Grotesk'] text-xs font-bold text-[#F3EEDD]">
+                                        S
+                                    </div>
+                                    <span className="font-['Space_Grotesk'] text-sm font-semibold">Shiyora</span>
+                                </div>
+                                <span className="font-['JetBrains_Mono'] text-[10px] uppercase tracking-widest text-[#1C2A22]/40">
+                                    Progress Report
+                                </span>
+                            </div>
+
+                            <div className="p-5 md:p-6">
+                                <div className="mb-6 flex items-center justify-between">
+                                    <div>
+                                        <p className="text-xs text-[#1C2A22]/50">Learning Dashboard</p>
+                                        <h2 className="mt-1 font-['Space_Grotesk'] text-xl font-semibold">Welcome back 👋</h2>
+                                    </div>
+                                    <div className="flex h-9 w-9 items-center justify-center rounded-full bg-[#1C2A22] text-xs font-bold text-[#F3EEDD]">
+                                        M
+                                    </div>
+                                </div>
+
+                                {/* Stats */}
+                                <div className="mb-5 grid grid-cols-3 gap-3">
+                                    {[
+                                        ["Enrolled", 12],
+                                        ["In Progress", 6],
+                                        ["Completed", 4],
+                                    ].map(([label, value]) => (
+                                        <div key={label} className="rounded-xl border border-[#1C2A22]/10 bg-white/50 p-4">
+                                            <p className="text-xs text-[#1C2A22]/50">{label}</p>
+                                            <p className="mt-2 font-['JetBrains_Mono'] text-xl font-semibold">{value}</p>
+                                        </div>
+                                    ))}
+                                </div>
+
+                                {/* Overall progress, graded in red pen */}
+                                <div className="rounded-xl border border-[#1C2A22]/10 bg-white/50 p-5">
+                                    <div className="flex items-center justify-between">
+                                        <div>
+                                            <p className="text-xs text-[#1C2A22]/50">Overall Progress</p>
+                                            <p className="mt-1 font-['JetBrains_Mono'] text-2xl font-semibold">72%</p>
+                                        </div>
+                                        <div className="relative flex h-16 w-16 items-center justify-center text-[#D6402C]">
+                                            <PenCircle />
+                                            <span className="font-['JetBrains_Mono'] text-xs font-semibold text-[#1C2A22]">72%</span>
+                                        </div>
+                                    </div>
+                                    <div className="mt-5 h-2 overflow-hidden rounded-full bg-[#1C2A22]/10">
+                                        <div className="h-full w-[72%] rounded-full bg-[#D6402C]" />
+                                    </div>
+                                </div>
+
+                                {/* Course cards */}
+                                <div className="mt-5">
+                                    <div className="mb-3 flex justify-between">
+                                        <h3 className="text-sm font-semibold">Continue Learning</h3>
+                                        <span className="text-xs font-medium text-[#D6402C]">View All →</span>
+                                    </div>
+
+                                    <div className="space-y-3">
+                                        {courses.map((course) => (
+                                            <div
+                                                key={course.title}
+                                                className="flex items-center gap-3 rounded-xl border border-[#1C2A22]/10 bg-white/50 p-3 transition-colors hover:border-[#1C2A22]/25"
+                                            >
+                                                <div
+                                                    className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg font-['JetBrains_Mono'] text-xs font-bold"
+                                                    style={{ backgroundColor: `${course.accent}22`, color: course.accent }}
+                                                >
+                                                    {course.title
+                                                        .split(" ")
+                                                        .map((word) => word[0])
+                                                        .join("")
+                                                        .slice(0, 2)}
+                                                </div>
+
+                                                <div className="min-w-0 flex-1">
+                                                    <p className="truncate text-sm font-semibold">{course.title}</p>
+                                                    <p className="text-[11px] text-[#1C2A22]/50">{course.category}</p>
+                                                    <div className="mt-2 h-1 overflow-hidden rounded-full bg-[#1C2A22]/10">
+                                                        <div
+                                                            className="h-full rounded-full"
+                                                            style={{ width: `${course.progress}%`, backgroundColor: course.accent }}
+                                                        />
+                                                    </div>
+                                                </div>
+
+                                                <span className="font-['JetBrains_Mono'] text-xs font-semibold text-[#1C2A22]/60">
+                                                    {course.progress}%
+                                                </span>
+                                            </div>
+                                        ))}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </section>
 
-
-            {/* =====================================================
-                FEATURES
-            ====================================================== */}
-
-            <section
-                className="
-                    py-24
-                    bg-white
-                    dark:bg-[#0b0f19]
-                    transition-colors
-                "
-            >
-
-                <div className="max-w-7xl mx-auto px-6">
-
+            {/* ================================================================
+                WHY SHIYORA
+            ================================================================= */}
+            <section className="border-t border-[#F3EEDD]/10 bg-[#141C17] py-24">
+                <div className="mx-auto max-w-7xl px-6">
                     <div className="max-w-2xl">
-
-                        <p
-                            className="
-                                text-sm
-                                font-bold
-                                tracking-widest
-                                uppercase
-                                text-violet-600
-                                dark:text-cyan-400
-                            "
-                        >
+                        <p className="font-['JetBrains_Mono'] text-xs font-semibold uppercase tracking-[0.2em] text-[#F2B84B]">
                             Why Shiyora
                         </p>
-
-
-                        <h2
-                            className="
-                                mt-3
-                                text-3xl
-                                md:text-4xl
-                                font-black
-                                text-slate-900
-                                dark:text-white
-                            "
-                        >
-                            Everything you need to learn better
+                        <h2 className="mt-3 font-['Space_Grotesk'] text-3xl font-semibold tracking-tight md:text-4xl">
+                            Everything you need to learn better.
                         </h2>
-
-
-                        <p
-                            className="
-                                mt-4
-                                leading-relaxed
-                                text-slate-600
-                                dark:text-slate-400
-                            "
-                        >
-                            Shiyora provides a structured environment
-                            for organizations, teachers and students
-                            to manage the complete learning experience.
+                        <p className="mt-4 leading-relaxed text-[#F3EEDD]/55">
+                            A structured learning environment designed for students,
+                            teachers and organizations.
                         </p>
-
                     </div>
 
-
-                    <div
-                        className="
-                            mt-14
-                            grid
-                            md:grid-cols-3
-                            gap-6
-                        "
-                    >
-
+                    <div className="mt-14 grid gap-5 md:grid-cols-3">
                         {[
                             {
-                                number: "01",
                                 title: "Organization Management",
-                                text: "Manage organizations, teachers, students and learning activities from one centralized platform."
+                                text: "Manage organizations, teachers, students and learning activities from one centralized platform.",
                             },
                             {
-                                number: "02",
                                 title: "Complete Course Management",
-                                text: "Create structured courses with lessons, videos, study materials and assessments."
+                                text: "Create structured courses with lessons, videos, study materials and assessments.",
                             },
                             {
-                                number: "03",
                                 title: "Progress & Performance",
-                                text: "Monitor course completion, quiz performance and overall student learning progress."
-                            }
-                        ].map((feature) => (
-
+                                text: "Monitor completion, quiz performance and overall student learning progress.",
+                            },
+                        ].map((feature, i) => (
                             <div
-                                key={feature.number}
-                                className="
-                                    group
-                                    p-7
-                                    rounded-2xl
-                                    bg-slate-50
-                                    border
-                                    border-slate-200
-                                    dark:bg-white/[0.03]
-                                    dark:border-white/10
-                                    hover:-translate-y-1
-                                    hover:border-violet-400/30
-                                    hover:shadow-xl
-                                    dark:hover:shadow-violet-500/5
-                                    transition-all
-                                    duration-300
-                                "
+                                key={feature.title}
+                                className="group relative rounded-xl border border-[#F3EEDD]/10 bg-[#1B241E] p-6 transition-all duration-300 hover:border-[#F2B84B]/30 motion-safe:hover:-translate-y-1"
                             >
-
-                                <div
-                                    className="
-                                        w-12
-                                        h-12
-                                        rounded-xl
-                                        bg-gradient-to-br
-                                        from-violet-600
-                                        to-cyan-500
-                                        text-white
-                                        flex
-                                        items-center
-                                        justify-center
-                                        font-bold
-                                    "
-                                >
-                                    {feature.number}
+                                <span className="font-['JetBrains_Mono'] text-xs font-semibold text-[#F2B84B]/70">
+                                    {String(i + 1).padStart(2, "0")}
+                                </span>
+                                <h3 className="mt-5 font-['Space_Grotesk'] text-lg font-semibold">{feature.title}</h3>
+                                <p className="mt-3 text-sm leading-relaxed text-[#F3EEDD]/55">{feature.text}</p>
+                                <div className="mt-6 text-sm text-[#F2B84B] opacity-0 transition-opacity group-hover:opacity-100">
+                                    Learn more →
                                 </div>
-
-
-                                <h3
-                                    className="
-                                        mt-6
-                                        text-xl
-                                        font-bold
-                                        text-slate-900
-                                        dark:text-white
-                                    "
-                                >
-                                    {feature.title}
-                                </h3>
-
-
-                                <p
-                                    className="
-                                        mt-3
-                                        leading-relaxed
-                                        text-slate-600
-                                        dark:text-slate-400
-                                    "
-                                >
-                                    {feature.text}
-                                </p>
-
                             </div>
-
                         ))}
-
                     </div>
-
                 </div>
-
             </section>
 
-
-            {/* =====================================================
+            {/* ================================================================
                 HOW IT WORKS
-            ====================================================== */}
-
-            <section
-                className="
-                    py-24
-                    bg-[#f8f9fc]
-                    dark:bg-[#080b14]
-                    transition-colors
-                "
-            >
-
-                <div className="max-w-7xl mx-auto px-6">
-
-                    <div className="text-center max-w-2xl mx-auto">
-
-                        <p
-                            className="
-                                text-sm
-                                font-bold
-                                tracking-widest
-                                uppercase
-                                text-violet-600
-                                dark:text-cyan-400
-                            "
-                        >
+            ================================================================= */}
+            <section className="bg-[#161F19] py-24">
+                <div className="mx-auto max-w-6xl px-6">
+                    <div className="mx-auto max-w-2xl text-center">
+                        <p className="font-['JetBrains_Mono'] text-xs font-semibold uppercase tracking-[0.2em] text-[#F2B84B]">
                             How It Works
                         </p>
-
-
-                        <h2
-                            className="
-                                mt-3
-                                text-3xl
-                                md:text-4xl
-                                font-black
-                                text-slate-900
-                                dark:text-white
-                            "
-                        >
-                            Learning made simple
+                        <h2 className="mt-3 font-['Space_Grotesk'] text-3xl font-semibold md:text-4xl">
+                            Learning made simple.
                         </h2>
-
-
-                        <p
-                            className="
-                                mt-4
-                                text-slate-600
-                                dark:text-slate-400
-                            "
-                        >
-                            Start learning with just a few simple steps.
-                        </p>
-
+                        <p className="mt-4 text-[#F3EEDD]/55">Start your learning journey in three simple steps.</p>
                     </div>
 
-
-                    <div
-                        className="
-                            mt-14
-                            grid
-                            md:grid-cols-3
-                            gap-8
-                        "
-                    >
-
+                    <div className="mt-14 grid gap-6 md:grid-cols-3">
                         {[
-                            [
-                                "01",
-                                "Create an Account",
-                                "Join Shiyora and set up your learning profile."
-                            ],
-                            [
-                                "02",
-                                "Explore Courses",
-                                "Discover courses and choose what you want to learn."
-                            ],
-                            [
-                                "03",
-                                "Track Your Progress",
-                                "Learn at your own pace and monitor your progress."
-                            ]
+                            ["01", "Create an Account", "Join Shiyora and set up your learning profile."],
+                            ["02", "Explore Courses", "Discover courses and choose what you want to learn."],
+                            ["03", "Track Your Progress", "Learn at your own pace and monitor your progress."],
                         ].map(([number, title, text]) => (
-
-                            <div
-                                key={number}
-                                className="text-center"
-                            >
-
-                                <div
-                                    className="
-                                        mx-auto
-                                        w-14
-                                        h-14
-                                        rounded-2xl
-                                        bg-gradient-to-br
-                                        from-violet-600
-                                        to-cyan-500
-                                        text-white
-                                        flex
-                                        items-center
-                                        justify-center
-                                        font-bold
-                                        shadow-lg
-                                        shadow-violet-500/20
-                                    "
-                                >
-                                    {number}
-                                </div>
-
-
-                                <h3
-                                    className="
-                                        mt-5
-                                        text-xl
-                                        font-bold
-                                        text-slate-900
-                                        dark:text-white
-                                    "
-                                >
-                                    {title}
-                                </h3>
-
-
-                                <p
-                                    className="
-                                        mt-3
-                                        text-slate-600
-                                        dark:text-slate-400
-                                    "
-                                >
-                                    {text}
-                                </p>
-
+                            <div key={number} className="relative rounded-xl border border-[#F3EEDD]/10 bg-[#1B241E] p-7">
+                                <span className="font-['Space_Grotesk'] text-5xl font-bold text-[#F3EEDD]/10">{number}</span>
+                                <h3 className="mt-5 font-['Space_Grotesk'] text-xl font-semibold">{title}</h3>
+                                <p className="mt-3 text-sm leading-relaxed text-[#F3EEDD]/55">{text}</p>
                             </div>
-
                         ))}
-
                     </div>
-
                 </div>
-
             </section>
 
-
-            {/* =====================================================
+            {/* ================================================================
                 CTA
-            ====================================================== */}
-
-            <section
-                className="
-                    py-24
-                    bg-white
-                    dark:bg-[#0b0f19]
-                "
-            >
-
-                <div className="max-w-5xl mx-auto px-6">
-
-                    <div
-                        className="
-                            relative
-                            overflow-hidden
-                            rounded-[2rem]
-                            bg-gradient-to-br
-                            from-violet-700
-                            via-purple-600
-                            to-cyan-500
-                            px-8
-                            py-16
-                            md:px-16
-                            text-center
-                            shadow-2xl
-                            shadow-violet-500/20
-                        "
-                    >
-
-                        {/* Decorative Glow */}
-
-                        <div
-                            className="
-                                absolute
-                                -top-32
-                                -right-32
-                                w-80
-                                h-80
-                                rounded-full
-                                bg-white/10
-                                blur-2xl
-                            "
-                        />
-
-                        <div
-                            className="
-                                absolute
-                                -bottom-32
-                                -left-32
-                                w-80
-                                h-80
-                                rounded-full
-                                bg-cyan-300/10
-                                blur-2xl
-                            "
-                        />
-
+            ================================================================= */}
+            <section className="border-t border-[#F3EEDD]/10 bg-[#141C17] py-24">
+                <div className="mx-auto max-w-5xl px-6">
+                    <div className="relative overflow-hidden rounded-2xl border border-[#F2B84B]/20 bg-[#1B241E] px-8 py-16 text-center md:px-16">
+                        <div className="pointer-events-none absolute left-1/2 top-0 h-40 w-72 -translate-x-1/2 bg-[#F2B84B]/10 blur-[90px]" />
 
                         <div className="relative z-10">
-
-                            <p
-                                className="
-                                    text-cyan-100
-                                    text-sm
-                                    font-bold
-                                    tracking-widest
-                                    uppercase
-                                "
-                            >
+                            <p className="font-['JetBrains_Mono'] text-xs font-semibold uppercase tracking-[0.2em] text-[#F2B84B]">
                                 Start Your Journey
                             </p>
-
-
-                            <h2
-                                className="
-                                    mt-4
-                                    text-3xl
-                                    md:text-4xl
-                                    font-black
-                                    text-white
-                                "
-                            >
+                            <h2 className="mt-4 font-['Space_Grotesk'] text-3xl font-semibold md:text-4xl">
                                 Ready to learn with Shiyora?
                             </h2>
-
-
-                            <p
-                                className="
-                                    mt-5
-                                    text-violet-100
-                                    text-lg
-                                    max-w-2xl
-                                    mx-auto
-                                    leading-relaxed
-                                "
-                            >
-                                Create your account, explore courses
-                                and take control of your learning journey.
+                            <p className="mx-auto mt-5 max-w-2xl leading-relaxed text-[#F3EEDD]/55">
+                                Create your account, explore courses and take control of
+                                your learning journey.
                             </p>
-
-
                             <Link
                                 to="/signup"
-                                className="
-                                    inline-flex
-                                    mt-8
-                                    px-8
-                                    py-3.5
-                                    rounded-xl
-                                    bg-white
-                                    text-violet-700
-                                    font-bold
-                                    hover:bg-slate-100
-                                    hover:-translate-y-0.5
-                                    transition-all
-                                "
+                                className="mt-8 inline-flex items-center gap-2 rounded-lg bg-[#F2B84B] px-8 py-3.5 font-semibold text-[#161F19] transition-all duration-300 hover:bg-[#f7c968] motion-safe:hover:-translate-y-1 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#F2B84B]"
                             >
-                                Create Your Account
+                                Create Your Account →
                             </Link>
-
                         </div>
-
                     </div>
-
                 </div>
-
             </section>
-
         </main>
     );
 }
